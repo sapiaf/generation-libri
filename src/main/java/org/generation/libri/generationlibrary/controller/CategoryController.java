@@ -17,7 +17,7 @@ public class CategoryController {
 
     //Metodo che mostra la lista delle categories
     @GetMapping
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("categoryList", categoryRepository.findAll());
         model.addAttribute("categoryObj", new Category());
         return "/admin/categories/list";
@@ -30,13 +30,18 @@ public class CategoryController {
         redirectAttributes.addFlashAttribute("message", "Categpry succesfully added");
         return "redirect:/admin/categories";
     }
-    //Metodo per l'update
 
+    //Metodo per l'update
+    @GetMapping("/update")
+    public String update() {
+
+        return "";
+    }
 
 
     //Metodo che cancella una categoria
     @PostMapping("/delete/{catId}")
-    public String delete(@PathVariable("catId") int id){
+    public String delete(@PathVariable("catId") int id) {
         categoryRepository.deleteById(id);
         return "redirect:/admin/categories";
     }

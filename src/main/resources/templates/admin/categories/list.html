@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,6 +9,27 @@
 </head>
 <body>
 <!-- L'elenco delle categorie più pulsanti CRUD-->
-<h1>GAAAAAAAAAAAAAAAAAAAA</h1>
+<h1>Categorie:</h1>
+<form
+        id="category-form"
+        th:action="@{/admin/categories/create}"
+        th:object="${categoryObj}"
+        method="POST"
+>
+    <div class="mb-3">
+        <label for="name" class="form-label text-white">Nome Categoria</label>
+        <input type="text" class="form-control" id="name" th:field="*{name}" required
+               th:errorClass="is-invalid">
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+            <ul>
+                <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="mt-3 mb-3">
+        <button type="submit" class="btn btn-primary">Salva</button>
+        <a class="btn btn-primary" th:href="@{/}">Annulla</a>
+    </div>
+</form>
 </body>
 </html>
