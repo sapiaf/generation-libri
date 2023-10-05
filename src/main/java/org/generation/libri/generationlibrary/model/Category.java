@@ -11,7 +11,7 @@ import jakarta.validation.constraints.Size;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @NotBlank(message = "Inserisci un nome.")
     @Size(min = 1, max = 100)
     private String name;
