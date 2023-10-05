@@ -24,17 +24,12 @@ public class BookController {
 
 private BookRepository bookRepository;
 
-
-
-
-
-
-        // metodo  mostra la lista di tutti i libri
+// metodo  mostra la lista di tutti i libri
         @GetMapping
         public String index(Model model) {
             List<Book> bookList = bookRepository.findAll();// questa è la lista di libri presa da database
             model.addAttribute("book",bookList); // passo la lista di libri al model
-            return "books/list";
+            return "admin/books/list";
         }
         //CREATE DI UN LIBRO
         @GetMapping("/create")
@@ -42,7 +37,7 @@ private BookRepository bookRepository;
             // aggiungiamo al model un attributo di tipo Book
             model.addAttribute("book", new Book());
 
-            return "/books/create"; // template
+            return "admin/books/create"; // template
         }
 
         //UPDATE
@@ -56,12 +51,12 @@ private BookRepository bookRepository;
 
             // prima di salvare il book verifico che non ci siano errori di validazione
             if (bindingResult.hasErrors()) {
-                return "/books/create"; // template
+                return "admin/books/create"; // template
             }
             // per salvare il book su database chiama in aiuto il bookRepository
             bookRepository.save(bookCreate);
             // se il book è stato salvato con successo faccio una redirect alla pagina della lista dei libri
-            return "redirect:/books/list";
+            return "redirect:admin/books/list";
         }
 
         //UPDATE DI UN LIBRO
@@ -74,7 +69,7 @@ private BookRepository bookRepository;
                 // passo il Book al model come attributo
                 model.addAttribute("book", result.get());
                 // ritorno il template con il form di edit
-                return "books/update";
+                return "admin/books/update";
             } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book with id " + id + " not found");
         }
@@ -89,11 +84,11 @@ private BookRepository bookRepository;
         // valido i dati
         if (bindingResult.hasErrors()) {
             // si sono verificati degli errori di validazione
-            return "/books/update"; // nome del template per ricreare la view
+            return "admin/books/update"; // nome del template per ricreare la view
         }
         // salvo il Book
         bookRepository.save(bookUpdate);
-        return "redirect:/books/list";
+        return "redirect:admin/books/list";
     }
 
     //DELETE DIUN LIBRO
@@ -102,6 +97,6 @@ private BookRepository bookRepository;
         // cancello il book
         bookRepository.deleteById(id);
         // rimando alla pagina con la lista
-        return "redirect:/book/list";
+        return "redirect:admin/book/list";
     }
 }
