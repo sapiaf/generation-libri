@@ -31,6 +31,8 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<Restocking> restockings;
 
+    @OneToMany(mappedBy = "book")
+    private List<Purchase> purchasings;
 
     //contructor
     public Book(int id, String name, String urlPhoto, String description, int soldCopies, BigDecimal price) {
@@ -109,5 +111,13 @@ public class Book {
 
     public void setCopies(int copies) {
         this.copies = copies;
+    }
+
+    public List<Purchase> getPurchasings() {
+        return purchasings;
+    }
+
+    public void setPurchasings(List<Purchase> purchasings) {
+        this.purchasings = purchasings;
     }
 }

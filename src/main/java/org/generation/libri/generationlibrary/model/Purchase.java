@@ -1,9 +1,6 @@
 package org.generation.libri.generationlibrary.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -18,6 +15,9 @@ public class Purchase {
     @NotNull
     @Min(1)
     private int purchaseQuantity;
+
+    @ManyToOne
+    private Book book;
 
     //constructor
     public Purchase(int id, LocalDateTime dateOfPurchase, int purchaseQuantity) {
@@ -55,4 +55,11 @@ public class Purchase {
         this.purchaseQuantity = purchaseQuantity;
     }
 
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 }

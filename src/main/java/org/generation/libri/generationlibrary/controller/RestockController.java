@@ -35,10 +35,10 @@ public class RestockController {
             restocking.setSuppliedCopies(1);
             model.addAttribute("book", book);
             model.addAttribute("restocking", restocking);
+            return "/admin/books/restock";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return "/admin/books/restock";
     }
 
     @PostMapping("/restock/{bookId}")
@@ -51,6 +51,4 @@ public class RestockController {
         restockRepository.save(restocking);
         return "redirect:/admin/books/list";
     }
-
-
 }
