@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -62,5 +63,9 @@ public class Purchase {
 
     public void setBook(Book book) {
         this.book = book;
+    }
+
+    public BigDecimal calculateCost() {
+        return book.getPrice().multiply(BigDecimal.valueOf(purchaseQuantity));
     }
 }

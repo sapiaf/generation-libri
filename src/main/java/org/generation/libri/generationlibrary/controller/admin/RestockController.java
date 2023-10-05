@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /*pagina restock lato amministrazione */
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/restock")
 public class RestockController {
     @Autowired
     private BookRepository bookRepository;
-
     @Autowired
     private RestockRepository restockRepository;
 

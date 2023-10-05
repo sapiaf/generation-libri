@@ -1,13 +1,47 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Lista Ordini')"></head>
 <body>
-<h1>Purchase List</h1>
+<nav th:replace="fragments/navbar :: navbar(area='Purchase')"></nav>
+<div class="container mt-5">
+    <h1>Purchase List</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome Libro</th>
+            <th>Data Ordine</th>
+            <th>Prezzo</th>
+            <th>Quantità</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="purchases : ${purchases}">
+            <td th:text="${purchases.id}"></td>
+            <td th:text="${purchases.book.name}"></td>
+            <td th:text="${purchases.dateOfPurchase}"></td>
+            <td th:text="|${purchases.calculateCost} €|"></td>
+            <td>
+                <span th:text="${purchases.purchaseQuantity}"></span>
+            </td>
+            <td>
+                <a th:href="@{/admin/purchase/show/{id}(id=${purchases.id})}" class="btn btn-primary">
+                    <i class="fa-solid fa-circle-info"></i>
+                </a>
+                <a th:href="@{/admin/purchase/update/{id}(id=${purchases.id})}" class="btn btn-warning">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+                <form th:action="@{/admin/purchase/delete/{id}(id=${purchases.id})}" method="post"
+                      style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

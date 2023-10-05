@@ -26,11 +26,16 @@ public class Book {
     @NotNull
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "book")
+
+    @ManyToMany
+    private List<Category> categories;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<Purchase> purchasings;
 
     //constructor
-    public Book(int id, String name, String urlPhoto, String description, int copies, int soldCopies, @NotNull BigDecimal price, List<Purchase> purchasings) {
+
+
+    public Book(Integer id, String name, String urlPhoto, String description, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Purchase> purchasings) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
@@ -38,6 +43,7 @@ public class Book {
         this.copies = copies;
         this.soldCopies = soldCopies;
         this.price = price;
+        this.categories = categories;
         this.purchasings = purchasings;
     }
 
@@ -46,11 +52,11 @@ public class Book {
     }
 
     //getter and setter
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,6 +84,14 @@ public class Book {
         this.description = description;
     }
 
+    public int getCopies() {
+        return copies;
+    }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
+
     public int getSoldCopies() {
         return soldCopies;
     }
@@ -94,12 +108,12 @@ public class Book {
         this.price = price;
     }
 
-    public int getCopies() {
-        return copies;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCopies(int copies) {
-        this.copies = copies;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     public List<Purchase> getPurchasings() {

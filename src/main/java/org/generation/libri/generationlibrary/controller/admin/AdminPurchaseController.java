@@ -37,7 +37,7 @@ public class AdminPurchaseController {
         if (bookOptional.isPresent()) {
             Book bookFound = bookOptional.get();
             model.addAttribute("book", bookFound);
-            return "admin/books/details";
+            return "admin/purchase/purchaseDetails";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
@@ -67,8 +67,8 @@ public class AdminPurchaseController {
 
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
-        bookRepository.deleteById(id);
-        return "admin/purchase/purchaseList";
+        purchaseRepository.deleteById(id);
+        return "redirect:/admin/purchase";
     }
-    
+
 }

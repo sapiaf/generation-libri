@@ -5,6 +5,18 @@ INSERT INTO book (name, url_photo, description, copies, price, sold_copies) VALU
 INSERT INTO book (name, url_photo, description, copies, price, sold_copies) VALUES('To Kill a Mockingbird', 'http://example.com/images/mockingbird.jpg', 'A novel of racism and injustice.', 4, 18.50, 2);
 INSERT INTO category (name) VALUES('fiction');
 INSERT INTO category (name) VALUES('teenagers');
-INSERT INTO category (name) VALUES('not fiction');
+INSERT INTO category (name) VALUES('kids');
 INSERT INTO category (name) VALUES('science');
 INSERT INTO category (name) VALUES('fantasy');
+INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-05 12:00:00', 5, 1);
+INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-05 14:00:00', 3, 2);
+INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-05 16:00:00', 7, 3);
+INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-05 18:00:00', 2, 4);
+INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-05 20:00:00', 10, 5);
+INSERT INTO book_categories (book_id, categories_id) VALUES (1, 5)
+INSERT INTO book_categories (book_id, categories_id) VALUES (2, 1)
+INSERT INTO book_categories (book_id, categories_id) VALUES (2, 4)
+INSERT INTO book_categories (book_id, categories_id) VALUES (2, 5)
+INSERT INTO book_categories (book_id, categories_id) VALUES (3, 1)
+INSERT INTO book_categories (book_id, categories_id) VALUES (4, 5)
+INSERT INTO book_categories (book_id, categories_id) VALUES (5, 5)

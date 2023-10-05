@@ -83,6 +83,6 @@ public class BookController {
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
         bookRepository.deleteById(id);
-        return "redirect:admin/book/list";
+        return "redirect:/admin";
     }
 }

@@ -1,7 +1,9 @@
 package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
+import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Category;
+import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.Optional;
 public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    private BookRepository bookRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -56,9 +60,21 @@ public class CategoryController {
     }
 
     @PostMapping("/delete/{catId}")
-    public String delete(@PathVariable("catId") int id) {
-        categoryRepository.deleteById(id);
-        return "redirect:/admin/categories";
+    public String deleteSpecialOffer(@PathVariable("catId") Integer id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isPresent()) {
+            Category category = categoryOptional.get();
+            for (Book book : category.getBooks()) {
+                book.getCategories().remove(category);
+                bookRepository.save(book);
+            }
+            category.getBooks().clear();
+            categoryRepository.save(category);
+            categoryRepository.deleteById(id);
+            return "redirect:/admin/categories";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     //SEARCH
