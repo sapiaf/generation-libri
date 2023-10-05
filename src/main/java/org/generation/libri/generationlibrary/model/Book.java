@@ -29,19 +29,18 @@ public class Book {
     private BigDecimal price;
 
     @OneToMany(mappedBy = "book")
-    private List<Restocking> restockings;
-
-    @OneToMany(mappedBy = "book")
     private List<Purchase> purchasings;
 
-    //contructor
-    public Book(int id, String name, String urlPhoto, String description, int soldCopies, BigDecimal price) {
+    //constructor
+    public Book(int id, String name, String urlPhoto, String description, int copies, int soldCopies, @NotNull BigDecimal price, List<Purchase> purchasings) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
         this.description = description;
+        this.copies = copies;
         this.soldCopies = soldCopies;
         this.price = price;
+        this.purchasings = purchasings;
     }
 
     //constructor default
@@ -95,14 +94,6 @@ public class Book {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
-    }
-
-    public List<Restocking> getRestockings() {
-        return restockings;
-    }
-
-    public void setRestockings(List<Restocking> restockings) {
-        this.restockings = restockings;
     }
 
     public int getCopies() {

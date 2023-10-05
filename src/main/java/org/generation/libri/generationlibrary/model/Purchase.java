@@ -20,10 +20,11 @@ public class Purchase {
     private Book book;
 
     //constructor
-    public Purchase(int id, LocalDateTime dateOfPurchase, int purchaseQuantity) {
+    public Purchase(int id, LocalDateTime dateOfPurchase, @NotNull int purchaseQuantity, Book book) {
         this.id = id;
         this.dateOfPurchase = dateOfPurchase;
         this.purchaseQuantity = purchaseQuantity;
+        this.book = book;
     }
 
     //constructor default

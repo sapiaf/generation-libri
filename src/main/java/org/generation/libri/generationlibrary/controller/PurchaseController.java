@@ -25,7 +25,7 @@ public class PurchaseController {
     @Autowired
     private BookRepository bookRepository;
 
-    @GetMapping("/purchase")
+    @GetMapping("/purchase/{id}")
     public String purchase(@RequestParam("bookId") Integer bookId, Model model) {
         Optional<Book> bookResult = bookRepository.findById(bookId);
         if (bookResult.isPresent()) {
