@@ -28,7 +28,7 @@ private BookRepository bookRepository;
     public String index(Model model) {
         List<Book> bookcatalog = bookRepository.findAll();//  lista di libri presa da database
         model.addAttribute("book",bookcatalog); // passo la lista di libri al model
-        return "/catalog";
+        return "user/catalog";
     }
     //metodo show che mostra il detaglio di un libro  preso per id
     @GetMapping("/show/{bookId}")
@@ -37,7 +37,7 @@ private BookRepository bookRepository;
         if(bookOptional.isPresent()){
             Book bookFound=bookOptional.get();
             model.addAttribute("book",bookFound);
-            return "/details";
+            return "user/details";
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
