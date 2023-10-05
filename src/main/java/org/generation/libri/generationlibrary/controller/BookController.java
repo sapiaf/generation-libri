@@ -43,7 +43,7 @@ private BookRepository bookRepository;
         //UPDATE
         // metodo che gestisce la POST di creazione di un Book
 
-        //DELETE
+
         @PostMapping("/create")
         public String doCreate(@Valid @ModelAttribute("book") Book bookCreate,
                 BindingResult bindingResult) {
@@ -76,7 +76,7 @@ private BookRepository bookRepository;
     }
 
     // postmapping che riceve il submit
-    @PostMapping("/books/update/{id}")
+    @PostMapping("/update/{id}")
     public String doEdit(@PathVariable Integer bookId, @Valid @ModelAttribute("book") Book bookUpdate,
                          BindingResult bindingResult) {
         //associo lid dal path variable al book che arriva dal form update
