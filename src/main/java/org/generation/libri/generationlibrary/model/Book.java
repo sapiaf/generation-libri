@@ -30,7 +30,7 @@ public class Book {
 
 
     //contructor
-    public Book(int id, String name, String urlPhoto, String description, int soldCopies, BigDecimal price) {
+    public Book(Integer id, String name, String urlPhoto, String description, int soldCopies, BigDecimal price) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;

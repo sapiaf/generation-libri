@@ -20,83 +20,59 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/admin")
 public class BookController {
-@Autowired
+    @Autowired
+    private BookRepository bookRepository;
 
-private BookRepository bookRepository;
+    @GetMapping
+    public String index(Model model) {
+        List<Book> bookList = bookRepository.findAll();
+        model.addAttribute("book", bookList);
+        return "admin/books/list";
+    }
 
-// metodo  mostra la lista di tutti i libri
-        @GetMapping
-        public String index(Model model) {
-            List<Book> bookList = bookRepository.findAll();// questa è la lista di libri presa da database
-            model.addAttribute("book",bookList); // passo la lista di libri al model
-            return "admin/books/list";
+    @GetMapping("/create")
+    private String create(Model model) {
+
+        model.addAttribute("book", new Book());
+
+        return "admin/books/create";
+    }
+
+    @PostMapping("/create")
+    public String doCreate(@Valid @ModelAttribute("book") Book bookCreate,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/books/create";
         }
-        //CREATE DI UN LIBRO
-        @GetMapping("/create")
-        private String create (Model model){
-            // aggiungiamo al model un attributo di tipo Book
-            model.addAttribute("book", new Book());
+        bookRepository.save(bookCreate);
+        return "redirect:admin/books/list";
+    }
 
-            return "admin/books/create"; // template
-        }
-
-        //UPDATE
-        // metodo che gestisce la POST di creazione di un Book
-
-        //DELETE
-        @PostMapping("/create")
-        public String doCreate(@Valid @ModelAttribute("book") Book bookCreate,
-                BindingResult bindingResult) {
-            //  bookCreate è un oggetto Book costruito con i dati che arrivano dalla request, quindi dal form create
-
-            // prima di salvare il book verifico che non ci siano errori di validazione
-            if (bindingResult.hasErrors()) {
-                return "admin/books/create"; // template
-            }
-            // per salvare il book su database chiama in aiuto il bookRepository
-            bookRepository.save(bookCreate);
-            // se il book è stato salvato con successo faccio una redirect alla pagina della lista dei libri
-            return "redirect:admin/books/list";
-        }
-
-        //UPDATE DI UN LIBRO
-        @GetMapping("/update/{id}")
-        public String edit(@PathVariable Integer id, Model model) {
-            // cerco su database il libro con quell'id
-            Optional<Book> result = bookRepository.findById(id);
-            // verifico se il book è presente
-            if (result.isPresent()) {
-                // passo il Book al model come attributo
-                model.addAttribute("book", result.get());
-                // ritorno il template con il form di edit
-                return "admin/books/update";
-            } else {
+    @GetMapping("/update/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Book> result = bookRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("book", result.get());
+            return "admin/books/update";
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book with id " + id + " not found");
         }
     }
 
-    // postmapping che riceve il submit
-    @PostMapping("/books/update/{id}")
+    @PostMapping("/update/{id}")
     public String doEdit(@PathVariable Integer bookId, @Valid @ModelAttribute("book") Book bookUpdate,
                          BindingResult bindingResult) {
-        //associo lid dal path variable al book che arriva dal form update
-      bookUpdate.setId(bookId);
-        // valido i dati
+        bookUpdate.setId(bookId);
         if (bindingResult.hasErrors()) {
-            // si sono verificati degli errori di validazione
-            return "admin/books/update"; // nome del template per ricreare la view
+            return "admin/books/update";
         }
-        // salvo il Book
         bookRepository.save(bookUpdate);
         return "redirect:admin/books/list";
     }
 
-    //DELETE DIUN LIBRO
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
-        // cancello il book
         bookRepository.deleteById(id);
-        // rimando alla pagina con la lista
         return "redirect:admin/book/list";
     }
 }

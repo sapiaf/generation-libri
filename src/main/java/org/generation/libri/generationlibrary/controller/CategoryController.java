@@ -21,7 +21,6 @@ public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    //Metodo che mostra la lista delle categories
     @GetMapping
     public String index(Model model) {
         model.addAttribute("categoryList", categoryRepository.findAll());
@@ -29,7 +28,6 @@ public class CategoryController {
         return "/admin/categories/list";
     }
 
-    //Metodo che crea una nuova categoria
     @PostMapping("/create")
     public String doCreate(@ModelAttribute("categoryObj") Category categoryform, RedirectAttributes redirectAttributes) {
         categoryRepository.save(categoryform);
@@ -37,7 +35,6 @@ public class CategoryController {
         return "redirect:/admin/categories";
     }
 
-    //Metodo per l'update
     @GetMapping("/update/{catId}")
     public String update(@PathVariable Integer id, Model model) {
         Optional<Category> result = categoryRepository.findById(id);
@@ -58,8 +55,6 @@ public class CategoryController {
         return "redirect:/admin/categories/list";
     }
 
-
-    //Metodo che cancella una categoria
     @PostMapping("/delete/{catId}")
     public String delete(@PathVariable("catId") int id) {
         categoryRepository.deleteById(id);
