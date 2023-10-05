@@ -1,14 +1,23 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Books')"></head>
 <body>
-<!-- pagina che mostra le cards dei libri e alcuni dettagli con pulsante dettaglio che porta ai dettagli del libro e il suo acquisto-->
-<h1>User Catalag</h1>
+<nav th:replace="fragments/navbar :: navbar(area='books')"></nav>
+<div class="container mt-5">
+    <h2>Books List</h2>
+    <div class="row">
+        <div class="col-md-4" th:each="book : ${book}">
+            <div class="card mb-4">
+                <img class="card-img-top" th:src="${book.urlPhoto}" alt="Book cover">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.name}"></h5>
+                    <p class="card-text" th:text="${book.description}"></p>
+                    <p class="card-text"><strong th:text="${book.price}"></strong></p>
+                    <a th:href="@{/books/show/{id}(id=${book.id})}" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

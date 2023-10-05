@@ -21,9 +21,7 @@ public class Book {
     @NotBlank
     @Size(min = 10, max = 2048, message = "Il testo della descrizione deve essere tra 10 e 2048 caratteri.")
     private String description;
-    @NotBlank
     private int copies;
-    @NotBlank
     private int soldCopies;
     @NotNull
     private BigDecimal price;

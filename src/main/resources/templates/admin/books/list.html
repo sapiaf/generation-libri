@@ -1,14 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Books')"></head>
 <body>
-<!-- L'elenco dei libri con le funzionalità CRUD (pulsanti accanto per creare, modificare ed eliminare) e il pulsante restock -->
-<h1>Books List</h1>
+<nav th:replace="fragments/navbar :: navbar(area='books')"></nav>
+<div class="container mt-5">
+    <h2>Inventory</h2>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${book}">
+            <td th:text="${book.id}"></td>
+            <td th:text="${book.name}"></td>
+            <td th:text="${book.description}"></td>
+            <td th:text="${book.price}"></td>
+            <td>
+                <span th:text="${book.copies}"></span>
+            </td>
+            <td>
+                <a th:href="@{/admin/show/{id}(id=${book.id})}" class="btn btn-primary">Details</a>
+                <a th:href="@{/admin/edit/{id}(id=${book.id})}" class="btn btn-warning">Modifica</a>
+                <form th:action="@{/admin/delete/{id}(id=${book.id})}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/admin/create" class="btn btn-success">Add New Book</a>
+</div>
 </body>
 </html>
