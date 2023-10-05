@@ -1,4 +1,4 @@
-package org.generation.libri.generationlibrary.controller;
+package org.generation.libri.generationlibrary.controller.user;
 
 import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.repository.BookRepository;
@@ -16,7 +16,7 @@ import java.util.Optional;
 
 /* Catalogo libri con search per l'user */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/catalog")
 public class CatalogController {
 
     @Autowired
@@ -24,8 +24,8 @@ public class CatalogController {
 
     @GetMapping
     public String index(Model model) {
-        List<Book> bookcatalog = bookRepository.findAll();
-        model.addAttribute("book", bookcatalog);
+        List<Book> bookCatalog = bookRepository.findAll();
+        model.addAttribute("book", bookCatalog);
         return "user/catalog";
     }
 

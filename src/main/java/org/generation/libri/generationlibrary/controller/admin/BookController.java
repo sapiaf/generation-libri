@@ -1,4 +1,4 @@
-package org.generation.libri.generationlibrary.controller;
+package org.generation.libri.generationlibrary.controller.admin;
 
 /*tutta la crud dei book - ambiente amministrazione*/
 
@@ -32,9 +32,7 @@ public class BookController {
 
     @GetMapping("/create")
     private String create(Model model) {
-
         model.addAttribute("book", new Book());
-
         return "admin/books/create";
     }
 
@@ -46,6 +44,18 @@ public class BookController {
         }
         bookRepository.save(bookCreate);
         return "redirect:admin/books/list";
+    }
+
+    @GetMapping("/show/{bookId}")
+    public String show(@PathVariable("bookId") Integer id, Model model) {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        if (bookOptional.isPresent()) {
+            Book bookFound = bookOptional.get();
+            model.addAttribute("book", bookFound);
+            return "admin/books/details";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/update/{id}")

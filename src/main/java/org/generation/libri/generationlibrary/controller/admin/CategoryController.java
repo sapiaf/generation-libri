@@ -1,4 +1,4 @@
-package org.generation.libri.generationlibrary.controller;
+package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Category;

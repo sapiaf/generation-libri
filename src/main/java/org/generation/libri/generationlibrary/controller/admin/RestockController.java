@@ -1,4 +1,4 @@
-package org.generation.libri.generationlibrary.controller;
+package org.generation.libri.generationlibrary.controller.admin;
 
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.RestockRepository;

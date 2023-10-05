@@ -1,4 +1,4 @@
-package org.generation.libri.generationlibrary.controller;
+package org.generation.libri.generationlibrary.controller.user;
 
 import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Book;
@@ -25,8 +25,9 @@ public class PurchaseController {
     @Autowired
     private BookRepository bookRepository;
 
+    /*CREAZIONE ORDINE LATO UTENTE */
     @GetMapping("/purchase/{bookId}")
-    public String purchase(@RequestParam("bookId") Integer bookId, Model model) {
+    public String createPurchase(@RequestParam("bookId") Integer bookId, Model model) {
         Optional<Book> bookResult = bookRepository.findById(bookId);
         if (bookResult.isPresent()) {
             Book book = bookRepository.findById(bookId).get();
@@ -42,7 +43,7 @@ public class PurchaseController {
     }
 
     @PostMapping("/purchase/{bookId}")
-    public String doPurchase(@Valid @PathVariable("bookId") Integer bookId, @ModelAttribute("purchase")
+    public String doCreatePurchase(@Valid @PathVariable("bookId") Integer bookId, @ModelAttribute("purchase")
     Purchase purchase, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/user/purchase";
@@ -50,6 +51,6 @@ public class PurchaseController {
         Book book = bookRepository.findById(bookId).get();
         book.setCopies(book.getCopies() - purchase.getPurchaseQuantity());
         purchaseRepository.save(purchase);
-        return "/user/purchasesucces";
+        return "/user/purchasesuccess";
     }
 }
