@@ -22,6 +22,8 @@ public class Book {
     @Size(min = 10, max = 2048, message = "Il testo della descrizione deve essere tra 10 e 2048 caratteri.")
     private String description;
     @NotBlank
+    private int copies;
+    @NotBlank
     private int soldCopies;
     @NotNull
     private BigDecimal price;
@@ -99,5 +101,13 @@ public class Book {
 
     public void setRestockings(List<Restocking> restockings) {
         this.restockings = restockings;
+    }
+
+    public int getCopies() {
+        return copies;
+    }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
     }
 }

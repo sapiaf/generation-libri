@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 /*pagina restock lato amministrazione */
 @Controller
 @RequestMapping("/admin")
@@ -25,7 +27,8 @@ public class RestockController {
 
     @GetMapping("/restock")
     public String createRestock(@RequestParam("bookId") Integer bookId, Model model) {
-        if (bookRepository.findById(bookId).isPresent()) {
+        Optional<Book> bookResult = bookRepository.findById(bookId);
+        if (bookResult.isPresent()) {
             Book book = bookRepository.findById(bookId).get();
             Restocking restocking = new Restocking();
             restocking.setBook(book);
@@ -43,6 +46,8 @@ public class RestockController {
         if (bindingResult.hasErrors()) {
             return "/admin/books/restock";
         }
+        Book book = bookRepository.findById(bookId).get();
+        book.setCopies(book.getCopies() + restocking.getSuppliedCopies());
         restockRepository.save(restocking);
         return "redirect:/admin/books/list";
     }
