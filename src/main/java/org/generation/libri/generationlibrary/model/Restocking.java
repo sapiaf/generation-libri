@@ -78,4 +78,5 @@ public class Restocking {
     public void setSuppliedCopies(int suppliedCopies) {
         this.suppliedCopies = suppliedCopies;
     }
+    
 }

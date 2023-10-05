@@ -1,14 +1,12 @@
 package org.generation.libri.generationlibrary.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -24,19 +22,25 @@ public class Book {
     @Size(min = 10, max = 2048, message = "Il testo della descrizione deve essere tra 10 e 2048 caratteri.")
     private String description;
     @NotBlank
+    private int copies;
+    @NotBlank
     private int soldCopies;
     @NotNull
     private BigDecimal price;
 
+    @OneToMany(mappedBy = "book")
+    private List<Purchase> purchasings;
 
-    //contructor
-    public Book(int id, String name, String urlPhoto, String description, int soldCopies, BigDecimal price) {
+    //constructor
+    public Book(int id, String name, String urlPhoto, String description, int copies, int soldCopies, @NotNull BigDecimal price, List<Purchase> purchasings) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
         this.description = description;
+        this.copies = copies;
         this.soldCopies = soldCopies;
         this.price = price;
+        this.purchasings = purchasings;
     }
 
     //constructor default
@@ -90,5 +94,21 @@ public class Book {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public int getCopies() {
+        return copies;
+    }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
+
+    public List<Purchase> getPurchasings() {
+        return purchasings;
+    }
+
+    public void setPurchasings(List<Purchase> purchasings) {
+        this.purchasings = purchasings;
     }
 }
