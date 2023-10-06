@@ -1,12 +1,10 @@
 package org.generation.libri.generationlibrary.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,11 +17,15 @@ public class Purchase {
     @Min(1)
     private int purchaseQuantity;
 
+    @ManyToOne
+    private Book book;
+
     //constructor
-    public Purchase(int id, LocalDateTime dateOfPurchase, int purchaseQuantity) {
+    public Purchase(int id, LocalDateTime dateOfPurchase, @NotNull int purchaseQuantity, Book book) {
         this.id = id;
         this.dateOfPurchase = dateOfPurchase;
         this.purchaseQuantity = purchaseQuantity;
+        this.book = book;
     }
 
     //constructor default
@@ -55,4 +57,15 @@ public class Purchase {
         this.purchaseQuantity = purchaseQuantity;
     }
 
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public BigDecimal calculateCost() {
+        return book.getPrice().multiply(BigDecimal.valueOf(purchaseQuantity));
+    }
 }

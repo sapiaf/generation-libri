@@ -1,14 +1,12 @@
 package org.generation.libri.generationlibrary.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Book {
@@ -23,20 +21,30 @@ public class Book {
     @NotBlank
     @Size(min = 10, max = 2048, message = "Il testo della descrizione deve essere tra 10 e 2048 caratteri.")
     private String description;
-    @NotBlank
+    private int copies;
     private int soldCopies;
     @NotNull
     private BigDecimal price;
 
 
-    //contructor
-    public Book(int id, String name, String urlPhoto, String description, int soldCopies, BigDecimal price) {
+    @ManyToMany
+    private List<Category> categories;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
+    private List<Purchase> purchasings;
+
+    //constructor
+
+
+    public Book(Integer id, String name, String urlPhoto, String description, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Purchase> purchasings) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
         this.description = description;
+        this.copies = copies;
         this.soldCopies = soldCopies;
         this.price = price;
+        this.categories = categories;
+        this.purchasings = purchasings;
     }
 
     //constructor default
@@ -44,11 +52,11 @@ public class Book {
     }
 
     //getter and setter
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,6 +84,14 @@ public class Book {
         this.description = description;
     }
 
+    public int getCopies() {
+        return copies;
+    }
+
+    public void setCopies(int copies) {
+        this.copies = copies;
+    }
+
     public int getSoldCopies() {
         return soldCopies;
     }
@@ -90,5 +106,21 @@ public class Book {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Purchase> getPurchasings() {
+        return purchasings;
+    }
+
+    public void setPurchasings(List<Purchase> purchasings) {
+        this.purchasings = purchasings;
     }
 }
