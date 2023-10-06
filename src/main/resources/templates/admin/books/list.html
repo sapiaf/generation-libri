@@ -11,22 +11,28 @@
             <thead>
             <tr>
                 <th>ID</th>
+                <th>Immagine</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
-                <th>Action</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="book : ${book}">
+
                 <td th:text="${book.id}"></td>
+                <td>
+                    <img th:src="${book.urlPhoto}" alt="Book Thumbnail" style="max-width: 100px; max-height: 100px;">
+                </td>
                 <td th:text="${book.name}"></td>
                 <td th:text="${book.description}"></td>
                 <td th:text="|${book.price} €|"></td>
                 <td>
                     <span th:text="${book.copies}"></span>
                 </td>
+
                 <td>
                     <a th:href="@{/admin/show/{id}(id=${book.id})}" class="btn btn-primary">
                         <i class="fa-solid fa-circle-info"></i>
@@ -40,6 +46,7 @@
                         </button>
                     </form>
                 </td>
+
             </tr>
             </tbody>
         </table>
