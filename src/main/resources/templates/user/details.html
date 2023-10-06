@@ -17,13 +17,11 @@
             <p><strong>Categories:</strong>
                 <span th:each="category : ${book.categories}" th:text="${category.name} + ' '"></span>
             </p>
-<!--            <form th:action="@{/purchase/{id}(id=${book.id})}" method="post">-->
+            <form th:action="@{/purchase/{id}(id=${book.id})}" method="post">
                 <label for="quantity">Quantità:</label>
-                <input type="number" id="quantity" name="quantity" min="1" value="1">
-            <a th:href="@{/purchase/{id}(id=${book.id})}" class="btn btn-warning">
-                Buy Now<i class="fa-solid fa-cart-shopping"></i>
-            </a>
-<!--            </form>-->
+                <input type="number" id="quantity" name="purchaseQuantity" min="1" value="1">
+                <button type="submit" class="btn btn-warning">Buy Now<i class="fa-solid fa-cart-shopping"></i></button>
+            </form>
         </div>
     </div></div>
 <footer th:replace="fragments/userFooter"></footer>
