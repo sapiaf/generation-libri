@@ -1,23 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/head :: head('Books')"></head>
+
 <body>
-<nav th:replace="fragments/navbar :: navbar(area='books')"></nav>
+<nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
 <div class="container mt-5">
     <h2>Books List</h2>
+    <form th:action="@{/catalog}" method="get" class="mb-3 d-flex">
+        <input type="text" name="query" placeholder="Cerca..." class="form-control me-2">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
     <div class="row">
-        <div class="col-md-4" th:each="book : ${book}">
-            <div class="card mb-4">
-                <img class="card-img-top" th:src="${book.urlPhoto}" alt="Book cover">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${book.name}"></h5>
-                    <p class="card-text" th:text="${book.description}"></p>
-                    <p class="card-text"><strong th:text="${book.price}"></strong></p>
-                    <a th:href="@{catalog/show/{id}(id=${book.id})}" class="btn btn-primary">Details</a>
+        <!-- Sidebar per i filtri -->
+        <input type="hidden" th:value="${selectedCategoryId}" name="selectedCategoryId">
+        <div class="col-md-3">
+            <div class="mb-4">
+                <h4>Filter</h4>
+                <form th:action="@{/catalog}" method="get">
+                    <div class="mb-3">
+                        <label>Category</label>
+                        <div th:each="category : ${categories}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       th:value="${category.id}" th:id="${'category' + category.id}"
+                                       name="categories"
+                                       th:checked="${category.id == selectedCategoryId ? 'checked' : ''}">
+                                <label class="form-check-label" th:for="${'category' + category.id}" th:text="${category.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 form-row">
+                        <div class="col-6">
+                            <label for="minPrice">Min</label>
+                            <input type="number" class="form-control" id="minPrice" name="minPrice">
+                        </div>
+                        <div class="col-6">
+                            <label for="maxPrice">Max</label>
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </form>
+            </div>
+        </div>
+        <!-- sidebar -->
+
+        <!-- griglia libri -->
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-4" th:each="book : ${book}">
+                    <div class="card mb-4">
+                        <img class="card-img-top" th:src="${book.urlPhoto}" alt="Book cover">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${book.name}"></h5>
+                            <p class="card-text" th:text="${book.description}"></p>
+                            <p class="card-text"><strong th:text="${book.price}"></strong></p>
+                            <a th:href="@{catalog/show/{id}(id=${book.id})}" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+
 </html>
+
