@@ -16,6 +16,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Availability</th>
                 <th></th>
             </tr>
             </thead>
@@ -32,7 +33,11 @@
                 <td>
                     <span th:text="${book.copies}"></span>
                 </td>
-
+                <td>
+                    <span class="badge bg-success" th:if="${book.copies > 100}">&#9679;</span>
+                    <span class="badge bg-warning" th:if="${book.copies <= 100 and book.copies > 10}">&#9679;</span>
+                    <span class="badge bg-danger" th:if="${book.copies <= 10}">&#9679;</span>
+                </td>
                 <td>
                     <a th:href="@{/admin/show/{id}(id=${book.id})}" class="btn btn-primary">
                         <i class="fa-solid fa-circle-info"></i>

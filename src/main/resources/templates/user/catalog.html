@@ -14,19 +14,33 @@
             <div class="mb-4">
                 <h4>Filter</h4>
                 <form th:action="@{/catalog}" method="get">
-<!--                    <div class="mb-3">-->
-<!--                        <label>Category</label>-->
-<!--                        <div th:each="category : ${categories}">-->
-<!--                            <div class="form-check">-->
-<!--                                <input class="form-check-input" type="checkbox"-->
-<!--                                       th:value="${category.id}" th:id="${'category' + category.id}"-->
-<!--                                       name="categories"-->
-<!--                                       th:checked="${category.id == selectedCategoryId ? 'checked' : ''}">-->
-<!--                                <label class="form-check-label" th:for="${'category' + category.id}" th:text="${category.name}"></label>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="mb-3 form-row">
+                    <!-- categories -->
+                    <div class="mb-3">
+                        <label><strong>Genre</strong></label>
+                        <div th:each="category : ${categories}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       th:value="${category.id}" th:id="${'category' + category.id}"
+                                       name="categories">
+                                <label class="form-check-label" th:for="${'category' + category.id}" th:text="${category.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- publisher -->
+                    <div class="mb-3">
+                        <label><strong>Publisher</strong></label>
+                        <div th:each="publisher : ${publishers}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"
+                                       th:value="${publisher}" th:id="${publisher}"
+                                       name="publisher">
+                                <label class="form-check-label" th:for="${publisher}" th:text="${publisher}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- price -->
+                    <label><strong>Price</strong></label>
+                    <div class="row mb-3">
                         <div class="col-6">
                             <label for="minPrice">Min</label>
                             <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01">
@@ -34,6 +48,18 @@
                         <div class="col-6">
                             <label for="maxPrice">Max</label>
                             <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01">
+                        </div>
+                    </div>
+                    <!-- year of publishing -->
+                    <label><strong>Year of Publishing</strong></label>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <label for="minPrice">From</label>
+                            <input type="number" class="form-control" id="minYear" name="minPrice" step="0.01">
+                        </div>
+                        <div class="col-6">
+                            <label for="maxPrice">To</label>
+                            <input type="number" class="form-control" id="maxYear" name="maxPrice" step="0.01">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

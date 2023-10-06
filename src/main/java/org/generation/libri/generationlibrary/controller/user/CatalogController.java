@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /* Catalogo libri con search per l'user */
 @Controller
@@ -44,7 +43,13 @@ public class CatalogController {
             bookCatalog = bookRepository.findAll();
         }
 
+        Set<String> uniquePublishers = new HashSet<>();
+        for (Book book : bookCatalog) {
+            uniquePublishers.add(book.getPublisher());
+        }
+
         model.addAttribute("book", bookCatalog);
+        model.addAttribute("publishers", uniquePublishers);
         List<Category> categoryCatalog = categoryRepository.findAll();
         model.addAttribute("categories", categoryCatalog);
         return "user/catalog";
