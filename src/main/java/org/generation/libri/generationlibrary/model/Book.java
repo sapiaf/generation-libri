@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public class Book {
+    /*Aggiungere variabile per la casa editrice e l'anno di pubblicazione*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,8 +30,10 @@ public class Book {
 
     @ManyToMany
     private List<Category> categories;
+    /*
     @ManyToMany
     private List<Restocking> restockingList;
+    */
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<Purchase> purchasings;
 
@@ -117,7 +120,7 @@ public class Book {
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
-
+    /*
     public List<Purchase> getPurchasings() {
         return purchasings;
     }
@@ -125,4 +128,6 @@ public class Book {
     public void setPurchasings(List<Purchase> purchasings) {
         this.purchasings = purchasings;
     }
+    */
 }
+

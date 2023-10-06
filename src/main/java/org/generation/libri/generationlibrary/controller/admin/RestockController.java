@@ -7,9 +7,9 @@ import org.generation.libri.generationlibrary.repository.RestockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*pagina restock lato amministrazione */
@@ -38,7 +38,7 @@ public class RestockController {
         model.addAttribute("restocking", new Restocking());
         return "admin/restock/createRestock";
     }
-
+    /*
     @PostMapping("/create")
     public String doCreateRestock(@ModelAttribute Restocking restocking,
                                   @RequestParam List<Integer> booksListRestock,
@@ -54,5 +54,5 @@ public class RestockController {
         return "redirect:/admin/restocks";
     }
 
-
+    */
 }

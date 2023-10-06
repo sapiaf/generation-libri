@@ -1,6 +1,9 @@
 package org.generation.libri.generationlibrary.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,9 +26,10 @@ public class Restocking {
     @Min(1)
     private int suppliedCopies;
 
+    /*
     @ManyToMany(mappedBy = "restockingList")
     private List<Book> booksListRestock;
-
+    */
     //constructor
     public Restocking(int id, LocalDateTime dateOfStock, BigDecimal bulkPrice, String supplierName, int suppliedCopies, List<Book> booksListRestock) {
         this.id = id;
@@ -33,7 +37,7 @@ public class Restocking {
         this.bulkPrice = bulkPrice;
         this.supplierName = supplierName;
         this.suppliedCopies = suppliedCopies;
-        this.booksListRestock = booksListRestock;
+        //this.booksListRestock = booksListRestock;
     }
 
     //Constructor default
@@ -80,7 +84,7 @@ public class Restocking {
     public void setSuppliedCopies(int suppliedCopies) {
         this.suppliedCopies = suppliedCopies;
     }
-
+    /*
     public List<Book> getBooksListRestock() {
         return booksListRestock;
     }
@@ -88,5 +92,5 @@ public class Restocking {
     public void setBooksListRestock(List<Book> booksListRestock) {
         this.booksListRestock = booksListRestock;
     }
-
+    */
 }
