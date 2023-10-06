@@ -9,6 +9,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>Immagine</th>
             <th>Nome Libro</th>
             <th>Data Ordine</th>
             <th>Prezzo</th>
@@ -19,6 +20,10 @@
         <tbody>
         <tr th:each="purchases : ${purchases}">
             <td th:text="${purchases.id}"></td>
+            <td class="text-center">
+                <img th:src="${purchases.book.urlPhoto}" alt="Book Thumbnail"
+                     style="max-width: 100px; max-height: 100px;">
+            </td>
             <td th:text="${purchases.book.name}"></td>
             <td th:text="${purchases.dateOfPurchase}"></td>
             <td th:text="|${purchases.calculateCost} €|"></td>

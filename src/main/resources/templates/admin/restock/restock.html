@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Restock')"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar(area='Restock')"></nav>
+<div class="container mt-5">
+    <h1>Restock</h1>
+    <a th:href="@{/admin/restock/create}" class="btn btn-success">Richiedi un Restock</a>
+    <div class="mt-3">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data di Stock</th>
+                <th>Prezzo Totale</th>
+                <th>Fornitore</th>
+                <th>Copie Ordinate</th>
+                <th>Libri Ordinati</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="restock : ${restocks}">
+                <td th:text="${restock.id}"></td>
+                <td th:text="${restock.dateOfStock}"></td>
+                <td th:text="${restock.bulkPrice}"></td>
+                <td th:text="${restock.supplierName}"></td>
+                <td th:text="${restock.suppliedCopies}"></td>
+                <td>
+                    <ul>
+                        <li th:each="book : ${restock.booksListRestock}"
+                            th:text="${book.name + ' - ' + book.quantity}"></li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
