@@ -5,6 +5,28 @@
 <nav th:replace="fragments/navbar :: navbar(area='Categories')"></nav>
 <div class="container mt-5">
     <h1>Update Category</h1>
+    <form
+            th:action="@{/admin/categories/update/{id}(id=${category.id})}"
+            id="category-edit"
+            method="POST"
+            th:object="${category}"
+    >
+        <div class="col-9">
+            <div class="mb-3">
+                <label for="categoyName" class="form-label">Categoria da modificare</label>
+                <input class="form-control" id="categoyName" type="text" th:field="*{name}" th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="m-2">
+                <button type="submit" class="btn btn-primary">Salva</button>
+                <a class="btn btn-primary" th:href="@{/admin/categories}">Annulla</a>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>
