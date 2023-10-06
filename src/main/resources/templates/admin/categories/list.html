@@ -40,7 +40,7 @@
             <td th:text="${categoryList.id}"></td>
             <td th:text="${categoryList.name}"></td>
             <td>
-                <a th:href="@{/admin/update/{catId}(catId=${categoryList.id})}" class="btn btn-warning">
+                <a th:href="@{/admin/categories/update/{catId}(catId=${categoryList.id})}" class="btn btn-warning">
                     <i class="fa-solid fa-pencil"></i>
                 </a>
                 <form th:action="@{/admin/categories/delete/{catId}(catId=${categoryList.id})}" method="post"

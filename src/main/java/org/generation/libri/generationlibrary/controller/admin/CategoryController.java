@@ -40,13 +40,13 @@ public class CategoryController {
     }
 
     @GetMapping("/update/{catId}")
-    public String update(@PathVariable Integer id, Model model) {
-        Optional<Category> result = categoryRepository.findById(id);
+    public String update(@PathVariable Integer catId, Model model) {
+        Optional<Category> result = categoryRepository.findById(catId);
         if (result.isPresent()) {
             model.addAttribute("category", result.get());
             return "/admin/categories/update";
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + catId + " not found");
         }
     }
 
