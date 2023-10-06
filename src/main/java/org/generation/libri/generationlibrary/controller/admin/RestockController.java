@@ -19,11 +19,12 @@ public class RestockController {
     private BookRepository bookRepository;
     @Autowired
     private RestockRepository restockRepository;
+
     @GetMapping
     public String index(Model model) {
         List<Book> bookList = bookRepository.findAll();
         model.addAttribute("book", bookList);
-        return "admin/books/restock";
+        return "admin/restock/restock";
     }
 
 }

@@ -5,6 +5,39 @@
 <nav th:replace="fragments/navbar :: navbar(area='Restock')"></nav>
 <div class="container mt-5">
     <h1>Restock Form</h1>
+    <form th:action="@{/admin/restock}" method="post">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Quantità Disponibile</th>
+                <th>Prezzo</th>
+                <th>Pezzi da Acquistare</th>
+                <th>Fornitore</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${book}" th:if="${book.copies} < 1000">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.copies}"></td>
+                <td th:text="${book.price}"></td>
+                <td>
+                    <input type="number" min="1" name="restockQuantity" placeholder="Quantità">
+                </td>
+                <td>
+                    <select name="supplier[${book.id}]">
+                        <option value="mondadori">Mondadori</option>
+                        <option value="feltrinelli">Feltrinelli</option>
+                        <option value="libraccio">Libraccio</option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-success">Ordina</button>
+    </form>
 </div>
 </body>
 </html>
