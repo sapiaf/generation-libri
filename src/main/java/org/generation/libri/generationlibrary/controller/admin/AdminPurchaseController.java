@@ -31,7 +31,7 @@ public class AdminPurchaseController {
         return "admin/purchase/purchaseList";
     }
 
-    @GetMapping("/show/{bookId}")
+   /* @GetMapping("/show/{bookId}")
     public String show(@PathVariable("bookId") Integer id, Model model) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isPresent()) {
@@ -41,7 +41,18 @@ public class AdminPurchaseController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
+   @GetMapping("/show/{acquistoId}")
+   public String show(@PathVariable("acquistoId") Integer id, Model model) {
+       Optional<Purchase> purchaseOptional = purchaseRepository.findById(id);
+       if (purchaseOptional.isPresent()) {
+           Purchase purchaseFound = purchaseOptional.get();
+           model.addAttribute("purchase", purchaseFound);
+           return "admin/purchase/purchaseDetails";
+       } else {
+           throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+       }
+   }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable Integer id, Model model) {
