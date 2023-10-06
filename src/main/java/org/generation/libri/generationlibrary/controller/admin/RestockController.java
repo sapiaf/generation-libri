@@ -1,6 +1,6 @@
 package org.generation.libri.generationlibrary.controller.admin;
 
-import org.generation.libri.generationlibrary.model.Book;
+import org.generation.libri.generationlibrary.model.Restocking;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.RestockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class RestockController {
     private RestockRepository restockRepository;
 
     @GetMapping
-    public String index(Model model) {
-        List<Book> bookList = bookRepository.findAll();
-        model.addAttribute("book", bookList);
+    public String showRestocks(Model model) {
+        List<Restocking> restocks = restockRepository.findAll();
+        model.addAttribute("restocks", restocks);
         return "admin/restock/restock";
     }
 
