@@ -33,10 +33,10 @@ INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023
 INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-06 18:00:00', 9, 13);
 INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-06 19:00:00', 10, 14);
 INSERT INTO purchase (date_of_purchase, purchase_quantity, book_id) VALUES('2023-10-06 20:15:00', 1, 15);
-INSERT INTO book_categories (book_id, categories_id) VALUES (1, 5)
-INSERT INTO book_categories (book_id, categories_id) VALUES (2, 1)
-INSERT INTO book_categories (book_id, categories_id) VALUES (2, 4)
-INSERT INTO book_categories (book_id, categories_id) VALUES (2, 5)
-INSERT INTO book_categories (book_id, categories_id) VALUES (3, 1)
-INSERT INTO book_categories (book_id, categories_id) VALUES (4, 5)
-INSERT INTO book_categories (book_id, categories_id) VALUES (5, 5)
+INSERT INTO book_categories (books_id, categories_id) VALUES (1, 5)
+INSERT INTO book_categories (books_id, categories_id) VALUES (2, 1)
+INSERT INTO book_categories (books_id, categories_id) VALUES (2, 4)
+INSERT INTO book_categories (books_id, categories_id) VALUES (2, 5)
+INSERT INTO book_categories (books_id, categories_id) VALUES (3, 1)
+INSERT INTO book_categories (books_id, categories_id) VALUES (4, 5)
+INSERT INTO book_categories (books_id, categories_id) VALUES (5, 5)
