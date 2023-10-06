@@ -5,7 +5,9 @@ package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Book;
+import org.generation.libri.generationlibrary.model.Category;
 import org.generation.libri.generationlibrary.repository.BookRepository;
+import org.generation.libri.generationlibrary.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -30,9 +34,12 @@ public class BookController {
         return "admin/books/list";
     }
 
+
     @GetMapping("/create")
-    private String create(Model model) {
+    public String create(Model model) {
         model.addAttribute("book", new Book());
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "admin/books/create";
     }
 
@@ -43,7 +50,7 @@ public class BookController {
             return "admin/books/create";
         }
         bookRepository.save(bookCreate);
-        return "redirect:admin/books/list";
+        return "redirect:/admin";
     }
 
     @GetMapping("/show/{bookId}")

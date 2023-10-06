@@ -29,6 +29,8 @@ public class Book {
 
     @ManyToMany
     private List<Category> categories;
+    @ManyToMany
+    private List<Restocking> restockingList;
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<Purchase> purchasings;
 

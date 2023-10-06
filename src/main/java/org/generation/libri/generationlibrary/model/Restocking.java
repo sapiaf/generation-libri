@@ -1,15 +1,13 @@
 package org.generation.libri.generationlibrary.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Restocking {
@@ -25,13 +23,17 @@ public class Restocking {
     @Min(1)
     private int suppliedCopies;
 
+    @ManyToMany(mappedBy = "restockingList")
+    private List<Book> booksListRestock;
+
     //constructor
-    public Restocking(int id, LocalDateTime dateOfStock, BigDecimal bulkPrice, String supplierName, int suppliedCopies) {
+    public Restocking(int id, LocalDateTime dateOfStock, BigDecimal bulkPrice, String supplierName, int suppliedCopies, List<Book> booksListRestock) {
         this.id = id;
         this.dateOfStock = dateOfStock;
         this.bulkPrice = bulkPrice;
         this.supplierName = supplierName;
         this.suppliedCopies = suppliedCopies;
+        this.booksListRestock = booksListRestock;
     }
 
     //Constructor default
@@ -78,5 +80,13 @@ public class Restocking {
     public void setSuppliedCopies(int suppliedCopies) {
         this.suppliedCopies = suppliedCopies;
     }
-    
+
+    public List<Book> getBooksListRestock() {
+        return booksListRestock;
+    }
+
+    public void setBooksListRestock(List<Book> booksListRestock) {
+        this.booksListRestock = booksListRestock;
+    }
+
 }

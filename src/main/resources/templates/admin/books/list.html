@@ -5,43 +5,46 @@
 <nav th:replace="fragments/navbar :: navbar(area='Books')"></nav>
 <div class="container mt-5">
     <h2>Lista Libri</h2>
-    <a href="/admin/create" class="btn btn-success">Add New Book</a>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book : ${book}">
-            <td th:text="${book.id}"></td>
-            <td th:text="${book.name}"></td>
-            <td th:text="${book.description}"></td>
-            <td th:text="|${book.price} €|"></td>
-            <td>
-                <span th:text="${book.copies}"></span>
-            </td>
-            <td>
-                <a th:href="@{/admin/show/{id}(id=${book.id})}" class="btn btn-primary">
-                    <i class="fa-solid fa-circle-info"></i>
-                </a>
-                <a th:href="@{/admin/update/{id}(id=${book.id})}" class="btn btn-warning">
-                    <i class="fa-solid fa-pencil"></i>
-                </a>
-                <form th:action="@{/admin/delete/{id}(id=${book.id})}" method="post" style="display: inline;">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <a href="/admin/create" class="btn btn-success">Aggiungi Libro</a>
+    <div class="mt-3">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${book}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.description}"></td>
+                <td th:text="|${book.price} €|"></td>
+                <td>
+                    <span th:text="${book.copies}"></span>
+                </td>
+                <td>
+                    <a th:href="@{/admin/show/{id}(id=${book.id})}" class="btn btn-primary">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                    <a th:href="@{/admin/update/{id}(id=${book.id})}" class="btn btn-warning">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    <form th:action="@{/admin/delete/{id}(id=${book.id})}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 
 </div>
 </body>

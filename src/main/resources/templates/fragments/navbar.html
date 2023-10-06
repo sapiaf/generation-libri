@@ -43,7 +43,7 @@
                 <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a
                             class="nav-link"
-                            th:href="@{/admin/categories}"
+                            th:href="@{/admin/restock}"
                             th:classappend="${#strings.equals(area,'Restock') ? 'active' : ''}"
                     >Restock</a>
                 </li>
