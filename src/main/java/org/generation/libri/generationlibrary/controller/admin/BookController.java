@@ -77,14 +77,14 @@ public class BookController {
     }
 
     @PostMapping("/update/{id}")
-    public String doEdit(@PathVariable Integer bookId, @Valid @ModelAttribute("book") Book bookUpdate,
+    public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("book") Book bookUpdate,
                          BindingResult bindingResult) {
-        bookUpdate.setId(bookId);
+        bookUpdate.setId(id);
         if (bindingResult.hasErrors()) {
             return "admin/books/update";
         }
         bookRepository.save(bookUpdate);
-        return "redirect:admin/books/list";
+        return "redirect:/admin";
     }
 
     @PostMapping("/delete/{id}")
