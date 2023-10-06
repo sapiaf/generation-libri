@@ -40,23 +40,24 @@ public class CategoryController {
     }
 
     @GetMapping("/update/{catId}")
-    public String update(@PathVariable Integer id, Model model) {
-        Optional<Category> result = categoryRepository.findById(id);
+    public String update(@PathVariable Integer catId, Model model) {
+        Optional<Category> result = categoryRepository.findById(catId);
         if (result.isPresent()) {
             model.addAttribute("category", result.get());
             return "/admin/categories/update";
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + catId + " not found");
         }
     }
 
     @PostMapping("/update/{catId}")
-    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("category") Category categoryForm, BindingResult bindingResult) {
+    public String doUpdate(@PathVariable Integer catId, @Valid @ModelAttribute("category") Category categoryUpdate, BindingResult bindingResult) {
+        categoryUpdate.setId(catId);
         if (bindingResult.hasErrors()) {
             return "/admin/categories/update";
         }
-        categoryRepository.save(categoryForm);
-        return "redirect:/admin/categories/list";
+        categoryRepository.save(categoryUpdate);
+        return "redirect:/admin/categories";
     }
 
     @PostMapping("/delete/{catId}")

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public class Book {
+    /*Aggiungere variabile per la casa editrice e l'anno di pubblicazione*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,29 +22,41 @@ public class Book {
     @NotBlank
     @Size(min = 10, max = 2048, message = "Il testo della descrizione deve essere tra 10 e 2048 caratteri.")
     private String description;
+    @NotBlank
+    @Size(min = 1, max = 100, message = "Il testo della descrizione deve essere tra 10 e 100 caratteri.")
+    private String publisher;
+    @NotNull
+    private int dateOfPublishing;
     private int copies;
     private int soldCopies;
+
     @NotNull
     private BigDecimal price;
 
-
     @ManyToMany
     private List<Category> categories;
+
+    @ManyToMany
+    private List<Restocking> restockingList;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<Purchase> purchasings;
 
     //constructor
 
 
-    public Book(Integer id, String name, String urlPhoto, String description, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Purchase> purchasings) {
+    public Book(Integer id, String name, String urlPhoto, String description, String publisher, int dateOfPublishing, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Restocking> restockingList, List<Purchase> purchasings) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
         this.description = description;
+        this.publisher = publisher;
+        this.dateOfPublishing = dateOfPublishing;
         this.copies = copies;
         this.soldCopies = soldCopies;
         this.price = price;
         this.categories = categories;
+        this.restockingList = restockingList;
         this.purchasings = purchasings;
     }
 
@@ -112,6 +125,30 @@ public class Book {
         return categories;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getDateOfPublishing() {
+        return dateOfPublishing;
+    }
+
+    public void setDateOfPublishing(int dateOfPublishing) {
+        this.dateOfPublishing = dateOfPublishing;
+    }
+
+    public List<Restocking> getRestockingList() {
+        return restockingList;
+    }
+
+    public void setRestockingList(List<Restocking> restockingList) {
+        this.restockingList = restockingList;
+    }
+
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
@@ -123,4 +160,6 @@ public class Book {
     public void setPurchasings(List<Purchase> purchasings) {
         this.purchasings = purchasings;
     }
+
 }
+

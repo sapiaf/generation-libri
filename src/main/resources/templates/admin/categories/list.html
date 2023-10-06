@@ -3,35 +3,9 @@
 <head th:replace="fragments/head :: head('Categorie')"></head>
 <body>
 <!-- L'elenco delle categorie più pulsanti CRUD-->
-<nav th:replace="fragments/navbar :: navbar(area='Books')"></nav>
+<nav th:replace="fragments/navbar :: navbar(area='Categories')"></nav>
 <div class="container mt-5">
     <h1>Categorie</h1>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="categoryList : ${categoryList}">
-            <td th:text="${categoryList.id}"></td>
-            <td th:text="${categoryList.name}"></td>
-            <td>
-                <a th:href="@{/admin/update/{catId}(catId=${categoryList.id})}" class="btn btn-warning">
-                    <i class="fa-solid fa-pencil"></i>
-                </a>
-                <form th:action="@{/admin/categories/delete/{catId}(catId=${categoryList.id})}" method="post"
-                      style="display: inline;">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
     <form
             id="category-form"
             th:action="@{/admin/categories/create}"
@@ -39,7 +13,7 @@
             method="POST"
     >
         <div class="mb-3">
-            <label for="name" class="form-label">Nome Categoria</label>
+            <label for="name" class="form-label">Aggiungi Categoria</label>
             <input type="text" class="form-control" id="name" th:field="*{name}" required
                    th:errorClass="is-invalid">
             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
@@ -53,6 +27,33 @@
             <a class="btn btn-primary" th:href="@{/admin/categories}">Annulla</a>
         </div>
     </form>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="categoryList : ${categoryList}">
+            <td th:text="${categoryList.id}"></td>
+            <td th:text="${categoryList.name}"></td>
+            <td>
+                <a th:href="@{/admin/categories/update/{catId}(catId=${categoryList.id})}" class="btn btn-warning">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
+                <form th:action="@{/admin/categories/delete/{catId}(catId=${categoryList.id})}" method="post"
+                      style="display: inline;">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>
