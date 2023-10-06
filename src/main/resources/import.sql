@@ -20,4 +20,4 @@ INSERT INTO book_categories (books_id, categories_id) VALUES (2, 5)
 INSERT INTO book_categories (books_id, categories_id) VALUES (3, 1)
 INSERT INTO book_categories (books_id, categories_id) VALUES (4, 5)
 INSERT INTO book_categories (books_id, categories_id) VALUES (5, 5)
---INSERT INTO restock (date_of_stock, bulk_price, supplier_name, supplied_copies) VALUES ('2023-10-06', 1500.00, 'Fornitore Test', 200);
+INSERT INTO restocking (date_of_stock, bulk_price, supplier_name, supplied_copies) VALUES ('2023-10-06', 1500.00, 'Fornitore Test', 200);
