@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +29,17 @@ public class CatalogController {
     private CategoryRepository categoryRepository;
 
     @GetMapping
-    public String index(@RequestParam(value = "query", required = false) Optional<String> searchKeyword, Model model) {
+    public String index(@RequestParam(value = "query", required = false) Optional<String> searchKeyword,
+                        @RequestParam(value = "minPrice", required = false) Optional<BigDecimal> minPrice,
+                        @RequestParam(value = "maxPrice", required = false) Optional<BigDecimal> maxPrice,
+                        Model model) {
         List<Book> bookCatalog;
         String keyword = "";
         if (searchKeyword.isPresent()) {
             keyword = searchKeyword.get();
             bookCatalog = bookRepository.findByNameContainingIgnoreCase(keyword);
+        } else if (minPrice.isPresent() && maxPrice.isPresent()) {
+            bookCatalog = bookRepository.findByPriceBetween(minPrice.get(), maxPrice.get());
         } else {
             bookCatalog = bookRepository.findAll();
         }
@@ -43,6 +49,7 @@ public class CatalogController {
         model.addAttribute("categories", categoryCatalog);
         return "user/catalog";
     }
+
 
 
     @GetMapping("/show/{bookId}")
