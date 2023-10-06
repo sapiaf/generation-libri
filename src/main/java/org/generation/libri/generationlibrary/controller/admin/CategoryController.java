@@ -51,12 +51,13 @@ public class CategoryController {
     }
 
     @PostMapping("/update/{catId}")
-    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("category") Category categoryForm, BindingResult bindingResult) {
+    public String doUpdate(@PathVariable Integer catId, @Valid @ModelAttribute("category") Category categoryUpdate, BindingResult bindingResult) {
+        categoryUpdate.setId(catId);
         if (bindingResult.hasErrors()) {
             return "/admin/categories/update";
         }
-        categoryRepository.save(categoryForm);
-        return "redirect:/admin/categories/list";
+        categoryRepository.save(categoryUpdate);
+        return "redirect:/admin/categories";
     }
 
     @PostMapping("/delete/{catId}")
