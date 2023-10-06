@@ -1,9 +1,8 @@
 package org.generation.libri.generationlibrary.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,27 +14,31 @@ public class Restocking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private LocalDateTime dateOfStock;
-    @NotNull
-    private BigDecimal bulkPrice;
     @NotBlank
+    @Size(min = 3, max = 100, message = "Il testo della descrizione deve essere tra 3 e 100 caratteri.")
+    private String dependentName;
+    //@NotNull
+    private BigDecimal bulkPrice;
+    //@NotBlank
     private String supplierName;
-    @NotNull
-    @Min(1)
+    //@NotNull
+    //@Min(1)
     private int suppliedCopies;
+    private String paymentMethod;
 
-
-    @ManyToMany(mappedBy = "restockingList")
-    private List<Book> booksListRestock;
-
+    @OneToMany(mappedBy = "restock")
+    private List<BooksRestockinQuantity> booksRestockinQuantity;
 
     //constructor
-    public Restocking(int id, LocalDateTime dateOfStock, BigDecimal bulkPrice, String supplierName, int suppliedCopies, List<Book> booksListRestock) {
+    public Restocking(int id, LocalDateTime dateOfStock, String dependentName, BigDecimal bulkPrice, String supplierName, int suppliedCopies, String paymentMethod, List<Book> booksListRestock, List<BooksRestockinQuantity> booksRestockinQuantity) {
         this.id = id;
         this.dateOfStock = dateOfStock;
+        this.dependentName = dependentName;
         this.bulkPrice = bulkPrice;
         this.supplierName = supplierName;
         this.suppliedCopies = suppliedCopies;
-        this.booksListRestock = booksListRestock;
+        this.paymentMethod = paymentMethod;
+        this.booksRestockinQuantity = booksRestockinQuantity;
     }
 
     //Constructor default
@@ -51,6 +54,14 @@ public class Restocking {
         this.id = id;
     }
 
+    public String getDependentName() {
+        return dependentName;
+    }
+
+    public void setDependentName(String dependentName) {
+        this.dependentName = dependentName;
+    }
+
     public LocalDateTime getDateOfStock() {
         return dateOfStock;
     }
@@ -64,6 +75,7 @@ public class Restocking {
     }
 
     public void setBulkPrice(BigDecimal bulkPrice) {
+
         this.bulkPrice = bulkPrice;
     }
 
@@ -83,12 +95,20 @@ public class Restocking {
         this.suppliedCopies = suppliedCopies;
     }
 
-    public List<Book> getBooksListRestock() {
-        return booksListRestock;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setBooksListRestock(List<Book> booksListRestock) {
-        this.booksListRestock = booksListRestock;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public List<BooksRestockinQuantity> getBooksRestockinQuantity() {
+        return booksRestockinQuantity;
+    }
+
+    public void setBooksRestockinQuantity(List<BooksRestockinQuantity> booksRestockinQuantity) {
+        this.booksRestockinQuantity = booksRestockinQuantity;
     }
 
 }
