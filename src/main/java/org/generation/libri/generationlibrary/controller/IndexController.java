@@ -13,4 +13,7 @@ public class IndexController {
     public String index() {
         return "/index";
     }
+
+    @GetMapping("/qa")
+    public String qAndA() { return "/user/info/qa";}
 }

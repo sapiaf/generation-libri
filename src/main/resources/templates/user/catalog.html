@@ -26,18 +26,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- publisher -->
-                    <div class="mb-3">
-                        <label><strong>Publisher</strong></label>
-                        <div th:each="publisher : ${publishers}">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox"
-                                       th:value="${publisher}" th:id="${publisher}"
-                                       name="publisher">
-                                <label class="form-check-label" th:for="${publisher}" th:text="${publisher}"></label>
-                            </div>
-                        </div>
-                    </div>
                     <!-- price -->
                     <label><strong>Price</strong></label>
                     <div class="row mb-3">
@@ -55,11 +43,11 @@
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="minPrice">From</label>
-                            <input type="number" class="form-control" id="minYear" name="minPrice" step="0.01">
+                            <input type="number" class="form-control" id="minYear" name="minYear" step="1">
                         </div>
                         <div class="col-6">
                             <label for="maxPrice">To</label>
-                            <input type="number" class="form-control" id="maxYear" name="maxPrice" step="0.01">
+                            <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -79,7 +67,7 @@
                             <p class="card-text" th:text="${book.description}"></p>
                             <p class="card-text"><strong th:text="'€' + ${book.price}"></strong></p>
                             <div style="display: flex; justify-content: space-between;">
-                                <a th:href="@{catalog/show/{id}(id=${book.id})}" class="btn btn-primary">
+                                <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="btn btn-primary">
                                     Details <i class="fa-solid fa-circle-info"></i>
                                 </a>
                                 <a th:href="@{/purchase/{id}(id=${book.id})}" class="btn btn-warning">
@@ -95,6 +83,5 @@
 </div>
 <footer th:replace="fragments/userFooter"></footer>
 </body>
-
 </html>
 

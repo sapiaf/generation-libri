@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import java.time.LocalDateTime;
+
 
 import java.util.Optional;
 
@@ -43,14 +45,22 @@ public class PurchaseController {
     }
 
     @PostMapping("/purchase/{bookId}")
-    public String doCreatePurchase(@Valid @PathVariable("bookId") Integer bookId, @ModelAttribute("purchase")
-    Purchase purchase, BindingResult bindingResult) {
+    public String doCreatePurchase(
+            @Valid @PathVariable("bookId") Integer bookId,
+            @ModelAttribute("purchase") Purchase purchase,
+            BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
             return "/user/purchase";
         }
         Book book = bookRepository.findById(bookId).get();
+        model.addAttribute("book", book);
+        purchase.setBook(book);
+        purchase.setDateOfPurchase(LocalDateTime.now());
         book.setCopies(book.getCopies() - purchase.getPurchaseQuantity());
+        bookRepository.save(book);
         purchaseRepository.save(purchase);
-        return "/user/purchasesuccess";
+        return "/user/purchase";
     }
+
 }
