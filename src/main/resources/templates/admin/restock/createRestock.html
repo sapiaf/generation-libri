@@ -3,40 +3,69 @@
 <head th:replace="fragments/head :: head('Restock')"></head>
 <body>
 <nav th:replace="fragments/navbar :: navbar(area='Restock')"></nav>
-<div class="container mt-5">
-    <h1>Restock Form</h1>
-    <form th:action="@{/admin/restock}" method="post">
+<div class="container mt-5 mb-5">
+    <h1>Inserisci Un Restock</h1>
+    <hr class="m-3">
+    <form th:action="@{/admin/restock/create}" method="post">
+        <h3 class="text-primary">Inserisci Dati</h3>
+        <div>
+            <label for="name" class="form-labal">Nome e Cognome Dipendente</label>
+            <input type="text" class="form-control" id="name" th:field="${restocking.dependentName}"
+                   th:errorClass="is-invalid"/>
+        </div>
+        <div class="m-1">
+            <label for="dateOfStock" class="form-labal">Data di Restock</label>
+            <input type="datetime-local" class="form-control" id="dateOfStock" th:field="${restocking.dateOfStock}"
+                   th:errorClass="is-invalid"/>
+        </div>
         <table class="table table-bordered">
             <thead>
+            <h3 class="text-primary">Seleziona ed Inserisci le Quantità</h3>
             <tr>
                 <th>ID</th>
+                <th>Immagine</th>
                 <th>Nome</th>
                 <th>Quantità Disponibile</th>
                 <th>Prezzo</th>
+                <th>Casa Editrice</th>
                 <th>Pezzi da Acquistare</th>
-                <th>Fornitore</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="book : ${book}" th:if="${book.copies} < 1000">
-                <td th:text="${book.id}"></td>
-                <td th:text="${book.name}"></td>
-                <td th:text="${book.copies}"></td>
-                <td th:text="${book.price}"></td>
-                <td>
-                    <input type="number" min="1" name="restockQuantity" placeholder="Quantità">
+            <tr th:each="availableBooks : ${availableBooks}">
+                <td th:text="${availableBooks.id}"></td>
+                <td class="text-center">
+                    <img th:src="${availableBooks.urlPhoto}" alt="Book Thumbnail"
+                         style="max-width: 100px; max-height: 100px;">
                 </td>
-                <td>
-                    <select name="supplier[${book.id}]">
-                        <option value="mondadori">Mondadori</option>
-                        <option value="feltrinelli">Feltrinelli</option>
-                        <option value="libraccio">Libraccio</option>
-                    </select>
+                <td th:text="${availableBooks.name}"></td>
+                <td th:text="${availableBooks.copies}"></td>
+                <td th:text="${availableBooks.price}"></td>
+                <td th:text="${availableBooks.publisher}"></td>
+                <td class="text-center">
+                    <input type="number" min="1" name="restockQuantity" placeholder="Quantità">
                 </td>
             </tr>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-success">Ordina</button>
+        <div class="form-group">
+            <h3 class="text-primary">Modalità di Pagamento</h3>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="carta" name="paymentMethod" value="Carta">
+                <label class="form-check-label" for="carta">Carta</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="bonifico" name="paymentMethod" value="Bonifico">
+                <label class="form-check-label" for="bonifico">Bonifico</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="contrassegno" name="paymentMethod"
+                       value="Contrassegno">
+                <label class="form-check-label" for="contrassegno">Contrassegno</label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Ordina</button>
+        <a class="btn btn-primary mt-3" th:href="@{/admin/restock}">Annulla</a>
     </form>
 </div>
 </body>

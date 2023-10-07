@@ -27,7 +27,7 @@ public class PurchaseController {
 
     /*CREAZIONE ORDINE LATO UTENTE */
     @GetMapping("/purchase/{bookId}")
-    public String createPurchase(@RequestParam("bookId") Integer bookId, Model model) {
+    public String createPurchase(@PathVariable("bookId") Integer bookId, Model model) {
         Optional<Book> bookResult = bookRepository.findById(bookId);
         if (bookResult.isPresent()) {
             Book book = bookRepository.findById(bookId).get();
