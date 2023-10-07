@@ -68,6 +68,8 @@ public class CatalogController {
 
 
     private List<Book> searchBooks(Optional<String> keyword, Optional<BigDecimal> minPrice, Optional<BigDecimal> maxPrice, Optional<Integer> minYear, Optional<Integer> maxYear, Optional<Integer> categoryId) {
+
+
         if (keyword.isPresent()) {
             return bookRepository.findByNameContainingIgnoreCase(keyword.get());
         }

@@ -13,7 +13,7 @@
         <div class="col-md-3">
             <div class="mb-4">
                 <h4>Filter</h4>
-                <form th:action="${currentPage == 'category' ? '/catalog/category/' + selectedCategoryId : '/catalog'}" method="get">
+                <form th:action="@{/catalog}" method="get">
                     <!-- categories -->
                     <div class="mb-3">
                         <label><strong>Genre</strong></label>
