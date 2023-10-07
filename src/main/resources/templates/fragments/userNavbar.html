@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle bg-light-gray" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categorie
+                        Libri
                     </a>
                     <ul class="dropdown-menu bg-light-gray" aria-labelledby="navbarDropdown">
                         <li th:each="category : ${categories}">
@@ -41,7 +41,21 @@
                             class="nav-link"
                             th:href="@{/offerte}"
                             th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
-                    >Offerte</a>
+                    >Best Sellers</a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            th:href="@{/offerte}"
+                            th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
+                    >Contatti</a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            th:href="@{/offerte}"
+                            th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
+                    >Aiuto e FAQ</a>
                 </li>
             </ul>
             <!-- Search bar pushed to the right -->

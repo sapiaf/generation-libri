@@ -9,7 +9,8 @@ import java.util.List;
 public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByNameContainingIgnoreCase(String query);
     List<Book> findByCategories_Id(Integer categoryId);
-    List<Book> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+    List<Book> findByPriceBetweenAndDateOfPublishingBetween(BigDecimal minPrice, BigDecimal maxPrice, Integer minYear, Integer maxYear);
+    List<Book> findByCategories_IdAndPriceBetweenAndDateOfPublishingBetween(Integer categoryId, BigDecimal minPrice, BigDecimal maxPrice, Integer minYear, Integer maxYear);
 
 
 }

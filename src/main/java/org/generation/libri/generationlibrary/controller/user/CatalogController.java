@@ -31,31 +31,18 @@ public class CatalogController {
     public String index(@RequestParam(value = "query", required = false) Optional<String> searchKeyword,
                         @RequestParam(value = "minPrice", required = false) Optional<BigDecimal> minPrice,
                         @RequestParam(value = "maxPrice", required = false) Optional<BigDecimal> maxPrice,
+                        @RequestParam(value = "minYear", required = false) Optional<Integer> minYear,
+                        @RequestParam(value = "maxYear", required = false) Optional<Integer> maxYear,
+                        @RequestParam(value = "categories", required = false) Optional<Integer> categoryId,
                         Model model) {
-        List<Book> bookCatalog;
-        String keyword = "";
-        if (searchKeyword.isPresent()) {
-            keyword = searchKeyword.get();
-            bookCatalog = bookRepository.findByNameContainingIgnoreCase(keyword);
-        } else if (minPrice.isPresent() && maxPrice.isPresent()) {
-            bookCatalog = bookRepository.findByPriceBetween(minPrice.get(), maxPrice.get());
-        } else {
-            bookCatalog = bookRepository.findAll();
-        }
 
-        Set<String> uniquePublishers = new HashSet<>();
-        for (Book book : bookCatalog) {
-            uniquePublishers.add(book.getPublisher());
-        }
+        List<Book> bookCatalog = searchBooks(searchKeyword, minPrice, maxPrice, minYear, maxYear, categoryId);
 
         model.addAttribute("book", bookCatalog);
-        model.addAttribute("publishers", uniquePublishers);
         List<Category> categoryCatalog = categoryRepository.findAll();
         model.addAttribute("categories", categoryCatalog);
         return "user/catalog";
     }
-
-
 
     @GetMapping("/show/{bookId}")
     public String show(@PathVariable("bookId") Integer id, Model model) {
@@ -77,6 +64,24 @@ public class CatalogController {
         model.addAttribute("categories", categoryCatalog);
         model.addAttribute("selectedCategoryId", categoryId);
         return "user/catalog";
+    }
+
+
+    private List<Book> searchBooks(Optional<String> keyword, Optional<BigDecimal> minPrice, Optional<BigDecimal> maxPrice, Optional<Integer> minYear, Optional<Integer> maxYear, Optional<Integer> categoryId) {
+        if (keyword.isPresent()) {
+            return bookRepository.findByNameContainingIgnoreCase(keyword.get());
+        }
+
+        BigDecimal fairMinPrice = minPrice.orElse(BigDecimal.valueOf(0));
+        BigDecimal fairMaxPrice = maxPrice.orElse(BigDecimal.valueOf(Double.MAX_VALUE));
+        Integer fairMinYear = minYear.orElse(0);
+        Integer fairMaxYear = maxYear.orElse(Integer.MAX_VALUE);
+
+        if (categoryId.isPresent()) {
+            return bookRepository.findByCategories_IdAndPriceBetweenAndDateOfPublishingBetween(categoryId.get(), fairMinPrice, fairMaxPrice, fairMinYear, fairMaxYear);
+        }
+
+        return bookRepository.findByPriceBetweenAndDateOfPublishingBetween(fairMinPrice, fairMaxPrice, fairMinYear, fairMaxYear);
     }
 
 }
