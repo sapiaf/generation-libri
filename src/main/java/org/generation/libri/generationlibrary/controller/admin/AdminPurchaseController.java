@@ -50,20 +50,21 @@ public class AdminPurchaseController {
             model.addAttribute("purchase", result.get());
             return "/admin/purchase/purchaseEdit";
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Purchase with id " + id + " not found");
         }
     }
 
     @PostMapping("/update/{id}")
-    public String doUpdate(@PathVariable Integer bookId, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate,
+    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate,
                            BindingResult bindingResult) {
-        purchaseUpdate.setId(bookId);
+        purchaseUpdate.setId(id);
         if (bindingResult.hasErrors()) {
             return "admin/purchase/purchaseEdit";
         }
         purchaseRepository.save(purchaseUpdate);
-        return "admin/purchase/purchaseList";
+        return "redirect:/admin/purchase";
     }
+
 
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
