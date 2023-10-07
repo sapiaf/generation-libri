@@ -4,28 +4,41 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar(area='Purchase')"></nav>
 <div class="container mt-5">
-    <h1>Purchase Details</h1>
-        <div class="d-flex justify-content-between align-items-between">
-
-                <div class="col-6">
-                    <p class="card-text" >
-                        <span>Purchase ID: <span class="text-primary" th:text= " '' + ${purchase.id}"></span></span>
-                    </p>
-                    <p class="card-text">
-
-                        <span>Date: <span class="text-primary" th:text="'' + ${purchase.dateOfPurchase}"></span></span>
-                    </p>
-                    <p class="card-text">
-                        <span>Quantity: <span class="text-primary" th:text=" '' + ${purchase.purchaseQuantity}"></span></span>
-                    </p>
-                    <p class="card-text">
-                        <span>Book Title: <span class="text-primary" th:text=" '' + ${purchase.book.name}"></span></span>
-                    </p>
-                </div>
-
-
+    <h1>Books Detail</h1>
+    <hr class="m-3">
+    <div class="d-flex justify-content-between align-items-between">
+        <div class="row m-auto">
+            <div class="col-6 text-center d-flex justify-content-center align-items-center">
+                <img th:src="${purchase.book.urlPhoto}" alt="Book Image" class="m-5 mb-0 mt-0 img-fluid flex-shrink-0"
+                     style="height: 300px;"/>
+            </div>
+            <div class="col-6">
+                <p class="card-text">
+                    <span>Titolo:<span class="text-primary" th:text="' ' + ${purchase.book.name}"></span></span>
+                </p>
+                <p class="card-text">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Copie Acquistate:<span class="text-primary"
+                                                 th:text="' ' + ${purchase.purchaseQuantity}"></span></span>
+                </p>
+                <p class="card-text">
+                    <i class="fa-solid fa-cart-plus"></i>
+                    <span>Data Acquisto:<span class="text-primary"
+                                              th:text="' ' + ${purchase.dateOfPurchase}"></span></span>
+                </p>
+                <p class="card-text">
+                    <i class="fa-solid fa-money-bill-wave"></i>
+                    <span>Prezzo:<span class="text-primary" th:text="' ' + ${purchase.totalPrice}"></span></span>
+                </p>
+            </div>
         </div>
-
+    </div>
+    <!--AGGIUNGERE GRAFICO CON COPIE VENDUTE RISPETTO A COPIE DISPONIBILI-->
+    <!--AGGIUNGERE LISTA CON ORDINI CHE HANNO QUEL DETERMINATO BOOK CON BADGE
+        VERDE SE CONSEGNATI E COMPLETI ROSSO SE ANNULLATI E GIALLO SE ANCORA IN CORSO-->
+</div>
+<div class="text-center">
+    <a th:href="@{/admin/purchase}"> &lt;&lt;Torna Indietro</a>
 </div>
 </body>
 </html>

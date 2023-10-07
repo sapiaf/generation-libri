@@ -16,15 +16,17 @@ public class Purchase {
     @NotNull
     @Min(1)
     private int purchaseQuantity;
+    private BigDecimal totalPrice;
 
     @ManyToOne
     private Book book;
 
     //constructor
-    public Purchase(int id, LocalDateTime dateOfPurchase, @NotNull int purchaseQuantity, Book book) {
+    public Purchase(int id, LocalDateTime dateOfPurchase, int purchaseQuantity, BigDecimal totalPrice, Book book) {
         this.id = id;
         this.dateOfPurchase = dateOfPurchase;
         this.purchaseQuantity = purchaseQuantity;
+        this.totalPrice = calculateCost();
         this.book = book;
     }
 
@@ -65,7 +67,15 @@ public class Purchase {
         this.book = book;
     }
 
+    public BigDecimal getTotalPrice() {
+        return totalPrice = calculateCost();
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = calculateCost();
+    }
+
     public BigDecimal calculateCost() {
-        return book.getPrice().multiply(BigDecimal.valueOf(purchaseQuantity));
+        return this.totalPrice = book.getPrice().multiply(BigDecimal.valueOf(purchaseQuantity));
     }
 }
