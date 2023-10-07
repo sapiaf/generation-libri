@@ -29,23 +29,18 @@ public class Book {
     private int dateOfPublishing;
     private int copies;
     private int soldCopies;
-
     @NotNull
     private BigDecimal price;
 
     @ManyToMany
     private List<Category> categories;
-
-    @ManyToMany
-    private List<Restocking> restockingList;
-
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
     private List<Purchase> purchasings;
+    @OneToMany(mappedBy = "book")
+    private List<BooksRestockinQuantity> booksRestockinQuantity;
 
     //constructor
-
-
-    public Book(Integer id, String name, String urlPhoto, String description, String publisher, int dateOfPublishing, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Restocking> restockingList, List<Purchase> purchasings) {
+    public Book(Integer id, String name, String urlPhoto, String description, String publisher, int dateOfPublishing, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Restocking> restockingList, List<Purchase> purchasings, List<BooksRestockinQuantity> booksRestockinQuantity) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
@@ -56,8 +51,8 @@ public class Book {
         this.soldCopies = soldCopies;
         this.price = price;
         this.categories = categories;
-        this.restockingList = restockingList;
         this.purchasings = purchasings;
+        this.booksRestockinQuantity = booksRestockinQuantity;
     }
 
     //constructor default
@@ -141,14 +136,6 @@ public class Book {
         this.dateOfPublishing = dateOfPublishing;
     }
 
-    public List<Restocking> getRestockingList() {
-        return restockingList;
-    }
-
-    public void setRestockingList(List<Restocking> restockingList) {
-        this.restockingList = restockingList;
-    }
-
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
@@ -159,6 +146,14 @@ public class Book {
 
     public void setPurchasings(List<Purchase> purchasings) {
         this.purchasings = purchasings;
+    }
+
+    public List<BooksRestockinQuantity> getBooksRestockinQuantity() {
+        return booksRestockinQuantity;
+    }
+
+    public void setBooksRestockinQuantity(List<BooksRestockinQuantity> booksRestockinQuantity) {
+        this.booksRestockinQuantity = booksRestockinQuantity;
     }
 
 }
