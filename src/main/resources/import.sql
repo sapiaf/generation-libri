@@ -73,7 +73,6 @@ INSERT INTO book_categories (books_id, categories_id) VALUES (17, 2);
 INSERT INTO book_categories (books_id, categories_id) VALUES (18, 2);
 INSERT INTO book_categories (books_id, categories_id) VALUES (19, 2);
 INSERT INTO book_categories (books_id, categories_id) VALUES (20, 2);
-INSERT INTO restocking (date_of_stock, bulk_price, supplier_name, supplied_copies) VALUES ('2023-10-06', 1500.00, 'Fornitore Test', 200);
 INSERT INTO db_generationLibrary.restocking (bulk_price, date_of_stock, dependent_name, payment_method, supplied_copies, supplier_name) VALUES( 1500.00, '2023-10-06', 'Pinco Pallo', 'Carta', 200, 'Fornitore Test');
 INSERT INTO db_generationLibrary.books_restockin_quantity (quantity_of_book_stock, book_id, restock_id) VALUES(50, 1, 1);
 INSERT INTO db_generationLibrary.books_restockin_quantity (quantity_of_book_stock, book_id, restock_id) VALUES(50, 2, 1);
