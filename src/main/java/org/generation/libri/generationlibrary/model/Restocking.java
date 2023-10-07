@@ -24,6 +24,7 @@ public class Restocking {
     //@NotNull
     //@Min(1)
     private int suppliedCopies;
+    
     private String paymentMethod;
 
     @OneToMany(mappedBy = "restock")

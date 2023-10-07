@@ -18,6 +18,11 @@
             <input type="datetime-local" class="form-control" id="dateOfStock" th:field="${restocking.dateOfStock}"
                    th:errorClass="is-invalid"/>
         </div>
+        <div class="m-1">
+            <label for="supplierName" class="form-labal">Fornitore</label>
+            <input type="text" class="form-control" id="supplierName" th:field="${restocking.supplierName}"
+                   th:errorClass="is-invalid"/>
+        </div>
         <table class="table table-bordered">
             <thead>
             <h3 class="text-primary">Seleziona ed Inserisci le Quantità</h3>
