@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,8 +8,13 @@
     <title>Document</title>
 </head>
 <body>
-<!-- esito acquisto con pulsante che riporta alla pagina home (catalog)-->
-<!-- Aggiungere un tasto per annullare l'ordine/delete -->
-<h1>user Success Purchase</h1>
+<h1>Success Purchase</h1>
+
+<p><strong>Title:</strong> <span th:text="${book.name}">Book Title</span></p>
+<p><strong>Price:</strong> <span th:text="${book.price}">Book Price</span></p>
+<p><strong>Total:</strong> <span th:text="${book.price * purchase.purchaseQuantity}">Total Price</span> €</p>
+<p><strong>Purchase Quantity:</strong> <span th:text="${purchase.purchaseQuantity}">1</span></p>
+
+
 </body>
 </html>

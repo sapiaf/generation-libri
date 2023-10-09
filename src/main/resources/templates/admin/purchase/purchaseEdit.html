@@ -1,13 +1,45 @@
 <!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Modifica ordine')"></head>
 <body>
-<h1>Purchase Edit</h1>
+<nav th:replace="fragments/navbar :: navbar(area='Purchase')"></nav>
+<div class="container mt-5">
+    <h1 th:text="|Modifica ordine per '${purchase.book.name}'|"></h1>
+    <div>
+        <h4>Data Ordine</h4>
+        <p th:text="${purchase.dateOfPurchase}"></p>
+    </div>
+    <div>
+        <h4>Totale ordine</h4>
+        <p th:text="|${purchase.totalPrice} €|"></p>
+    </div>
+    <form
+            th:action="@{/admin/purchase/update/{id}(id=${purchase.id})}"
+            id="purchase-edit"
+            method="POST"
+            th:object="${purchase}"
+    >
+        <input type="hidden" th:field="*{book}">
+        <input type="hidden" th:field="*{dateOfPurchase}">
+
+        <div class="row">
+            <div class="col-5">
+                <label for="purchase-quantity" class="form-label">Numero di Copie Ordinate</label>
+                <input id="purchase-quantity" class="form-control" type="number" th:field="*{purchaseQuantity}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('purchaseQuantity')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('purchaseQuantity')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="m-2">
+            <button type="submit" class="btn btn-primary">Salva</button>
+            <a class="btn btn-danger" th:href="@{/admin/purchase}">Annulla</a>
+        </div>
+    </form>
+
+</div>
 </body>
 </html>

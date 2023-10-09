@@ -4,7 +4,8 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar(area='Categories')"></nav>
 <div class="container mt-5">
-    <h1>Update Category</h1>
+    <h1>Aggiorna Categoria</h1>
+    <hr class="m-3">
     <form
             th:action="@{/admin/categories/update/{id}(id=${category.id})}"
             id="category-edit"

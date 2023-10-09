@@ -1,7 +1,6 @@
 package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
-import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Purchase;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.PurchaseRepository;
@@ -31,12 +30,12 @@ public class AdminPurchaseController {
         return "admin/purchase/purchaseList";
     }
 
-    @GetMapping("/show/{bookId}")
-    public String show(@PathVariable("bookId") Integer id, Model model) {
-        Optional<Book> bookOptional = bookRepository.findById(id);
-        if (bookOptional.isPresent()) {
-            Book bookFound = bookOptional.get();
-            model.addAttribute("book", bookFound);
+    @GetMapping("/show/{acquistoId}")
+    public String show(@PathVariable("acquistoId") Integer id, Model model) {
+        Optional<Purchase> purchaseOptional = purchaseRepository.findById(id);
+        if (purchaseOptional.isPresent()) {
+            Purchase purchaseFound = purchaseOptional.get();
+            model.addAttribute("purchase", purchaseFound);
             return "admin/purchase/purchaseDetails";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -50,19 +49,18 @@ public class AdminPurchaseController {
             model.addAttribute("purchase", result.get());
             return "/admin/purchase/purchaseEdit";
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Category with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Purchase with id " + id + " not found");
         }
     }
 
     @PostMapping("/update/{id}")
-    public String doUpdate(@PathVariable Integer bookId, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate,
+    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate,
                            BindingResult bindingResult) {
-        purchaseUpdate.setId(bookId);
         if (bindingResult.hasErrors()) {
             return "admin/purchase/purchaseEdit";
         }
         purchaseRepository.save(purchaseUpdate);
-        return "admin/purchase/purchaseList";
+        return "redirect:/admin/purchase";
     }
 
     @PostMapping("/delete/{id}")
