@@ -72,7 +72,7 @@ public class Purchase {
     }
 
     public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = calculateCost();
+        this.totalPrice = totalPrice;
     }
 
     public BigDecimal calculateCost() {
