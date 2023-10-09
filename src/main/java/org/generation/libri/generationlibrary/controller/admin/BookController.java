@@ -38,8 +38,6 @@ public class BookController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("book", new Book());
-        List<Category> categories = categoryRepository.findAll();
-        model.addAttribute("categories", categories);
         return "admin/books/create";
     }
 

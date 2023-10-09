@@ -39,8 +39,8 @@ public class CatalogController {
         List<Book> bookCatalog = searchBooks(searchKeyword, minPrice, maxPrice, minYear, maxYear, categoryId);
 
         model.addAttribute("book", bookCatalog);
-        List<Category> categoryCatalog = categoryRepository.findAll();
-        model.addAttribute("categories", categoryCatalog);
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("breadcrumbTitle", "Catalogo");
         return "user/catalog";
     }
 
@@ -49,26 +49,37 @@ public class CatalogController {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if (bookOptional.isPresent()) {
             Book bookFound = bookOptional.get();
+
+            List<Category> categories = bookFound.getCategories();
+            if (categories == null || categories.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No categories found for the book");
+            }
+            Integer categoryId = categories.get(0).getId();
+
             model.addAttribute("book", bookFound);
+            model.addAttribute("relatedBooks", getRelatedBooks(bookFound, categoryId));
+
             return "user/details";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
 
+
     @GetMapping("/category/{categoryId}")
     public String showBooksByCategory(@PathVariable("categoryId") Integer categoryId, Model model) {
         List<Book> booksByCategory = bookRepository.findByCategories_Id(categoryId);
         model.addAttribute("book", booksByCategory);
         List<Category> categoryCatalog = categoryRepository.findAll();
+        Optional<Category> breadcrumbCategory = categoryRepository.findById(categoryId);
         model.addAttribute("categories", categoryCatalog);
+        model.addAttribute("breadcrumbTitle", breadcrumbCategory.get().getName());
         model.addAttribute("selectedCategoryId", categoryId);
         return "user/catalog";
     }
 
 
     private List<Book> searchBooks(Optional<String> keyword, Optional<BigDecimal> minPrice, Optional<BigDecimal> maxPrice, Optional<Integer> minYear, Optional<Integer> maxYear, Optional<Integer> categoryId) {
-
 
         if (keyword.isPresent()) {
             return bookRepository.findByNameContainingIgnoreCase(keyword.get());
@@ -84,6 +95,20 @@ public class CatalogController {
         }
 
         return bookRepository.findByPriceBetweenAndDateOfPublishingBetween(fairMinPrice, fairMaxPrice, fairMinYear, fairMaxYear);
+    }
+
+    private List<Book> getRelatedBooks(Book book, Integer categoryId) {
+        List<Book> allRelatedBooks = bookRepository.findByCategories_Id(categoryId);
+        List<Book> relatedBooks = new ArrayList<>();
+        for (Book relatedBook : allRelatedBooks) {
+            if (!relatedBook.getId().equals(book.getId())) {
+                relatedBooks.add(relatedBook);
+            }
+            if (relatedBooks.size() == 4) {
+                break;
+            }
+        }
+        return relatedBooks;
     }
 
 }

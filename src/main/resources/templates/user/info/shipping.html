@@ -1,10 +1,64 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head('Spedizioni')"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
 <div class="container mt-5">
+    <div class="container mt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Spedizioni</li>
+            </ol>
+        </nav>
     <h1>Spedizioni</h1>
+    <h4>Preparazione dell'ordine</h4>
+    <p>Dal momento in cui tu effettui un ordine su Generation Bookstore, il tempo necessario per preparare il tuo pacco e poi spedirlo dipende dalla disponibilità dei prodotti. Sul sito ogni prodotto ha indicato il tempo di preparazione dell'ordine, ad esempio “Spedito in 1 giorno lavorativo”, cioè il tempo necessario per reperire il prodotto dai nostri fornitori e preparare il pacco, per poi procedere alla spedizione. Questo parametro varia da prodotto a prodotto, quindi se fai un ordine multiplo considera che la spedizione avverrà ad ordine completo, ovvero dopo aver reperito tutti i prodotti ordinati. Se tra questi ci sono, ad esempio, prodotti che nella scheda riportano la dicitura "In Prenotazione", il tuo ordine sarà pronto quando anche tali prodotti saranno disponibili. Se in fase di evasione di un ordine un prodotto non fosse più disponibile, una e-mail ti informerà dell'inconveniente e il tuo ordine verrà aggiornato con l'eliminazione dell'articolo non disponibile. Gli altri prodotti verranno spediti e l'importo dell'articolo non disponibile verrà automaticamente detratto dal totale di spesa indicato in fase di acquisto, indipendentemente dal metodo di pagamento prescelto.</p>
+    <h4>Spedizione</h4>
+    <p>Una volta preparato il pacco con tutti i prodotti che hai acquistato, Generation Bookstore provvederà a spedirtelo con la modalità di consegna da te indicata. Generation Bookstore prima di concludere l'acquisto, più precisamente nella pagina del carrello, ti propone già una data stimata di spedizione. Se, durante l'evasione dell'ordine, si dovessero verificare imprevisti di sorta (ritardi, esaurimento di un prodotto, ecc.), ti informeremo tempestivamente via e-mail dello stato dell'ordine. Con il “servizio di notifica sms” avrai la possibilità di ricevere un sms al momento esatto della spedizione del tuo pacco.</p>
+    <h4>Consegna</h4>
+    <p>Una volta pronto il pacco, il tempo di consegna del tuo ordine dipende dalla modalità di spedizione che hai scelto. Nella pagina di riepilogo d'ordine, dopo aver scelto la modalità di consegna, Generation Bookstore ti segnala già la data stimata in cui ti verranno consegnati a casa i tuoi acquisti.</p>
+    <p>Le modalità di spedizione a tua disposizione sono:</p>
+    <table class="table">
+        <tbody>
+        <tr class="table-row table-row-head">
+            <th class="table-cell">Modalità di spedizione</th>
+            <th class="table-cell">Vettore</th>
+            <th class="table-cell">Spese di spedizione</th>
+            <th class="table-cell last">Tempi di consegna</th>
+        </tr>
+        <tr class="table-row">
+            <td class="table-cell">STANDARD</td>
+            <td class="table-cell">Corriere</td>
+            <td class="table-cell">
+                <strong>2,70 Euro</strong>
+
+                <strong>&nbsp;( * )&nbsp;</strong>
+
+            </td>
+            <td class="table-cell last">Consegna entro <strong>3-5 gg</strong> lavorativi dal reperimento del prodotto</td>
+        </tr>
+
+
+        <tr class="table-row">
+            <td class="table-cell">VELOCE</td>
+            <td class="table-cell">Corriere</td>
+            <td class="table-cell">
+                <strong>3,90 Euro &nbsp;( ** )&nbsp;</strong>
+            </td>
+            <td class="table-cell last">Consegna entro <strong>1-2 gg</strong> lavorativi dal reperimento del prodotto</td>
+        </tr>
+
+        </tbody>
+    </table>
+    <h4>Consegna a terzi</h4>
+    <p>Con Generation Bookstore puoi far recapitare i prodotti che scegli a chi vuoi tu. Nel corso della procedura d'ordine, nella pagina "Cassa", alla voce "Consegna", seleziona l'opzione "Spedisci a un altro indirizzo" e indica i dati del destinatario. Provvederemo ad avvisare della spedizione del pacco, sia te, che lui, tramite una e-mail che anticipa che riceverà un pacco da Generation Bookstore. Riceverai una e-mail anche al momento dell'effettiva consegna del pacco.</p>
+    <h4>Invio Regali</h4>
+    <p>Vuoi fare un regalo? Scegli i prodotti che preferisci. Generation Bookstore li recapita a chi vuoi tu. Durante la procedura d'ordine potrai indicare l'indirizzo dell'amico al quale vuoi recapitare il regalo.</p>
+    <h4>Richiesta fattura</h4>
+    <p>Nel corso della procedura d'ordine, nella pagina "Cassa", alla voce "Fatturazione", avrai la possibilità di inserire la tua partita IVA.</p>
+
+    </div>
 </div>
 <footer th:replace="fragments/userFooter"></footer>
 </body>

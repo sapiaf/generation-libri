@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -39,15 +39,15 @@
                 <li class="nav-item">
                     <a
                             class="nav-link"
-                            th:href="@{/offerte}"
-                            th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
+                            th:href="@{/contatti}"
+                            th:classappend="${#strings.equals(area,'Contatti') ? 'active' : ''}"
                     >Contatti</a>
                 </li>
                 <li class="nav-item">
                     <a
                             class="nav-link"
-                            th:href="@{/offerte}"
-                            th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
+                            th:href="@{/aiuto-faq}"
+                            th:classappend="${#strings.equals(area,'FAQ') ? 'active' : ''}"
                     >Aiuto e FAQ</a>
                 </li>
             </ul>
