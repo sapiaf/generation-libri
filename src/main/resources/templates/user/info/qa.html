@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head('Aiuto e FAQ')"></head>
 <body>
-<nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
+<nav th:replace="fragments/userNavbar :: navbar(area='FAQ')"></nav>
 <div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Aiuto e FAQ</li>
+        </ol>
+    </nav>
     <h1>Domande e Risposte</h1>
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
@@ -52,6 +58,82 @@
                 <div class="accordion-body">
                     Sì, puoi prenotare un libro online attraverso il nostro sito nella sezione "Prenotazioni".
                 </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    5. Come faccio a sapere a che punto è il mio ordine?
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Una volta entrato nel tuo account con Username e Password, clicca su "I miei ordini". Qui potrai vedere tutti i dettagli relativi agli ordini effettuati e quelli in corso.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    6. Posso annullare il mio ordine?
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    È possibile annullare un ordine finché questo è ancora in corso di elaborazione.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    7. Il mio ordine è arrivato danneggiato. Cosa posso fare?
+                </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Scrivici indicando il numero d’ordine e il codice del prodotto danneggiato o difettoso e segui le istruzioni che ti darà il Servizio Clienti.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    8. Quanto costa la spedizione?
+                </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>Spedizione STANDARD</strong>
+                    <p>Il costo è di 2,70 euro, e la consegna è prevista entro 3-5 gg lavorativi DAL REPERIMENTO DEL PRODOTTO
+                    ATTENZIONE: nel caso di ordine di almeno 24,00 euro, questo tipo di spedizione è GRATUITA</p>
+
+                    <strong>Spedizione VELOCE</strong>
+                    <p>Il costo è di 3,90 euro, e la consegna è prevista entro 1-2 gg lavorativi DAL REPERIMENTO DEL PRODOTTO.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    9. Come avviene la spedizione?
+                </button>
+            </h2>
+            <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Una volta preparato il pacco con tutti i prodotti che hai acquistato, Generation Bookstore provvederà a spedirtelo con la modalità di consegna da te indicata.
+                    Prima di concludere l'acquisto e più precisamente nella pagina del carrello, ti verrà proposta già una data stimata di spedizione. Se, durante l'evasione dell'ordine, si dovessero verificare degli imprevisti (ritardi, esaurimento di un prodotto, ecc.), ti informeremo tempestivamente via mail dello stato del tuo ordine.                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    10. Verrò avvertito quando parte la spedizione?
+                </button>
+            </h2>
+            <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Sì, riceverai una mail sia nel momento in cui il tuo ordine sarà confermato (contenente tutti i dati dei prodotti e dell’indirizzo di spedizione) che quando il tuo ordine verrà affidato al corriere incaricato della consegna (contenente il link relativo allo stato della spedizione, che potrai controllare dal giorno successivo alla ricezione della mail).                </div>
             </div>
         </div>
     </div>

@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-
     @GetMapping
     public String index() {
         return "/index";
     }
-
-    @GetMapping("/qa")
+    @GetMapping("/aiuto-faq")
     public String qAndA() { return "/user/info/qa";}
+    @GetMapping("/contatti")
+    public String contatti() { return "/user/info/contact";}
+    @GetMapping("/privacy")
+    public String privacy() { return "/user/info/privacy";}
+    @GetMapping("/spedizioni")
+    public String spedizioni() { return "/user/info/shipping";}
 }
