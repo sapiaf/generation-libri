@@ -17,6 +17,11 @@
                     <span>Titolo:<span class="text-primary" th:text="' ' + ${book.name}"></span></span>
                 </p>
                 <p class="card-text">
+                    <i class="fa-solid fa-tag"></i>
+                    <span>Categorie:<span class="text-primary" th:each="category : ${book.categories}"><span
+                            th:text="| ${category.name}|"></span></span></span>
+                </p>
+                <p class="card-text">
                     <i class="fa-solid fa-book"></i>
                     <span>Copie Disponibili:<span class="text-primary" th:text="' ' + ${book.copies}"></span></span>
                 </p>
@@ -30,15 +35,7 @@
                 </p>
                 <h2 class="text-decoration-underline text-primary">DESCRIZIONE</h2>
                 <p th:text="${book.description}" class=""></p>
-                <p class="card-text">
-                    <i class="fa-solid fa-tag"></i>
-                    <span>Categorie:<span class="text-primary" th:each="category : ${book.categories}"><span
-                            th:text="| ${category.name}|"></span></span></span>
 
-                    <!--
-                      <div th:each="ingrediente : ${pizza.ingredienti}">
-                        <p th:text="${ingrediente.nome}"></p>
-                    </div>-->
             </div>
         </div>
     </div>
