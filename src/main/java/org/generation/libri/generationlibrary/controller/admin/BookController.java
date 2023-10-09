@@ -34,7 +34,6 @@ public class BookController {
         return "admin/books/list";
     }
 
-
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("book", new Book());
@@ -52,6 +51,7 @@ public class BookController {
         bookRepository.save(bookCreate);
         return "redirect:/admin";
     }
+
 
     @GetMapping("/show/{bookId}")
     public String show(@PathVariable("bookId") Integer id, Model model) {
