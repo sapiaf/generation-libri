@@ -27,6 +27,7 @@ public class Book {
     private String publisher;
     @NotNull
     private int dateOfPublishing;
+    
     private int copies;
     private int soldCopies;
     @NotNull

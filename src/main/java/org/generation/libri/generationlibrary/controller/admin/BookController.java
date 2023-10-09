@@ -5,7 +5,6 @@ package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Book;
-import org.generation.libri.generationlibrary.model.Category;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,11 +67,25 @@ public class BookController {
         Optional<Book> result = bookRepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("book", result.get());
+            model.addAttribute("categories", categoryRepository.findAll());
             return "admin/books/update";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book with id " + id + " not found");
         }
     }
+
+    /*
+     @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        if (repository.findById(id).isPresent()) {
+            model.addAttribute("pizza", repository.findById(id).get());
+            model.addAttribute("ingredienti", ingredienteRepository.findAll());
+            return "/pizze/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+     */
 
     @PostMapping("/update/{id}")
     public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("book") Book bookUpdate,
@@ -84,6 +97,7 @@ public class BookController {
         bookRepository.save(bookUpdate);
         return "redirect:/admin";
     }
+
 
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
