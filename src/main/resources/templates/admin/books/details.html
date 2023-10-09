@@ -4,7 +4,7 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar(area='Books')"></nav>
 <div class="container mt-5">
-    <h1>Books Detail</h1>
+    <h1>Dettagli Libro</h1>
     <hr class="m-3">
     <div class="d-flex justify-content-between align-items-between">
         <div class="row m-auto">
@@ -15,6 +15,11 @@
             <div class="col-6">
                 <p class="card-text">
                     <span>Titolo:<span class="text-primary" th:text="' ' + ${book.name}"></span></span>
+                </p>
+                <p class="card-text">
+                    <i class="fa-solid fa-tag"></i>
+                    <span>Categorie:<span class="text-primary" th:each="category : ${book.categories}"><span
+                            th:text="| ${category.name}|"></span></span></span>
                 </p>
                 <p class="card-text">
                     <i class="fa-solid fa-book"></i>
@@ -30,6 +35,7 @@
                 </p>
                 <h2 class="text-decoration-underline text-primary">DESCRIZIONE</h2>
                 <p th:text="${book.description}" class=""></p>
+
             </div>
         </div>
     </div>
