@@ -1,6 +1,5 @@
 package org.generation.libri.generationlibrary.controller;
 
-import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Category;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.CategoryRepository;
@@ -22,7 +21,5 @@ public class GlobalControllerAdvice {
     public void globalAttributes(Model model) {
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("categories", categories);
-        List<Book> books = bookRepository.findAll();
-        model.addAttribute("books", books);
     }
 }

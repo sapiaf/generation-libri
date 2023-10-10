@@ -1,6 +1,7 @@
 package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
+import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Purchase;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.PurchaseRepository;
@@ -47,6 +48,7 @@ public class AdminPurchaseController {
         Optional<Purchase> result = purchaseRepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("purchase", result.get());
+            model.addAttribute("books", bookRepository.findAll());
             return "/admin/purchase/purchaseEdit";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Purchase with id " + id + " not found");
@@ -54,8 +56,7 @@ public class AdminPurchaseController {
     }
 
     @PostMapping("/update/{id}")
-    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate,
-                           BindingResult bindingResult) {
+    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate, BindingResult bindingResult, @ModelAttribute("books") List<Book> bookUpdate) {
         if (bindingResult.hasErrors()) {
             return "admin/purchase/purchaseEdit";
         }
