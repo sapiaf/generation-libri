@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head('Generation Bookstore')"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='Home')"></nav>
 
@@ -42,13 +42,12 @@
     <div class="row d-flex">
         <div class="col-md-2">
             <div class="mb-4">
+                <form th:action="@{/catalog}" method="get">
                 <h4>Filter</h4>
-                <form
-                        th:action="@{/catalog}"
-                        method="get"
-                >
+                <form th:action="@{/catalog}" method="get">
+
                     <div class="mb-3">
-                        <label><strong>Genre</strong></label>
+                        <label><strong>Categorie</strong></label>
                         <div th:each="category : ${categories}">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
@@ -59,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <label><strong>Price</strong></label>
+                    <label><strong>Prezzo</strong></label>
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="minPrice">Min</label>
@@ -70,14 +69,14 @@
                             <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01">
                         </div>
                     </div>
-                    <label><strong>Year of Publishing</strong></label>
+                    <label><strong>Anno di Pubblicazione</strong></label>
                     <div class="row mb-3">
                         <div class="col-6">
-                            <label for="minPrice">From</label>
+                            <label for="minPrice">Da</label>
                             <input type="number" class="form-control" id="minYear" name="minYear" step="1">
                         </div>
                         <div class="col-6">
-                            <label for="maxPrice">To</label>
+                            <label for="maxPrice">A</label>
                             <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
                         </div>
                     </div>
@@ -150,7 +149,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-2">
             <h4>Catalogo Libri</h4>
             <div class="list-group">

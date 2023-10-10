@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="fragments/head :: head('Books')"></head>
-
+<head th:replace="fragments/head :: head(${breadcrumbTitle})"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
 <div class="container-fluid mt-3">
@@ -33,7 +31,7 @@
                         </div>
                     </div>
                     <!-- price -->
-                    <label><strong>Price</strong></label>
+                    <label><strong>Prezzo</strong></label>
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="minPrice">Min</label>
@@ -45,18 +43,19 @@
                         </div>
                     </div>
                     <!-- year of publishing -->
-                    <label><strong>Year of Publishing</strong></label>
+                    <label><strong>Anno di Pubblicazione</strong></label>
+                    <hr>
                     <div class="row mb-3">
                         <div class="col-6">
-                            <label for="minPrice">From</label>
+                            <label for="minPrice">Da</label>
                             <input type="number" class="form-control" id="minYear" name="minYear" step="1">
                         </div>
                         <div class="col-6">
-                            <label for="maxPrice">To</label>
+                            <label for="maxPrice">A</label>
                             <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Cerca</button>
                 </form>
             </div>
         </div>
