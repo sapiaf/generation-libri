@@ -5,26 +5,30 @@
 <nav th:replace="fragments/navbar :: navbar(area='Purchase')"></nav>
 <div class="container mt-5">
     <h1 th:text="|Modifica ordine per '${purchase.book.name}'|"></h1>
-    <div>
-        <h4>Data Ordine</h4>
-        <p th:text="${purchase.dateOfPurchase}"></p>
-    </div>
-    <div>
-        <h4>Totale ordine</h4>
-        <p th:text="|${purchase.totalPrice} €|"></p>
-    </div>
+
     <form
             th:action="@{/admin/purchase/update/{id}(id=${purchase.id})}"
             id="purchase-edit"
             method="POST"
             th:object="${purchase}"
     >
-        <input type="hidden" th:field="*{book}">
         <input type="hidden" th:field="*{dateOfPurchase}">
 
-        <div class="row">
-            <div class="col-5">
-                <label for="purchase-quantity" class="form-label">Numero di Copie Ordinate</label>
+        <div class="row my-3">
+            <div class="form-group col-12">
+                <label class="form-label fw-medium fs-5">Titolo Libro</label>
+                <select class="form-select" aria-label="book-name" th:field="*{book}">
+                    <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row justify-content-start">
+            <div class="col-4">
+                <h5>Data Ordine</h5>
+                <p th:text="${purchase.dateOfPurchase}"></p>
+            </div>
+            <div class="col-3">
+                <label for="purchase-quantity" class="form-label fw-medium fs-5">Numero di Copie Ordinate</label>
                 <input id="purchase-quantity" class="form-control" type="number" th:field="*{purchaseQuantity}"
                        th:errorClass="is-invalid">
                 <div class="invalid-feedback" th:if="${#fields.hasErrors('purchaseQuantity')}">
@@ -33,6 +37,12 @@
                     </ul>
                 </div>
             </div>
+            <div class="col-1"></div>
+            <div class="col-4">
+                <h5>Totale ordine</h5>
+                <p th:text="|${purchase.totalPrice} €|"></p>
+            </div>
+
         </div>
         <div class="m-2">
             <button type="submit" class="btn btn-primary">Salva</button>
