@@ -1,20 +1,27 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head('Books')"></head>
 <body>
-<h1>Success Purchase</h1>
-
-<p><strong>Title:</strong> <span th:text="${book.name}">Book Title</span></p>
-<p><strong>Price:</strong> <span th:text="${book.price}">Book Price</span></p>
-<p><strong>Total:</strong> <span th:text="${book.price * purchase.purchaseQuantity}">Total Price</span> €</p>
-<p><strong>Purchase Quantity:</strong> <span th:text="${purchase.purchaseQuantity}">1</span></p>
-
-
+<nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-check-circle fa-3x"></i>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title">Ordine Confermato</h1>
+                    <p class="card-text">Grazie per aver acquistato da Generation Bookstore!</p>
+                    <p class="card-text">ID Ordine: <span th:text="${purchase.id}"></span></p>
+                    <p class="card-text"><strong>Titolo:</strong> <span th:text="${book.name}"></span></p>
+                    <p class="card-text"><strong>Quantità:</strong> <span th:text="${purchase.purchaseQuantity}"></span></p>
+                    <p class="card-text"><strong>Totale Ordine:</strong> <span th:text="${purchase.totalPrice}"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/userFooter"></footer>
 </body>
 </html>
