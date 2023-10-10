@@ -54,7 +54,8 @@
                                 <input class="form-check-input" type="checkbox"
                                        th:value="${category.id}" th:id="${'category' + category.id}"
                                        name="categories">
-                                <label class="form-check-label" th:for="${'category' + category.id}" th:text="${category.name}"></label>
+                                <label class="form-check-label" th:for="${'category' + category.id}"
+                                       th:text="${category.name}"></label>
                             </div>
                         </div>
                     </div>
@@ -118,10 +119,12 @@
                             </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselNovita" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselNovita"
+                            data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselNovita" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselNovita"
+                            data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -146,14 +149,14 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="col-md-2">
-        <h4>Catalogo Libri</h4>
-        <div class="list-group">
-            <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
-               th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}">Link 1</a>
+            <h4>Catalogo Libri</h4>
+            <div class="list-group">
+                <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
+                   th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}">Link 1</a>
+            </div>
         </div>
     </div>
 </div>
