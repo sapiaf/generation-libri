@@ -33,16 +33,18 @@ public class CatalogController {
                         @RequestParam(value = "maxPrice", required = false) Optional<BigDecimal> maxPrice,
                         @RequestParam(value = "minYear", required = false) Optional<Integer> minYear,
                         @RequestParam(value = "maxYear", required = false) Optional<Integer> maxYear,
-                        @RequestParam(value = "categories", required = false) Optional<Integer> categoryId,
+                        @RequestParam(value = "categories", required = false) List<Integer> categoryIds,
                         Model model) {
 
-        List<Book> bookCatalog = searchBooks(searchKeyword, minPrice, maxPrice, minYear, maxYear, categoryId);
+        List<Book> bookCatalog = searchBooks(searchKeyword, minPrice, maxPrice, minYear, maxYear, categoryIds);
 
         model.addAttribute("book", bookCatalog);
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("selectedCategoryIds", categoryIds);
         model.addAttribute("breadcrumbTitle", "Catalogo");
         return "user/catalog";
     }
+
 
     @GetMapping("/show/{bookId}")
     public String show(@PathVariable("bookId") Integer id, Model model) {
@@ -79,7 +81,7 @@ public class CatalogController {
     }
 
 
-    private List<Book> searchBooks(Optional<String> keyword, Optional<BigDecimal> minPrice, Optional<BigDecimal> maxPrice, Optional<Integer> minYear, Optional<Integer> maxYear, Optional<Integer> categoryId) {
+    private List<Book> searchBooks(Optional<String> keyword, Optional<BigDecimal> minPrice, Optional<BigDecimal> maxPrice, Optional<Integer> minYear, Optional<Integer> maxYear, List<Integer> categoryIds) {
 
         if (keyword.isPresent()) {
             return bookRepository.findByNameContainingIgnoreCase(keyword.get());
@@ -90,12 +92,13 @@ public class CatalogController {
         Integer fairMinYear = minYear.orElse(0);
         Integer fairMaxYear = maxYear.orElse(Integer.MAX_VALUE);
 
-        if (categoryId.isPresent()) {
-            return bookRepository.findByCategories_IdAndPriceBetweenAndDateOfPublishingBetween(categoryId.get(), fairMinPrice, fairMaxPrice, fairMinYear, fairMaxYear);
+        if (categoryIds != null && !categoryIds.isEmpty()) {
+            return bookRepository.findByCategories_IdInAndPriceBetweenAndDateOfPublishingBetween(categoryIds, fairMinPrice, fairMaxPrice, fairMinYear, fairMaxYear);
         }
 
         return bookRepository.findByPriceBetweenAndDateOfPublishingBetween(fairMinPrice, fairMaxPrice, fairMinYear, fairMaxYear);
     }
+
 
     private List<Book> getRelatedBooks(Book book, Integer categoryId) {
         List<Book> allRelatedBooks = bookRepository.findByCategories_Id(categoryId);

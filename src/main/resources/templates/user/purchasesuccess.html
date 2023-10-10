@@ -13,7 +13,8 @@
                 <div class="card-body">
                     <h1 class="card-title">Ordine Confermato</h1>
                     <p class="card-text">Grazie per aver acquistato da Generation Bookstore!</p>
-                    <p class="card-text">ID Ordine: <span th:text="${purchase.id}"></span></p>
+                    <p class="card-text"><strong>ID Ordine:</strong> <span th:text="${purchase.id}"></span></p>
+                    <p class="card-text"><strong>Data:</strong> <span th:text="${#temporals.format(purchase.dateOfPurchase, 'dd/MM/yyyy - HH:mm:ss')}"></span></p>
                     <p class="card-text"><strong>Titolo:</strong> <span th:text="${book.name}"></span></p>
                     <p class="card-text"><strong>Quantità:</strong> <span th:text="${purchase.purchaseQuantity}"></span></p>
                     <p class="card-text"><strong>Totale Ordine:</strong> <span th:text="${purchase.totalPrice}"></span></p>
