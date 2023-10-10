@@ -9,7 +9,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page" th:text="${breadcrumbTitle}">Data</li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${breadcrumbTitle}"></li>
         </ol>
     </nav>
     <div class="row">
@@ -17,16 +17,16 @@
         <input type="hidden" th:value="${selectedCategoryId}" name="selectedCategoryId">
         <div class="col-md-2">
             <div class="mb-4">
-                <h4>Filter</h4>
                 <form th:action="@{/catalog}" method="get">
                     <!-- categories -->
                     <div class="mb-3">
-                        <label><strong>Genre</strong></label>
+                        <label><strong>Categorie</strong></label>
                         <div th:each="category : ${categories}">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
                                        th:value="${category.id}" th:id="${'category' + category.id}"
-                                       name="categories">
+                                       name="categories"
+                                       th:checked="${(selectedCategoryIds != null and selectedCategoryIds.contains(category.id)) or (selectedCategoryId != null and category.id == selectedCategoryId)}">
                                 <label class="form-check-label" th:for="${'category' + category.id}"
                                        th:text="${category.name}"></label>
                             </div>
