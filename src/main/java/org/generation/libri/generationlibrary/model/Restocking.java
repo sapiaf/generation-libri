@@ -15,11 +15,11 @@ public class Restocking {
     private int id;
     private LocalDateTime dateOfStock;
     @NotBlank
-    @Size(min = 3, max = 100, message = "Il testo della descrizione deve essere tra 3 e 100 caratteri.")
+    @Size(min = 3, max = 100, message = "Inserisci il tuo nome..")
     private String dependentName;
     //@NotNull
     private BigDecimal bulkPrice;
-    @NotBlank
+    @NotBlank(message = "Inserisci il fornitore.")
     private String supplierName;
     //@NotNull
     //@Min(1)

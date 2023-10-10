@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +30,13 @@ public class BookController {
     @GetMapping
     public String index(Model model) {
         List<Book> bookList = bookRepository.findAll();
-        model.addAttribute("book", bookList);
+        List<Book> bookSelected = new ArrayList<>();
+        for (Book book : bookList) {
+            if (!book.isDeleteTrue()) {
+                bookSelected.add(book);
+            }
+        }
+        model.addAttribute("book", bookSelected);
         return "admin/books/list";
     }
 
@@ -74,19 +81,6 @@ public class BookController {
         }
     }
 
-    /*
-     @GetMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model) {
-        if (repository.findById(id).isPresent()) {
-            model.addAttribute("pizza", repository.findById(id).get());
-            model.addAttribute("ingredienti", ingredienteRepository.findAll());
-            return "/pizze/edit";
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
-     */
-
     @PostMapping("/update/{id}")
     public String doEdit(@PathVariable Integer id, @Valid @ModelAttribute("book") Book bookUpdate,
                          BindingResult bindingResult) {
@@ -101,7 +95,9 @@ public class BookController {
 
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
-        bookRepository.deleteById(id);
+        Book bookFind = bookRepository.findById(id).get();
+        bookFind.setDeleteTrue(true);
+        bookRepository.save(bookFind);
         return "redirect:/admin";
     }
 }

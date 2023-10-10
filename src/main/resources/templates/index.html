@@ -43,7 +43,10 @@
         <div class="col-md-2">
             <div class="mb-4">
                 <h4>Filter</h4>
-                <form th:action="@{/catalog}" method="get">
+                <form
+                        th:action="@{/catalog}"
+                        method="get"
+                >
                     <div class="mb-3">
                         <label><strong>Genre</strong></label>
                         <div th:each="category : ${categories}">
