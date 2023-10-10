@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head(${book.name})"></head>
 <body>
-<nav th:replace="fragments/userNavbar :: navbar(area='books', bookName=${book.name})"></nav>
+<nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
 <div class="container mt-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -46,7 +46,7 @@
                     <label for="quantity" class="input-group-text"><strong>Quantità:</strong></label>
                     <input type="number" id="quantity" name="purchaseQuantity" min="1" value="1" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-warning w-100">Buy Now <i class="fa-solid fa-cart-shopping"></i></button>
+                <button type="submit" class="btn btn-warning w-100">Acquista ora</button>
             </form>
         </div>
         <!-- tab -->
