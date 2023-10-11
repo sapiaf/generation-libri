@@ -6,7 +6,7 @@
 <!-- form per modificare i libri-->
 
 <div class="container mt-5 mb-5">
-    <h1>Modifica Libro</h1>
+    <h1 th:text="|Modifica Libro '${book.name}'|"></h1>
     <hr class="m-3">
     <form
             th:action="@{/admin/update/{id}(id=${book.id})}"
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-8">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nome</label>
+                        <label for="name" class="form-label">Titolo</label>
                         <input class="form-control" id="name" type="text" th:field="*{name}" th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
                             <ul>

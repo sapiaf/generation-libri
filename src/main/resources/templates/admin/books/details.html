@@ -17,6 +17,11 @@
                     <span>Titolo:<span class="text-primary" th:text="' ' + ${book.name}"></span></span>
                 </p>
                 <p class="card-text">
+                    <i class="fa-solid fa-calendar"></i>
+                    <span>Anno di pubblicazione:<span class="text-primary" th:text="| ${book.dateOfPublishing}|"></span></span>
+                </p>
+
+                <p class="card-text">
                     <i class="fa-solid fa-tag"></i>
                     <span>Categorie:<span class="text-primary" th:each="category : ${book.categories}"><span
                             th:text="| ${category.name}|"></span></span></span>
