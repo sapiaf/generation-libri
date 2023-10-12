@@ -33,6 +33,47 @@
                 </ul>
             </div>
         </div>
+        <div class="form-group">
+            <label for="description" class="form-label">Descrizione</label>
+            <textarea class="form-control" id="description" name="description" th:field="*{description}"
+                      th:errorClass="is-invalid"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date-of-pubblication" class="form-label">Anno di pubblicazione</label>
+            <input type="number" class="form-control" id="date-of-pubblication" name="date-of-pubblication"
+                   th:field="*{dateOfPublishing}" th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfPublishing')}">
+                <ul>
+                    <li th:each="err:${#fields.errors('dateOfPublishing')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="authors" class="form-label">Autori</label>
+            <input type="text" class="form-control" id="authors" name="authors" th:field="*{authors}"
+                   th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('authors')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('authors')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="isbn" class="form-label">ISBN</label>
+            <input type="text" class="form-control" id="isbn" name="isbn" th:field="*{isbn}"
+                   th:errorClass="is-invalid">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('isbn')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('isbn')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="publisher" class="form-label">Casa Editrice</label>
@@ -41,17 +82,6 @@
             <div class="invalid-feedback" th:if="${#fields.hasErrors('publisher')}">
                 <ul>
                     <li th:each="err : ${#fields.errors('publisher')}" th:text="${err}"></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="description" class="form-label">Descrizione</label>
-            <textarea class="form-control" id="description" name="description" th:field="*{description}"
-                      th:errorClass="is-invalid"></textarea>
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
-                <ul>
-                    <li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
                 </ul>
             </div>
         </div>
