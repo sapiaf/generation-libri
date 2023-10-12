@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,4 +72,17 @@ public class AdminPurchaseController {
         return "redirect:/admin/purchase";
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam("queryPurchase") String searchString, Model model) {
+        List<Purchase> purchasesList = purchaseRepository.searchListPurchase(searchString);
+        model.addAttribute("purchases", purchasesList);
+        return "/admin/purchase/purchaseList";
+    }
+
+    @GetMapping("/datefilter")
+    public String dateFilter(@RequestParam("minDate") LocalDate minDate, @RequestParam("maxDate") LocalDate maxDate, Model model) {
+        List<Purchase> purchaseDateList = purchaseRepository.searchListBetweenDates(minDate, maxDate);
+        model.addAttribute("purchases", purchaseDateList);
+        return "admin/purchase/purchaseList";
+    }
 }

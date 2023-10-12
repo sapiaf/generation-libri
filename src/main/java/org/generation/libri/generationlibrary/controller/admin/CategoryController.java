@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 /* Crud categorie lato amministrazione*/
@@ -79,4 +80,11 @@ public class CategoryController {
     }
 
     //SEARCH
+    @GetMapping("/search")
+    public String search(@RequestParam("query") String searchString, Model model) {
+        List<Category> filteredCategoryList = categoryRepository.findByNameContainingIgnoreCase(searchString);
+        model.addAttribute("categoryObj", new Category());
+        model.addAttribute("categoryList", filteredCategoryList);
+        return "/admin/categories/list";
+    }
 }
