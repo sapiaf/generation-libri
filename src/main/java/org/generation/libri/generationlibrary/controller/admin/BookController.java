@@ -5,7 +5,6 @@ package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Book;
-import org.generation.libri.generationlibrary.model.Category;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,16 +30,19 @@ public class BookController {
     @GetMapping
     public String index(Model model) {
         List<Book> bookList = bookRepository.findAll();
-        model.addAttribute("book", bookList);
+        List<Book> bookSelected = new ArrayList<>();
+        for (Book book : bookList) {
+            if (!book.isDeleteTrue()) {
+                bookSelected.add(book);
+            }
+        }
+        model.addAttribute("book", bookSelected);
         return "admin/books/list";
     }
-
 
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("book", new Book());
-        List<Category> categories = categoryRepository.findAll();
-        model.addAttribute("categories", categories);
         return "admin/books/create";
     }
 
@@ -52,6 +55,7 @@ public class BookController {
         bookRepository.save(bookCreate);
         return "redirect:/admin";
     }
+
 
     @GetMapping("/show/{bookId}")
     public String show(@PathVariable("bookId") Integer id, Model model) {
@@ -70,6 +74,7 @@ public class BookController {
         Optional<Book> result = bookRepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("book", result.get());
+            model.addAttribute("categories", categoryRepository.findAll());
             return "admin/books/update";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book with id " + id + " not found");
@@ -87,9 +92,12 @@ public class BookController {
         return "redirect:/admin";
     }
 
+
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
-        bookRepository.deleteById(id);
+        Book bookFind = bookRepository.findById(id).get();
+        bookFind.setDeleteTrue(true);
+        bookRepository.save(bookFind);
         return "redirect:/admin";
     }
 

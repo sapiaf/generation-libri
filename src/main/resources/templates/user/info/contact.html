@@ -1,10 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head('Contatti')"></head>
 <body>
-<nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
+<nav th:replace="fragments/userNavbar :: navbar(area='Contatti')"></nav>
 <div class="container mt-5">
-    <h1>Contatti</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contatti</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>Contatti</h1>
+            <p>Puoi contattare direttamente l'assistenza clienti inviando un messaggio tramite questo form. In questo modo, inserendo il tuo indirizzo email e selezionando l'argomento del tuo messaggio, ci aiuterai ad essere più veloci nel risponderti. Inoltre, tramite il form, eviti che il tuo messaggio possa essere considerato spam.</p>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="name" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="name" placeholder="Nome">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="surname" class="form-label">Cognome</label>
+                        <input type="text" class="form-control" id="surname" placeholder="Cognome">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="argomento" class="form-label">Argomento</label>
+                    <select class="form-select" id="argomento">
+                        <option selected>Scegli un argomento...</option>
+                        <option value="1">Opzione 1</option>
+                        <option value="2">Opzione 2</option>
+                        <option value="3">Opzione 3</option>
+                    </select>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="numeroOrdine" class="form-label">Numero Ordine</label>
+                        <input type="text" class="form-control" id="numeroOrdine" placeholder="Numero Ordine">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="notaConsegna" class="form-label">Nota di Consegna</label>
+                        <input type="text" class="form-control" id="notaConsegna" placeholder="Nota di Consegna">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="message" class="form-label">Messaggio</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Scrivi il tuo messaggio..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Invia</button>
+            </form>
+        </div>
+        <div class="col-lg-4">
+            <h3>Informazioni</h3>
+            <p><strong>Indirizzo:</strong> Via del Corso, Milano, Italia</p>
+            <p><strong>Telefono:</strong> +1234567890</p>
+            <p><strong>Email:</strong> book@generation.org</p>
+            <p><strong>Orari:</strong> Lun-Ven, 9-18</p>
+
+            <h3>Seguici</h3>
+            <a href="#" class="btn btn-primary btn-sm mb-2"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#" class="btn btn-info btn-sm mb-2"><i class="fa-brands fa-twitter"></i></a>
+            <a href="#" class="btn btn-danger btn-sm mb-2"><i class="fa-brands fa-instagram"></i></a>
+
+            <h3>Dove Siamo</h3>
+            <iframe src="https://www.google.com/maps/embed?..." width="100%" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
 </div>
 <footer th:replace="fragments/userFooter"></footer>
 </body>

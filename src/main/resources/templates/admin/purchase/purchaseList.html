@@ -56,7 +56,7 @@
             </td>
             <td th:text="${purchases.book.name}"></td>
             <td th:text="${purchases.dateOfPurchase}"></td>
-            <td th:text="|${purchases.calculateCost} €|"></td>
+            <td th:text="|${purchases.totalPrice} €|"></td>
             <td>
                 <span th:text="${purchases.purchaseQuantity}"></span>
             </td>

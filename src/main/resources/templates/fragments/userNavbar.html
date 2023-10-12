@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -9,52 +9,67 @@
 </head>
 <body>
 <!-- fragment navbar -->
-<nav th:fragment="navbar(area)" class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
+<nav th:fragment="navbar(area)" class="navbar navbar-expand-lg" data-bs-theme="dark" style="background-color: #666666;">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo-generation.svg}" width="100px"></a>
+        <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo.png}" width="100px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav nav-underline">
                 <li class="nav-item">
                     <a
                             class="nav-link"
                             th:href="@{/}"
                             th:classappend="${#strings.equals(area,'Home') ? 'active' : ''}"
+                            th:style="${#strings.equals(area,'Home') ? 'color: #ffeb3b;' : ''}"
                     >Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle bg-light-gray" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle bg-light-gray" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         Libri
                     </a>
                     <ul class="dropdown-menu bg-light-gray" aria-labelledby="navbarDropdown">
+                        <p class="text-center">Libri</p>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/catalog}">Tutti i Libri</a>
+                        </li>
+                        <hr>
+                        <p class="text-center">Categorie</p>
                         <li th:each="category : ${categories}">
-                            <a class="dropdown-item" th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}"></a>
+                            <a class="dropdown-item" th:text="${category.name}"
+                               th:href="@{/catalog/category/{id}(id=${category.id})}"
+                               th:style="${#strings.equals(area, category.name) ? 'color: #ffeb3b;' : ''}">
+                            </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a
                             class="nav-link"
-                            th:href="@{/offerte}"
-                            th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
+                            th:href="@{/contatti}"
+                            th:classappend="${#strings.equals(area,'Contatti') ? 'active' : ''}"
+                            th:style="${#strings.equals(area,'Contatti') ? 'color: #ffeb3b;' : ''}"
                     >Contatti</a>
                 </li>
                 <li class="nav-item">
                     <a
                             class="nav-link"
-                            th:href="@{/offerte}"
-                            th:classappend="${#strings.equals(area,'Offerte') ? 'active' : ''}"
+                            th:href="@{/aiuto-faq}"
+                            th:classappend="${#strings.equals(area,'FAQ') ? 'active' : ''}"
+                            th:style="${#strings.equals(area,'FAQ') ? 'color: #ffeb3b;' : ''}"
                     >Aiuto e FAQ</a>
                 </li>
             </ul>
             <!-- Search bar pushed to the right -->
             <form class="d-flex ms-auto bg-light-gray" th:action="@{/catalog}" method="get">
                 <input class="form-control me-2" type="search" name="query" placeholder="Cerca..." aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Search</button>
+                <button class="btn btn-outline-light" type="submit" style="color: #ffeb3b;">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </form>
         </div>
     </div>
@@ -63,3 +78,4 @@
 </body>
 </html>
 
+s

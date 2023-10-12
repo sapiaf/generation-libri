@@ -27,11 +27,16 @@ public class Book {
     private String publisher;
     @NotNull
     private int dateOfPublishing;
+    @NotBlank
+    private String authors;
+    @NotBlank
+    private String isbn;
+
     private int copies;
     private int soldCopies;
     @NotNull
     private BigDecimal price;
-
+    private boolean deleteTrue = false;
     @ManyToMany
     private List<Category> categories;
     @OneToMany(mappedBy = "book", cascade = CascadeType.REMOVE)
@@ -40,16 +45,21 @@ public class Book {
     private List<BooksRestockinQuantity> booksRestockinQuantity;
 
     //constructor
-    public Book(Integer id, String name, String urlPhoto, String description, String publisher, int dateOfPublishing, int copies, int soldCopies, BigDecimal price, List<Category> categories, List<Restocking> restockingList, List<Purchase> purchasings, List<BooksRestockinQuantity> booksRestockinQuantity) {
+
+
+    public Book(Integer id, String name, String urlPhoto, String description, String publisher, @NotNull int dateOfPublishing, String authors, String isbn, int copies, int soldCopies, @NotNull BigDecimal price, boolean deleteTrue, List<Category> categories, List<Purchase> purchasings, List<BooksRestockinQuantity> booksRestockinQuantity) {
         this.id = id;
         this.name = name;
         this.urlPhoto = urlPhoto;
         this.description = description;
         this.publisher = publisher;
         this.dateOfPublishing = dateOfPublishing;
+        this.authors = authors;
+        this.isbn = isbn;
         this.copies = copies;
         this.soldCopies = soldCopies;
         this.price = price;
+        this.deleteTrue = deleteTrue;
         this.categories = categories;
         this.purchasings = purchasings;
         this.booksRestockinQuantity = booksRestockinQuantity;
@@ -136,6 +146,14 @@ public class Book {
         this.dateOfPublishing = dateOfPublishing;
     }
 
+    public boolean isDeleteTrue() {
+        return deleteTrue;
+    }
+
+    public void setDeleteTrue(boolean deleteTrue) {
+        this.deleteTrue = deleteTrue;
+    }
+
     public void setCategories(List<Category> categories) {
         this.categories = categories;
     }
@@ -156,5 +174,20 @@ public class Book {
         this.booksRestockinQuantity = booksRestockinQuantity;
     }
 
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 }
 

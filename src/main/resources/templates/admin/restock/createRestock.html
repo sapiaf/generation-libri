@@ -6,26 +6,33 @@
 <div class="container mt-5 mb-5">
     <h1>Inserisci Un Restock</h1>
     <hr class="m-3">
-    <form th:action="@{/admin/restock/create}" method="post">
+    <form
+            th:action="@{/admin/restock/create}"
+            method="post"
+            th:object="${restocking}"
+    >
         <h3 class="text-primary">Inserisci Dati</h3>
         <div>
-            <label for="name" class="form-labal">Nome e Cognome Dipendente</label>
+            <label for="name" class="form-label">Nome e Cognome Dipendente</label>
             <input type="text" class="form-control" id="name" th:field="${restocking.dependentName}"
-                   th:errorClass="is-invalid"/>
+                   th:errorClass="${#fields.hasErrors('dependentName')} ? 'is-invalid' : ''"/>
         </div>
         <div class="m-1">
-            <label for="dateOfStock" class="form-labal">Data di Restock</label>
+            <label for="dateOfStock" class="form-label">Data di Restock</label>
             <input type="datetime-local" class="form-control" id="dateOfStock" th:field="${restocking.dateOfStock}"
-                   th:errorClass="is-invalid"/>
+                   th:errorClass="${#fields.hasErrors('dateOfStock')} ? 'is-invalid' : ''"/>
         </div>
         <div class="m-1">
-            <label for="supplierName" class="form-labal">Fornitore</label>
+            <label for="supplierName" class="form-label">Fornitore</label>
             <input type="text" class="form-control" id="supplierName" th:field="${restocking.supplierName}"
-                   th:errorClass="is-invalid"/>
+                   th:errorClass="${#fields.hasErrors('supplierName')} ? 'is-invalid' : ''"/>
         </div>
         <table class="table table-bordered">
             <thead>
             <h3 class="text-primary">Seleziona ed Inserisci le Quantità</h3>
+            <div th:if="${quantityError}">
+                <h1 class="text-danger">Errore Quantità: inserisci almeno un 1 copia ad un libro.</h1>
+            </div>
             <tr>
                 <th>ID</th>
                 <th>Immagine</th>
@@ -48,7 +55,8 @@
                 <td th:text="${availableBooks.price}"></td>
                 <td th:text="${availableBooks.publisher}"></td>
                 <td class="text-center">
-                    <input type="number" min="1" name="restockQuantity" placeholder="Quantità">
+                    <input type="number" min="1" name="restockQuantity" placeholder="Quantità"
+                           class="form-control"/>
                 </td>
             </tr>
             </tbody>
@@ -56,16 +64,16 @@
         <div class="form-group">
             <h3 class="text-primary">Modalità di Pagamento</h3>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="carta" name="paymentMethod" value="Carta">
+                <input type="radio" class="form-check-input" id="carta" name="paymentMethod" value="Carta"/>
                 <label class="form-check-label" for="carta">Carta</label>
             </div>
             <div class="form-check">
-                <input type="radio" class="form-check-input" id="bonifico" name="paymentMethod" value="Bonifico">
+                <input type="radio" class="form-check-input" id="bonifico" name="paymentMethod" value="Bonifico"/>
                 <label class="form-check-label" for="bonifico">Bonifico</label>
             </div>
             <div class="form-check">
                 <input type="radio" class="form-check-input" id="contrassegno" name="paymentMethod"
-                       value="Contrassegno">
+                       value="Contrassegno"/>
                 <label class="form-check-label" for="contrassegno">Contrassegno</label>
             </div>
         </div>

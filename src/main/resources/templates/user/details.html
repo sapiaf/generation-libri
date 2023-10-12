@@ -1,29 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head(${book.name})"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
 <div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item"><a th:href="@{/catalog}">Catalogo</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${book.name}">Data</li>
+        </ol>
+    </nav>
     <div class="row">
-        <div class="col-md-6">
-            <img th:src="${book.urlPhoto}" alt="Book Image" class="img-fluid">
+        <div class="col-md-4 mb-4 px-2">
+            <img th:src="${book.urlPhoto}" alt="Book Image" class="img-fluid" style="max-width:400px">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 px-2">
             <h1 th:text="${book.name}">Book Title</h1>
-            <p><strong>Publisher:</strong> <span th:text="${book.publisher}">Publisher Name</span></p>
-            <p><strong>Released Date:</strong> <span th:text="${book.dateOfPublishing}">Release Date</span></p>
-            <p><strong>Description:</strong> <span th:text="${book.description}">Book Description</span></p>
-            <p><strong>Price:</strong> <span th:text="${book.price}">Book Price</span> €</p>
-            <p><strong>Categories:</strong>
-                <span th:each="category : ${book.categories}" th:text="${category.name} + ' '"></span>
-            </p>
-            <form th:action="@{/purchase/{id}(id=${book.id})}" method="post">
-                <label for="quantity">Quantità:</label>
-                <input type="number" id="quantity" name="purchaseQuantity" min="1" value="1">
-                <button type="submit" class="btn btn-warning">Buy Now<i class="fa-solid fa-cart-shopping"></i></button>
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item border-0 py-1"><strong>Autore:</strong><span>John Doe</span></li>
+                <li class="list-group-item border-0 py-1"><strong>ISBN:</strong> <span>ISDFDSFKDSJFKSD</span></li>
+                <li class="list-group-item border-0 py-1"><strong>Editore:</strong> <span th:text="${book.publisher}"></span></li>
+                <li class="list-group-item border-0 py-1"><strong>Data di pubblicazione:</strong> <span th:text="${book.dateOfPublishing}"></span></li>
+                <li class="list-group-item border-0 py-1"><strong>Categorie:</strong>
+                    <span th:each="category : ${book.categories}" th:text="${category.name} + ' '"></span>
+                </li>
+            </ul>
+            <p><span th:text="${book.price}" class="display-4"></span> €</p>
+            <div class="mb-2">
+                <div th:if="${book.copies > 10}">
+                    <i class="fas fa-circle text-success"></i>
+                    <span>Disponibile</span>
+                </div>
+                <div th:if="${book.copies <= 10 and book.copies > 0}">
+                    <i class="fas fa-circle text-warning"></i>
+                    <span>In esaurimento</span>
+                </div>
+                <div th:if="${book.copies == 0}">
+                    <i class="fas fa-circle text-danger"></i>
+                    <span>Esaurito</span>
+                </div>
+            </div>
+            <form th:action="@{/purchase/{id}(id=${book.id})}" method="post" class="mb-4">
+                <div class="input-group mb-3">
+                    <label for="quantity" class="input-group-text"><strong>Quantità:</strong></label>
+                    <input type="number" id="quantity" name="purchaseQuantity" min="1" value="1" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-warning w-100">Acquista ora</button>
             </form>
         </div>
-    </div></div>
+        <!-- tab -->
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Trama</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Spedizione</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+                    <p th:text="${book.description}" class="mt-4"></p>
+                </div>
+                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+                    <h4 class="mt-4">Spedizione STANDARD</h4>
+                    <p>Il costo è di 2,70 euro, e la consegna è prevista entro 3-5 gg lavorativi DAL REPERIMENTO DEL PRODOTTO
+                        ATTENZIONE: nel caso di ordine di almeno 24,00 euro, questo tipo di spedizione è GRATUITA</p>
+                    <h4>Spedizione VELOCE</h4>
+                    <p>Il costo è di 3,90 euro, e la consegna è prevista entro 1-2 gg lavorativi DAL REPERIMENTO DEL PRODOTTO.</p>
+                </div>
+            </div>
+        </div>
+        <!--   potrebbe interessarti     -->
+        <div class="container mt-5">
+            <h3>Potrebbe Interessarti</h3>
+            <div class="row">
+                <div th:each="relatedBook : ${relatedBooks}" class="col-md-3 mb-4">
+                    <div class="card">
+                        <img th:src="${relatedBook.urlPhoto}" alt="Related Book Image" class="img-fluid card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${relatedBook.name}"></h5>
+                            <p class="card-text">
+                                <span th:text="${relatedBook.price}"></span> €
+                            </p>
+                            <a th:href="@{/catalog/show/{id}(id=${relatedBook.id})}" class="btn btn-primary btn-sm stretched-link">Dettagli</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <footer th:replace="fragments/userFooter"></footer>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -38,6 +38,7 @@
                 <td th:text="|${book.price} €|"></td>
                 <td>
                     <span th:text="${book.copies}"></span>
+                    <span th:classappend="${book.copies < 5} ? 'bg-danger' : (${book.copies < 15} ? 'bg-warning' : 'bg-success')" class="d-inline-block rounded-circle" style="width: 10px; height: 10px; margin-left: 5px;"></span>
                 </td>
                 <td th:text="${book.publisher}"></td>
 

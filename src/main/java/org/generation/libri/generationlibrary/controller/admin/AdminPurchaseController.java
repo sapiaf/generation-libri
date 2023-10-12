@@ -48,6 +48,7 @@ public class AdminPurchaseController {
         Optional<Purchase> result = purchaseRepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("purchase", result.get());
+            model.addAttribute("books", bookRepository.findAll());
             return "/admin/purchase/purchaseEdit";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Purchase with id " + id + " not found");
@@ -60,6 +61,7 @@ public class AdminPurchaseController {
         if (bindingResult.hasErrors()) {
             return "admin/purchase/purchaseEdit";
         }
+        purchaseUpdate.getTotalPrice();
         purchaseRepository.save(purchaseUpdate);
         return "redirect:/admin/purchase";
     }

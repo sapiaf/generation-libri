@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head th:replace="fragments/head :: head('Books')"></head>
-
+<head th:replace="fragments/head :: head(${breadcrumbTitle})"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
-<div class="container mt-5">
-    <h2>Books List</h2>
+<div class="container-fluid mt-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${breadcrumbTitle}"></li>
+        </ol>
+    </nav>
     <div class="row">
         <!-- Sidebar per i filtri -->
         <input type="hidden" th:value="${selectedCategoryId}" name="selectedCategoryId">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="mb-4">
-                <h4>Filter</h4>
                 <form th:action="@{/catalog}" method="get">
                     <!-- categories -->
                     <div class="mb-3">
-                        <label><strong>Genre</strong></label>
+                        <label><strong>Categorie</strong></label>
                         <div th:each="category : ${categories}">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
                                        th:value="${category.id}" th:id="${'category' + category.id}"
-                                       name="categories">
-                                <label class="form-check-label" th:for="${'category' + category.id}" th:text="${category.name}"></label>
+                                       name="categories"
+                                       th:checked="${(selectedCategoryIds != null and selectedCategoryIds.contains(category.id)) or (selectedCategoryId != null and category.id == selectedCategoryId)}">
+                                <label class="form-check-label" th:for="${'category' + category.id}"
+                                       th:text="${category.name}"></label>
                             </div>
                         </div>
                     </div>
                     <!-- price -->
-                    <label><strong>Price</strong></label>
+                    <label><strong>Prezzo</strong></label>
                     <div class="row mb-3">
                         <div class="col-6">
                             <label for="minPrice">Min</label>
@@ -39,18 +43,19 @@
                         </div>
                     </div>
                     <!-- year of publishing -->
-                    <label><strong>Year of Publishing</strong></label>
+                    <label><strong>Anno di Pubblicazione</strong></label>
+                    <hr>
                     <div class="row mb-3">
                         <div class="col-6">
-                            <label for="minPrice">From</label>
+                            <label for="minPrice">Da</label>
                             <input type="number" class="form-control" id="minYear" name="minYear" step="1">
                         </div>
                         <div class="col-6">
-                            <label for="maxPrice">To</label>
+                            <label for="maxPrice">A</label>
                             <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Cerca</button>
                 </form>
             </div>
         </div>
@@ -60,23 +65,21 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-4" th:each="book : ${book}">
-                    <div class="card mb-4">
+                    <div class="card shadow-sm mb-4">
                         <img class="card-img-top" th:src="${book.urlPhoto}" alt="Book cover">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${book.name}"></h5>
+                            <h4 class="card-title" th:text="${book.name}"></h4>
+                            <h6 th:href="@{/}" class="text-primary">John Doe</h6>
                             <p class="card-text" th:text="${book.description}"></p>
-                            <p class="card-text"><strong th:text="'€' + ${book.price}"></strong></p>
-                            <div style="display: flex; justify-content: space-between;">
-                                <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="btn btn-primary">
-                                    Details <i class="fa-solid fa-circle-info"></i>
-                                </a>
-                                <a th:href="@{/purchase/{id}(id=${book.id})}" class="btn btn-warning">
-                                    Buy Now<i class="fa-solid fa-cart-shopping"></i>
-                                </a>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 th:text="${book.price} + ' €'" class="m-0"></h4>
+                                <a th:href="@{/catalog/show/{id}(id=${book.id})}"
+                                   class="btn btn-primary stretched-link">Dettagli</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
