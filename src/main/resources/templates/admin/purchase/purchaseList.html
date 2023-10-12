@@ -6,6 +6,34 @@
 <div class="container mt-5">
     <h1>Lista Ordini</h1>
     <hr class="m-3">
+    <form class="d-flex ms-auto bg-light-gray mt-3 mb-3" th:action="@{/admin/purchase/search}" method="get">
+        <input class="form-control me-2" type="search" name="queryPurchase" placeholder="Cerca tra gli ordini"
+               aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Cerca tra gli ordini</button>
+    </form>
+
+    <div class="row">
+        <input type="hidden" th:value="${dateOfPurchase}" name="dateOfPurchase">
+        <h5>Filtri</h5>
+        <form
+                th:action="@{/admin/purchase/datefilter}"
+                method="GET"
+        >
+            <!-- Data Inizio -->
+            <div class="mb-3">
+                <label for="minDate" class="form-label">Dal</label>
+                <input type="date" class="form-control" id="minDate" name="minDate">
+            </div>
+            <!-- Data fine -->
+            <div class="mb-3">
+                <label for="maxDate" class="form-label">Al</label>
+                <input type="date" class="form-control" id="maxDate" name="maxDate">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+    </div>
+
     <table class="table table-bordered">
         <thead>
         <tr>
