@@ -61,7 +61,6 @@ public class AdminPurchaseController {
         if (bindingResult.hasErrors()) {
             return "admin/purchase/purchaseEdit";
         }
-        purchaseUpdate.getTotalPrice();
         purchaseRepository.save(purchaseUpdate);
         return "redirect:/admin/purchase";
     }
