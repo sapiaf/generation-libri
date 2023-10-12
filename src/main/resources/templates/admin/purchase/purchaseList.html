@@ -9,7 +9,7 @@
     <form class="d-flex ms-auto bg-light-gray mt-3 mb-3" th:action="@{/admin/purchase/search}" method="get">
         <input class="form-control me-2" type="search" name="queryPurchase" placeholder="Cerca tra gli ordini"
                aria-label="Search">
-        <button class="btn btn-outline-primary" type="submit">Cerca tra gli ordini</button>
+        <button class="btn btn-primary" type="submit">Cerca tra gli ordini</button>
     </form>
 
     <div class="row">
@@ -56,7 +56,7 @@
                 </td>
                 <td th:text="${purchases.book.name}"></td>
                 <td th:text="${purchases.dateOfPurchase}"></td>
-                <td></td>
+                <td th:text="${purchases.getTotalPrice()}"></td>
                 <td>
                     <span th:text="${purchases.purchaseQuantity}"></span>
                 </td>
