@@ -18,8 +18,8 @@
         <div class="col-md-6 px-2">
             <h1 th:text="${book.name}">Book Title</h1>
             <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item border-0 py-1"><strong>Autore:</strong><span>John Doe</span></li>
-                <li class="list-group-item border-0 py-1"><strong>ISBN:</strong> <span>ISDFDSFKDSJFKSD</span></li>
+                <li class="list-group-item border-0 py-1"><strong>Autore:</strong><span th:text="${book.authors}"></span></li>
+                <li class="list-group-item border-0 py-1"><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></li>
                 <li class="list-group-item border-0 py-1"><strong>Editore:</strong> <span th:text="${book.publisher}"></span></li>
                 <li class="list-group-item border-0 py-1"><strong>Data di pubblicazione:</strong> <span th:text="${book.dateOfPublishing}"></span></li>
                 <li class="list-group-item border-0 py-1"><strong>Categorie:</strong>
