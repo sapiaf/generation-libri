@@ -12,9 +12,6 @@
     --bs-btn-hover-bg: #ffeb3b;
     --bs-btn-hover-border-color: #ffeb3b;
 }
-.btn:hover {
-    color: #212529 !important;
-}
 .dropdown-menu {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border: none;
