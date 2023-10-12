@@ -14,5 +14,4 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findByPriceBetweenAndDateOfPublishingBetween(BigDecimal minPrice, BigDecimal maxPrice, Integer minYear, Integer maxYear);
 
     List<Book> findByCategories_IdInAndPriceBetweenAndDateOfPublishingBetween(List<Integer> categoryIds, BigDecimal minPrice, BigDecimal maxPrice, Integer minYear, Integer maxYear);
-
 }

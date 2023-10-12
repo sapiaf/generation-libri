@@ -15,8 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-
 import java.util.Optional;
 
 /*Pagina Acquisto lato user*/
@@ -73,7 +71,7 @@ public class PurchaseController {
         purchase.setBook(book);
         purchase.setDateOfPurchase(LocalDateTime.now());
         BigDecimal calculatedPrice = book.getPrice().multiply(BigDecimal.valueOf(purchase.getPurchaseQuantity()));
-        purchase.setTotalPrice(calculatedPrice);
+        purchase.getTotalPrice();
         book.setCopies(book.getCopies() - purchase.getPurchaseQuantity());
         bookRepository.save(book);
         purchaseRepository.save(purchase);
