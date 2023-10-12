@@ -29,55 +29,56 @@
                 <label for="maxDate" class="form-label">Al</label>
                 <input type="date" class="form-control" id="maxDate" name="maxDate">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary mb-4">Filtra ordini</button>
         </form>
 
     </div>
-
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Immagine</th>
-            <th>Nome Libro</th>
-            <th>Data Ordine</th>
-            <th>Prezzo</th>
-            <th>Quantità</th>
-            <th>Casa Editrice</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="purchases : ${purchases}">
-            <td th:text="${purchases.id}"></td>
-            <td class="text-center">
-                <img th:src="${purchases.book.urlPhoto}" alt="Book Thumbnail"
-                     style="max-width: 100px; max-height: 100px;">
-            </td>
-            <td th:text="${purchases.book.name}"></td>
-            <td th:text="${purchases.dateOfPurchase}"></td>
-            <td th:text="|${purchases.totalPrice} €|"></td>
-            <td>
-                <span th:text="${purchases.purchaseQuantity}"></span>
-            </td>
-            <td th:text="${purchases.book.publisher}"></td>
-            <td class="container d-flex text-center">
-                <a th:href="@{/admin/purchase/show/{id}(id=${purchases.id})}" class="btn btn-primary m-1">
-                    <i class="fa-solid fa-circle-info"></i>
-                </a>
-                <a th:href="@{/admin/purchase/update/{id}(id=${purchases.id})}" class="btn btn-warning m-1">
-                    <i class="fa-solid fa-pencil"></i>
-                </a>
-                <form th:action="@{/admin/purchase/delete/{id}(id=${purchases.id})}" method="post"
-                      style="display: inline;">
-                    <button type="submit" class="btn btn-danger m-1">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Immagine</th>
+                <th>Nome Libro</th>
+                <th>Data Ordine</th>
+                <th>Prezzo</th>
+                <th>Quantità</th>
+                <th>Casa Editrice</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="purchases : ${purchases}">
+                <td th:text="${purchases.id}"></td>
+                <td class="text-center">
+                    <img th:src="${purchases.book.urlPhoto}" alt="Book Thumbnail"
+                         style="max-width: 100px; max-height: 100px;">
+                </td>
+                <td th:text="${purchases.book.name}"></td>
+                <td th:text="${purchases.dateOfPurchase}"></td>
+                <td></td>
+                <td>
+                    <span th:text="${purchases.purchaseQuantity}"></span>
+                </td>
+                <td th:text="${purchases.book.publisher}"></td>
+                <td class="container d-flex text-center">
+                    <a th:href="@{/admin/purchase/show/{id}(id=${purchases.id})}" class="btn btn-primary m-1">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                    <a th:href="@{/admin/purchase/update/{id}(id=${purchases.id})}" class="btn btn-warning m-1">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    <form th:action="@{/admin/purchase/delete/{id}(id=${purchases.id})}" method="post"
+                          style="display: inline;">
+                        <button type="submit" class="btn btn-danger m-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
