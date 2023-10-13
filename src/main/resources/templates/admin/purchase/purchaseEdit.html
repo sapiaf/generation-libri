@@ -42,7 +42,99 @@
                 <h5>Totale ordine</h5>
                 <p th:text="|${purchase.totalPrice} €|"></p>
             </div>
+        </div>
 
+        <div class="row mt-5">
+            <h4>Dati utente</h4>
+            <div class="form-group col-4">
+                <label for="user-name" class="form-label fw-medium fs-5">Nome</label>
+                <input id="user-name" class="form-control" type="text" th:field="*{userName}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userName')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userName')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group col-4">
+                <label for="user-surname" class="form-label fw-medium fs-5">Cognome</label>
+                <input id="user-surname" class="form-control" type="text" th:field="*{userSurname}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userSurname')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userSurname')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group col-4">
+                <label for="user-email" class="form-label fw-medium fs-5">Email</label>
+                <input id="user-email" class="form-control" type="email" th:field="*{userEmail}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userEmail')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userEmail')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-start mt-5">
+            <h4>Dati di spedizione</h4>
+            <div class="col-10">
+                <label for="user-address" class="form-label fw-medium fs-5">Indirizzo</label>
+                <input id="user-address" class="form-control" type="text" th:field="*{userAddress}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userAddress')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userAddress')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-2">
+                <label for="user-zip-code" class="form-label fw-medium fs-5">CAP</label>
+                <input id="user-zip-code" class="form-control" type="text" th:field="*{userZipCode}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userZipCode')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userZipCode')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-4 mt-2">
+                <label for="user-city" class="form-label fw-medium fs-5">Città</label>
+                <input id="user-city" class="form-control" type="text" th:field="*{userCity}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userCity')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userCity')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-4 mt-2">
+                <label for="user-municipality" class="form-label fw-medium fs-5">Provincia</label>
+                <input id="user-municipality" class="form-control" type="text" th:field="*{userMunicipality}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userMunicipality')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userMunicipality')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-4 mt-2">
+                <label for="user-country" class="form-label fw-medium fs-5">Paese</label>
+                <input id="user-country" class="form-control" type="text" th:field="*{userCountry}"
+                       th:errorClass="is-invalid">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('userCountry')}">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('userCountry')}" th:text="${err}"></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-12 mt-2">
+                <label for="user-payment-method" class="form-label fw-medium fs-5">Metodo di pagamento</label>
+                <input id="user-payment-method" class="form-control" type="text" th:field="*{userPaymentMethod}"
+                       disabled>
+                
+            </div>
         </div>
         <div class="m-2">
             <button type="submit" class="btn btn-primary">Salva</button>

@@ -2,7 +2,9 @@ package org.generation.libri.generationlibrary.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,22 +18,31 @@ public class Purchase {
     @NotNull
     @Min(1)
     private int purchaseQuantity;
+    @NotBlank
     private String userName;
+    @NotBlank
     private String userSurname;
+    @NotBlank
     private String userEmail;
+    @NotBlank
     private String userAddress;
+    @NotBlank
     private String userCountry;
+    @NotBlank
     private String userCity;
+    @NotBlank
+    @Size(min = 2, max = 2)
     private String userMunicipality;
+    @NotBlank
     private String userZipCode;
-    private String userPaymentMode;
+    private int userPaymentMethod = 1;
 
     @ManyToOne
     private Book book;
 
     //constructor
 
-    public Purchase(int id, LocalDateTime dateOfPurchase, @NotNull int purchaseQuantity, String userName, String userSurname, String userEmail, String userAddress, String userCountry, String userCity, String userMunicipality, String userZipCode, String userPaymentMode, Book book) {
+    public Purchase(int id, LocalDateTime dateOfPurchase, @NotNull int purchaseQuantity, String userName, String userSurname, String userEmail, String userAddress, String userCountry, String userCity, String userMunicipality, String userZipCode, int userPaymentMethod, Book book) {
         this.id = id;
         this.dateOfPurchase = dateOfPurchase;
         this.purchaseQuantity = purchaseQuantity;
@@ -43,7 +54,7 @@ public class Purchase {
         this.userCity = userCity;
         this.userMunicipality = userMunicipality;
         this.userZipCode = userZipCode;
-        this.userPaymentMode = userPaymentMode;
+        this.userPaymentMethod = userPaymentMethod;
         this.book = book;
     }
 
@@ -148,12 +159,12 @@ public class Purchase {
         this.userZipCode = userZipCode;
     }
 
-    public String getUserPaymentMode() {
-        return userPaymentMode;
+    public int getUserPaymentMethod() {
+        return userPaymentMethod;
     }
 
-    public void setUserPaymentMode(String userPaymentMode) {
-        this.userPaymentMode = userPaymentMode;
+    public void setUserPaymentMethod(int userPaymentMethod) {
+        this.userPaymentMethod = userPaymentMethod;
     }
 
     public BigDecimal getTotalPrice() {
