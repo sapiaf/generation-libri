@@ -38,7 +38,7 @@
                 <td th:text="|${book.price} €|"></td>
                 <td>
                     <span th:text="${book.copies}"></span>
-                    <span th:classappend="${book.copies < 5} ? 'bg-danger' : (${book.copies < 15} ? 'bg-warning' : 'bg-success')" class="d-inline-block rounded-circle" style="width: 10px; height: 10px; margin-left: 5px;"></span>
+                    <span th:classappend="${book.copies <= 0} ? 'bg-danger' : (${book.copies < 15} ? 'bg-warning' : 'bg-success')" class="d-inline-block rounded-circle" style="width: 10px; height: 10px; margin-left: 5px;"></span>
                 </td>
                 <td th:text="${book.publisher}"></td>
 
@@ -59,9 +59,14 @@
             </tr>
             </tbody>
         </table>
+        <div class="mt-3">
+            <strong>Legenda:</strong>
+            <span class="d-inline-block rounded-circle bg-danger" style="width: 10px; height: 10px; margin-left: 5px;"></span> Esaurito
+            <span class="d-inline-block rounded-circle bg-warning" style="width: 10px; height: 10px; margin-left: 5px;"></span> Quantità bassa
+            <span class="d-inline-block rounded-circle bg-success" style="width: 10px; height: 10px; margin-left: 5px;"></span> Disponibile
+        </div>
     </div>
-
-
 </div>
+<footer th:replace="fragments/footer"></footer>
 </body>
 </html>
