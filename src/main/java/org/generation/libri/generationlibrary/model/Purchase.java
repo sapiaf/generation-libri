@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-public class Purchase {
+public class    Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,17 +16,15 @@ public class Purchase {
     @NotNull
     @Min(1)
     private int purchaseQuantity;
-    private BigDecimal totalPrice;
 
     @ManyToOne
     private Book book;
 
     //constructor
-    public Purchase(int id, LocalDateTime dateOfPurchase, int purchaseQuantity, BigDecimal totalPrice, Book book) {
+    public Purchase(int id, LocalDateTime dateOfPurchase, int purchaseQuantity, Book book) {
         this.id = id;
         this.dateOfPurchase = dateOfPurchase;
         this.purchaseQuantity = purchaseQuantity;
-        this.totalPrice = calculateCost();
         this.book = book;
     }
 
@@ -67,15 +65,9 @@ public class Purchase {
         this.book = book;
     }
 
+
     public BigDecimal getTotalPrice() {
-        return totalPrice = calculateCost();
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public BigDecimal calculateCost() {
-        return this.totalPrice = book.getPrice().multiply(BigDecimal.valueOf(purchaseQuantity));
+        BigDecimal totalPrice = book.getPrice().multiply(BigDecimal.valueOf(purchaseQuantity));
+        return totalPrice;
     }
 }

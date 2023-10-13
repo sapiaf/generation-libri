@@ -7,12 +7,14 @@
 <div class="container mt-5">
     <h1>Categorie</h1>
     <hr class="m-3">
+
     <form
             id="category-form"
             th:action="@{/admin/categories/create}"
             th:object="${categoryObj}"
             method="POST"
     >
+
         <div class="mb-3">
             <label for="name" class="form-label">Aggiungi Categoria</label>
             <input type="text" class="form-control" id="name" th:field="*{name}" required
@@ -27,6 +29,11 @@
             <button type="submit" class="btn btn-primary">Salva</button>
             <a class="btn btn-primary" th:href="@{/admin/categories}">Annulla</a>
         </div>
+    </form>
+    <form class="d-flex ms-auto bg-light-gray mt-3 mb-3" th:action="@{/admin/categories/search}" method="get">
+        <input class="form-control me-2" type="search" name="query" placeholder="Cerca tra le categorie"
+               aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Cerca</button>
     </form>
     <table class="table table-bordered">
         <thead>

@@ -1,7 +1,6 @@
 package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
-import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Purchase;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.PurchaseRepository;
@@ -13,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,11 +56,11 @@ public class AdminPurchaseController {
     }
 
     @PostMapping("/update/{id}")
-    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate, BindingResult bindingResult, @ModelAttribute("books") List<Book> bookUpdate) {
+    public String doUpdate(@PathVariable Integer id, @Valid @ModelAttribute("purchase") Purchase purchaseUpdate,
+                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/purchase/purchaseEdit";
         }
-        purchaseUpdate.getTotalPrice();
         purchaseRepository.save(purchaseUpdate);
         return "redirect:/admin/purchase";
     }
@@ -71,4 +71,17 @@ public class AdminPurchaseController {
         return "redirect:/admin/purchase";
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam("queryPurchase") String searchString, Model model) {
+        List<Purchase> purchasesList = purchaseRepository.searchListPurchase(searchString);
+        model.addAttribute("purchases", purchasesList);
+        return "/admin/purchase/purchaseList";
+    }
+
+    @GetMapping("/datefilter")
+    public String dateFilter(@RequestParam("minDate") LocalDate minDate, @RequestParam("maxDate") LocalDate maxDate, Model model) {
+        List<Purchase> purchaseDateList = purchaseRepository.searchListBetweenDates(minDate, maxDate);
+        model.addAttribute("purchases", purchaseDateList);
+        return "admin/purchase/purchaseList";
+    }
 }
