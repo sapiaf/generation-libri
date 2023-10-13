@@ -46,6 +46,12 @@
 .dropdown-menu li:first-child a:hover {
   background-color: ;
 }
+.btn-search:hover {
+  color: black;
+}
+.btn-search {
+  color: #ffeb3b;
+}
 @media only screen and (max-width: 992px) {
   .dropdown-menu.show {
     flex-wrap: wrap;

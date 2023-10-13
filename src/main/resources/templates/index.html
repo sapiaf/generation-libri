@@ -45,7 +45,7 @@
                     <div class="mb-4">
                         <form th:action="@{/catalog}" method="get">
                             <div class="mb-3">
-                                <label><h4>Categorie</h4></label>
+                                <label><h5>Categorie</h5></label>
                                 <div th:each="category : ${categories}">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" th:value="${category.id}" th:id="${'category' + category.id}" name="categories">
@@ -56,23 +56,19 @@
                             <label><h5>Prezzo</h5></label>
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <label for="minPrice">Min</label>
-                                    <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01">
+                                    <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01" placeholder="Max">
                                 </div>
                                 <div class="col-6">
-                                    <label for="maxPrice">Max</label>
-                                    <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01">
+                                    <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01" placeholder="Max">
                                 </div>
                             </div>
                             <label><h5>Anno di Pubblicazione</h5></label>
                             <div class="row mb-3">
                                 <div class="col-6">
-                                    <label for="minPrice">Da</label>
-                                    <input type="number" class="form-control" id="minYear" name="minYear" step="1">
+                                    <input type="number" class="form-control" id="minYear" name="minYear" step="1" placeholder="Da">
                                 </div>
                                 <div class="col-6">
-                                    <label for="maxPrice">A</label>
-                                    <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
+                                    <input type="number" class="form-control" id="maxYear" name="maxYear" step="1" placeholder="A">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-warning">Cerca</button>
@@ -199,7 +195,7 @@
                 <div class="container-fluid justify-content-center p-5 text-center bg-light mb-5">
                     <h2>Classifica Libri dell'ultimo mese</h2>
                     <div class="row justify-content-center">
-                        <div id="topSellingCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div id="topSellingCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="row justify-content-center">
@@ -220,7 +216,7 @@
                                                 <div class="position-absolute top-0 start-0">
                                                     <span class="badge top-badge" th:text="${iterStat.count}"></span>
                                                 </div>
-                                                <img th:src="${book.urlPhoto}" class="img-fluid rounded-start">
+                                                <a th:href="@{/catalog/show/{id}(id=${book.id})}"><img th:src="${book.urlPhoto}" class="img-fluid rounded-start"></a>
                                             </div>
                                         </div>
                                     </div>

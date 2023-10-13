@@ -4,6 +4,7 @@ import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Category;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.CategoryRepository;
+import org.generation.libri.generationlibrary.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +30,8 @@ public class CatalogController {
     private BookRepository bookRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
     @GetMapping
     public String index(@RequestParam(value = "query", required = false) Optional<String> searchKeyword,
@@ -72,6 +76,23 @@ public class CatalogController {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/bestsellers")
+    public String bestsellers(Model model) {
+        LocalDateTime endDate = LocalDateTime.now();
+        LocalDateTime startDate = endDate.minusMonths(1);
+        List<Book> bookCatalog = purchaseRepository.findTopSellingBooksInDateRange(startDate, endDate);
+        model.addAttribute("books", bookCatalog);
+        return "user/bestsellers";
+    }
+
+    @GetMapping("/new")
+    public String newentry(Model model) {
+        List<Book> newBooks = bookRepository.findAllByOrderByDateOfPublishingDesc();
+        model.addAttribute("book", newBooks);
+        model.addAttribute("breadcrumbTitle", "Novità");
+        return "user/catalog";
     }
 
 

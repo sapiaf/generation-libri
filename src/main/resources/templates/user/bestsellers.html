@@ -47,21 +47,26 @@
                 </form>
             </div>
         </div>
-        <!-- sidebar -->
-
-        <!-- griglia libri -->
+        <!-- Best-sellers list -->
         <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${book}">
-                    <div class="card shadow-sm mb-4">
-                        <img class="card-img-top" th:src="${book.urlPhoto}" alt="Book cover">
-                        <div class="card-body flex-card-body">
-                            <h4 class="card-title" th:text="${book.name}"></h4>
-                            <h6 th:href="@{/}" class="text-primary" th:text="${book.authors}"></h6>
-                            <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}"></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h4 th:text="${book.price} + ' €'" class="m-0"></h4>
-                                <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+            <div th:each="book, iterStat : ${books}" th:if="${iterStat.count <= 20}">
+                <div class="card mb-3 shadow-sm">
+                    <div class="row no-gutters">
+                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                            <span class="badge top-badge" style="font-size: 2rem;" th:text="${iterStat.count}"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="path_to_image" th:src="${book.urlPhoto}" alt="Book cover" class="card-img">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h4 class="card-title" th:text="${book.name}"></h4>
+                                <h6 th:href="@{/}" class="text-primary" th:text="${book.authors}"></h6>
+                                <p class="card-text" th:text="${#strings.abbreviate(book.description, 200)}"></p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 th:text="${book.price} + ' €'" class="m-0"></h4>
+                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,4 +78,3 @@
 <footer th:replace="fragments/userFooter"></footer>
 </body>
 </html>
-
