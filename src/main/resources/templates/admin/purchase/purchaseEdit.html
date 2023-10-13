@@ -23,10 +23,6 @@
             </div>
         </div>
         <div class="row justify-content-start">
-            <div class="col-4">
-                <h5>Data Ordine</h5>
-                <p th:text="${purchase.dateOfPurchase}"></p>
-            </div>
             <div class="col-3">
                 <label for="purchase-quantity" class="form-label fw-medium fs-5">Numero di Copie Ordinate</label>
                 <input id="purchase-quantity" class="form-control" type="number" th:field="*{purchaseQuantity}"
@@ -41,6 +37,10 @@
             <div class="col-4">
                 <h5>Totale ordine</h5>
                 <p th:text="|${purchase.totalPrice} €|"></p>
+            </div>
+            <div class="col-4">
+                <h5>Data Ordine</h5>
+                <p th:text="${purchase.dateOfPurchase}"></p>
             </div>
         </div>
 
@@ -133,7 +133,7 @@
                 <label for="user-payment-method" class="form-label fw-medium fs-5">Metodo di pagamento</label>
                 <input id="user-payment-method" class="form-control" type="text" th:field="*{userPaymentMethod}"
                        disabled>
-                
+
             </div>
         </div>
         <div class="m-2">
