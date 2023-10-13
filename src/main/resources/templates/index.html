@@ -4,7 +4,7 @@
     <body>
         <nav th:replace="fragments/userNavbar :: navbar(area='Home')"></nav>
 
-        <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval="2500">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
                         aria-current="true" aria-label="Slide 1">
@@ -75,25 +75,30 @@
                                     <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Cerca</button>
+                            <button type="submit" class="btn btn-warning">Cerca</button>
                         </form>
                     </div>
                 </div>
                 <!--novità-->
-                <div class="col-md-7">
-                    <div class="row-md-10">
+                <div class="col-md-8">
+                    <div class="row-md-10 mb-5">
                         <h1>Novità</h1>
                         <hr class="border-2 text-warning">
                         <div id="carouselNovita" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${books.subList(0, 4)}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(0, 4)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}">.</p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,12 +106,17 @@
                                 </div>
                                 <div class="carousel-item">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${books.subList(4, 8)}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(4, 8)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -124,19 +134,24 @@
                         </div>
                     </div>
                     <!--  narrativa  -->
-                    <div class="row-md-10">
+                    <div class="row-md-10 mb-5">
                         <h1>Narrativa</h1>
                         <hr class="border-2 text-warning">
                         <div id="carouselNarrativa" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <div class="row">
-                                        <div class="col-md-3" th:each="book : ${narrativaBooks}">
+                                    <div class="row mb-3">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(0, 4)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,12 +159,17 @@
                                 </div>
                                 <div class="carousel-item">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${narrativaBooks}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(4, 8)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -167,20 +187,74 @@
                         </div>
                     </div>
                     <!--   fine narrativa    -->
+                </div>
+                <div class="col-md-2">
+                    <h4>Catalogo Libri</h4>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
+                           th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}">Link 1</a>
+                    </div>
+                </div>
+                <!--fdsfsd-->
+                <div class="container-fluid justify-content-center p-5 text-center bg-light mb-5">
+                    <h2>Classifica Libri dell'ultimo mese</h2>
+                    <div class="row justify-content-center">
+                        <div id="topSellingCarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-2" th:each="book, iterStat : ${topSellingBooks}" th:if="${iterStat.count <= 5 && iterStat.count <= 10}">
+                                            <div class="card">
+                                                <div class="position-absolute">
+                                                    <span class="badge top-badge" th:text="${iterStat.count}"></span>
+                                                </div>
+                                                <a th:href="@{/catalog/show/{id}(id=${book.id})}"><img th:src="${book.urlPhoto}" class="img-fluid rounded-start"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-2" th:each="book, iterStat : ${topSellingBooks}" th:if="${iterStat.count > 5 && iterStat.count <= 10}">
+                                            <div class="card">
+                                                <div class="position-absolute top-0 start-0">
+                                                    <span class="badge top-badge" th:text="${iterStat.count}"></span>
+                                                </div>
+                                                <img th:src="${book.urlPhoto}" class="img-fluid rounded-start">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#topSellingCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#topSellingCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8  offset-md-2">
                     <!-- fantasy -->
-                    <div class="row-md-10">
+                    <div class="row-md-10 mb-5">
                         <h1>Fantasy</h1>
                         <hr class="border-2 text-warning">
                         <div id="carouselFantasy" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${fantasyBooks}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(0, 4)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,12 +262,17 @@
                                 </div>
                                 <div class="carousel-item">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${fantasyBooks}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(4, 8)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,19 +290,24 @@
                     <!-- fine fantasy -->
 
                     <!-- classici -->
-                    <div class="row-md-10">
+                    <div class="row-md-10 mb-5">
                         <h1>Classici</h1>
                         <hr class="border-2 text-warning">
                         <div id="carouselClassici" class="carousel slide">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${classiciBooks}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(0, 4)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,12 +315,17 @@
                                 </div>
                                 <div class="carousel-item">
                                     <div class="row">
-                                        <div class="col-md-3" th:each="book : ${classiciBooks}">
+                                        <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${books.subList(4, 8)}">
                                             <div class="card shadow-sm">
                                                 <img th:src="${book.urlPhoto}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title" th:text="${book.name}"></h5>
-                                                    <p class="card-text" th:text="${book.description}"></p>
+                                                    <h6 th:href="@{/}" class="text-warning" th:text="${book.authors}"></h6>
+                                                    <p class="card-text" th:text="${#strings.abbreviate(book.description, 65)}">.</p>
+                                                    <h5 class="card-text">
+                                                        <span th:text="${book.price}"></span> €
+                                                    </h5>
+                                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,56 +341,25 @@
                         </div>
                     </div>
                     <!-- fine classici -->
-                    <!--best sellers-->
-                    <div class="row-md-3">
-                        <h3>I Più Venduti</h3>
-                        <div th:each="book : ${topSellingBooks}">
-                            <div class="card mb-3" style="max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img th:src="${book.urlPhoto}" class="img-fluid rounded-start">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title" th:text="${book.name}"></h5>
-                                            <p class="card-text" th:text="${book.description}"></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <div class="col-md-2">
-                    <h4>Catalogo Libri</h4>
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
-                           th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}">Link 1</a>
-                    </div>
-                </div>
-                <div class="container justify-content-center p-5 text-center bg-light">
+                <div class="container-fluid justify-content-center py-5 text-center bg-light">
                     <div class="row">
-                        <div class="col">
-                            <i class="fas fa-shipping-fast"></i>
-                            <div>Spedizione gratuita</div>
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <i class="fas fa-shipping-fast fa-3x mb-3"></i>
+                            <h4>Spedizione gratuita</h4>
                         </div>
-                        <div class="col">
-                            <i class="fas fa-lock"></i>
-                            <div>Pagamento sicuro</div>
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <i class="fas fa-lock fa-3x mb-3"></i>
+                            <h4>Pagamento sicuro</h4>
                         </div>
-                        <div class="col">
-                            <i class="fas fa-thumbs-up"></i>
-                            <div>Soddisfatti o rimborsati</div>
-                        </div>
-                        <div class="col">
-                            <i class="fas fa-thumbs-up"></i>
-                            <div>Soddisfatti o rimborsati</div>
+                        <div class="col-md-4">
+                            <i class="fas fa-thumbs-up fa-3x mb-3"></i>
+                            <h4>Soddisfatti o rimborsati</h4>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <a th:href="@{/admin}">Admin</a>
         <footer th:replace="fragments/userFooter"></footer>
     </body>
 </html>

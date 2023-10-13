@@ -18,7 +18,7 @@
         <div class="col-md-6 px-2">
             <h1 th:text="${book.name}">Book Title</h1>
             <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item border-0 py-1"><strong>Autore:</strong><span th:text="${book.authors}"></span></li>
+                <li class="list-group-item border-0 py-1"><strong>Autore:</strong> <span th:text="${book.authors}"></span></li>
                 <li class="list-group-item border-0 py-1"><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></li>
                 <li class="list-group-item border-0 py-1"><strong>Editore:</strong> <span th:text="${book.publisher}"></span></li>
                 <li class="list-group-item border-0 py-1"><strong>Data di pubblicazione:</strong> <span th:text="${book.dateOfPublishing}"></span></li>
@@ -38,7 +38,7 @@
                 </div>
                 <div th:if="${book.copies == 0}">
                     <i class="fas fa-circle text-danger"></i>
-                    <span>Esaurito</span>
+                    <span>Esaurito (Disp. dal 31 ottobre 2023)</span>
                 </div>
             </div>
             <form th:action="@{/purchase/{id}(id=${book.id})}" method="post" class="mb-4">
@@ -46,7 +46,7 @@
                     <label for="quantity" class="input-group-text"><strong>Quantità:</strong></label>
                     <input type="number" id="quantity" name="purchaseQuantity" min="1" value="1" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-warning w-100">Acquista ora</button>
+                <button type="submit" class="btn btn-warning w-100" th:text="${book.copies <= 0} ? 'Ordina' : 'Acquista ora'"></button>
             </form>
         </div>
         <!-- tab -->
@@ -80,12 +80,13 @@
                 <div th:each="relatedBook : ${relatedBooks}" class="col-md-3 mb-4">
                     <div class="card">
                         <img th:src="${relatedBook.urlPhoto}" alt="Related Book Image" class="img-fluid card-img-top" style="height: 200px; object-fit: cover;">
-                        <div class="card-body">
+                        <div class="card-body flex-card-body">
                             <h5 class="card-title" th:text="${relatedBook.name}"></h5>
-                            <p class="card-text">
+                            <h6 th:href="@{/}" class="text-primary" th:text="${relatedBook.authors}"></h6>
+                            <h5 class="card-text">
                                 <span th:text="${relatedBook.price}"></span> €
-                            </p>
-                            <a th:href="@{/catalog/show/{id}(id=${relatedBook.id})}" class="btn btn-primary btn-sm stretched-link">Dettagli</a>
+                            </h5>
+                            <a th:href="@{/catalog/show/{id}(id=${relatedBook.id})}" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>
