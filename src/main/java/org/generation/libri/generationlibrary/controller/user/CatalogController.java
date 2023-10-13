@@ -78,9 +78,9 @@ public class CatalogController {
     @GetMapping("/category/{categoryId}")
     public String showBooksByCategory(@PathVariable("categoryId") Integer categoryId, Model model) {
         List<Book> booksByCategory = bookRepository.findByCategories_Id(categoryId);
-        model.addAttribute("book", booksByCategory);
         List<Category> categoryCatalog = categoryRepository.findAll();
         Optional<Category> breadcrumbCategory = categoryRepository.findById(categoryId);
+        model.addAttribute("book", booksByCategory);
         model.addAttribute("categories", categoryCatalog);
         model.addAttribute("breadcrumbTitle", breadcrumbCategory.get().getName());
         model.addAttribute("selectedCategoryId", categoryId);

@@ -2,66 +2,46 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
 <body>
-<!-- fragment navbar -->
 <nav th:fragment="navbar(area)" class="navbar navbar-expand-lg" data-bs-theme="dark" style="background-color: #666666;">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo.png}" width="100px"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-                aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav nav-underline">
                 <li class="nav-item">
-                    <a
-                            class="nav-link"
-                            th:href="@{/}"
-                            th:classappend="${#strings.equals(area,'Home') ? 'active' : ''}"
-                            th:style="${#strings.equals(area,'Home') ? 'color: #ffeb3b;' : ''}"
-                    >Home</a>
+                    <a class="nav-link" th:href="@{/}" th:classappend="${#strings.equals(area,'Home') ? 'active' : ''}" th:style="${#strings.equals(area,'Home') ? 'color: #ffeb3b;' : ''}">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle bg-light-gray" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Libri
                     </a>
-                    <ul class="dropdown-menu bg-light-gray" aria-labelledby="navbarDropdown">
-                        <p class="text-center">Libri</p>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/catalog}">Tutti i Libri</a>
-                        </li>
-                        <hr>
-                        <p class="text-center">Categorie</p>
-                        <li th:each="category : ${categories}">
-                            <a class="dropdown-item" th:text="${category.name}"
-                               th:href="@{/catalog/category/{id}(id=${category.id})}"
-                               th:style="${#strings.equals(area, category.name) ? 'color: #ffeb3b;' : ''}">
-                            </a>
-                        </li>
-                    </ul>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <ul>
+                            <li><a class="dropdown-item" th:href="@{/catalog}">Tutti i Libri</a></li>
+                            <li th:each="category : ${categories.subList(0, 4)}"><a class="dropdown-item" th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}"></a></li>
+                        </ul>
+                        <ul>
+                            <li><a class="dropdown-item" href="#">Classifica Libri Più Venduti</a></li>
+                            <li th:each="category : ${categories.subList(4, 8)}"><a class="dropdown-item" th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}"></a></li>
+                        </ul>
+                        <ul>
+                            <li><a class="dropdown-item" href="#">Novità</a></li>
+                            <li th:each="category : ${categories.subList(8, 12)}"><a class="dropdown-item" th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}"></a></li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a
-                            class="nav-link"
-                            th:href="@{/contatti}"
-                            th:classappend="${#strings.equals(area,'Contatti') ? 'active' : ''}"
-                            th:style="${#strings.equals(area,'Contatti') ? 'color: #ffeb3b;' : ''}"
-                    >Contatti</a>
+                    <a class="nav-link" th:href="@{/contatti}" th:classappend="${#strings.equals(area,'Contatti') ? 'active' : ''}" th:style="${#strings.equals(area,'Contatti') ? 'color: #ffeb3b;' : ''}">Contatti</a>
                 </li>
                 <li class="nav-item">
-                    <a
-                            class="nav-link"
-                            th:href="@{/aiuto-faq}"
-                            th:classappend="${#strings.equals(area,'FAQ') ? 'active' : ''}"
-                            th:style="${#strings.equals(area,'FAQ') ? 'color: #ffeb3b;' : ''}"
-                    >Aiuto e FAQ</a>
+                    <a class="nav-link" th:href="@{/aiuto-faq}" th:classappend="${#strings.equals(area,'FAQ') ? 'active' : ''}" th:style="${#strings.equals(area,'FAQ') ? 'color: #ffeb3b;' : ''}">Aiuto e FAQ</a>
                 </li>
             </ul>
             <!-- Search bar pushed to the right -->
@@ -74,7 +54,7 @@
         </div>
     </div>
 </nav>
-<!-- fine fragment navbar -->
+
 </body>
 </html>
 
