@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-8">
                     <div class="mb-3 form-group">
-                        <label for="name" class="form-label">Titolo</label>
+                        <label for="name" class="form-label fw-medium fs-5">Titolo</label>
                         <input class="form-control" id="name" type="text" th:field="*{name}" th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
                             <ul>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="urlPhoto" class="form-label">URL Immgine</label>
+                        <label for="urlPhoto" class="form-label fw-medium fs-5">URL Immgine</label>
                         <input class="form-control" id="urlPhoto" type="text" th:field="*{urlPhoto}"
                                th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('urlPhoto')}">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="publisher" class="form-label">Casa Editrice</label>
+                        <label for="publisher" class="form-label fw-medium fs-5">Casa Editrice</label>
                         <input type="text" class="form-control" id="publisher" name="publisher" th:field="*{publisher}"
                                th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('publisher')}">
@@ -52,7 +52,8 @@
                         </div>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="date-of-pubblication" class="form-label">Anno di pubblicazione</label>
+                        <label for="date-of-pubblication" class="form-label fw-medium fs-5">Anno di
+                            pubblicazione</label>
                         <input type="number" class="form-control" id="date-of-pubblication" name="date-of-pubblication"
                                th:field="*{dateOfPublishing}" th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfPublishing')}">
@@ -63,7 +64,7 @@
                     </div>
 
                     <div class="mb-3 form-group">
-                        <label for="authors" class="form-label">Autori</label>
+                        <label for="authors" class="form-label fw-medium fs-5">Autori</label>
                         <input type="text" class="form-control" id="authors" name="authors" th:field="*{authors}"
                                th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('authors')}">
@@ -73,7 +74,7 @@
                         </div>
                     </div>
                     <div class="mb-3 form-group">
-                        <label for="isbn" class="form-label">ISBN</label>
+                        <label for="isbn" class="form-label fw-medium fs-5">ISBN</label>
                         <input type="text" class="form-control" id="isbn" name="isbn" th:field="*{isbn}"
                                th:errorClass="is-invalid">
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('isbn')}">
@@ -86,7 +87,7 @@
                 </div>
                 <div>
                     <div class="mb-3 mx-4 form-group">
-                        <label for="description" class="form-label">Descrizione</label>
+                        <label for="description" class="form-label fw-medium fs-5">Descrizione</label>
                         <textarea class="form-control" id="description" rows="5" th:field="*{description}"
                                   th:errorClass="is-invalid"></textarea>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
@@ -97,7 +98,7 @@
                     </div>
                     <div class="d-flex justify-content-between mx-4">
                         <div class="col-3 form-group">
-                            <label for="copies" class="form-label">Copie Disponibili</label>
+                            <label for="copies" class="form-label fw-medium fs-5">Copie Disponibili</label>
                             <input class="form-control" id="copies" type="number" th:field="*{copies}"
                                    th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('copies')}">
@@ -107,7 +108,7 @@
                             </div>
                         </div>
                         <div class="mx-1 form-group col-3">
-                            <label for="soldCopies" class="form-label">Copie Vendute</label>
+                            <label for="soldCopies" class="form-label fw-medium fs-5">Copie Vendute</label>
                             <input class="form-control" id="soldCopies" type="number" th:field="*{soldCopies}"
                                    th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('soldCopies')}">
@@ -117,7 +118,7 @@
                             </div>
                         </div>
                         <div class="form-group col-3">
-                            <label for="price" class="form-label">Prezzo</label>
+                            <label for="price" class="form-label fw-medium fs-5">Prezzo</label>
                             <input class="form-control" id="price" type="number" step="0.01" th:field="*{price}"
                                    th:errorClass="is-invalid">
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}">
@@ -131,7 +132,7 @@
             </div>
             <div class="container d-flex justify-content-center m-3">
                 <div class="form-group">
-                    <label class="form-label">Categorie</label>
+                    <label class="form-label fw-medium fs-5">Categorie</label>
                     <div class="row">
                         <div th:each="category : ${categories}" class="col-md-3">
                             <div class="form-check">

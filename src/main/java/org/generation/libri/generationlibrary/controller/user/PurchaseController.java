@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -70,7 +69,6 @@ public class PurchaseController {
         Book book = bookRepository.findById(bookId).get();
         purchase.setBook(book);
         purchase.setDateOfPurchase(LocalDateTime.now());
-        BigDecimal calculatedPrice = book.getPrice().multiply(BigDecimal.valueOf(purchase.getPurchaseQuantity()));
         purchase.getTotalPrice();
         book.setCopies(book.getCopies() - purchase.getPurchaseQuantity());
         bookRepository.save(book);
