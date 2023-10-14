@@ -11,35 +11,33 @@
 <footer th:fragment="footer" class="pt-5 text-white text-center text-lg-start" style="background-color: #666666;">
     <div class="container-fluid justify-content-center p-4">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-5">
                 <a class="navbar-brand" th:href="@{/}"><img th:src="@{/images/logo.png}" width="150px"></a>
                 <p>
                     Generation Bookstore, fondata nel 2023, è una libreria innovativa dedicata a unire generazioni attraverso la magia dei libri. Offriamo titoli classici e contemporanei, celebrando la letteratura in tutte le sue forme.
                 </p>
             </div>
             <div class="col">
-                <div class="col">
-                    <h5 class="text-uppercase" style="color: #ffeb3b;">Categorie</h5>
-                    <div class="row">
-                        <div class="col">
-                            <ul class="list-unstyled mb-0">
-                                <li th:each="category, stat : ${categories}" th:if="${stat.count <= 4}">
-                                    <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white"></a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-8">
-                            <ul class="list-unstyled mb-0">
-                                <li th:each="category, stat : ${categories}" th:if="${stat.count > 4 && stat.count <= 8}">
-                                    <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white"></a>
-                                </li>
-                            </ul>
-                        </div>
+                <h5 style="color: #ffeb3b;">Categorie</h5>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <ul class="list-unstyled mb-0">
+                            <li th:each="category, stat : ${categories}" th:if="${stat.count <= 4}">
+                                <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-8">
+                        <ul class="list-unstyled mb-0">
+                            <li th:each="category, stat : ${categories}" th:if="${stat.count > 4 && stat.count <= 8}">
+                                <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white"></a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <div class="col">
-                <h5 class="text-uppercase mb-0" style="color: #ffeb3b;">Informazioni</h5>
+                <h5 class="mb-0" style="color: #ffeb3b;">Informazioni</h5>
                 <ul class="list-unstyled mb-0">
                     <li>
                         <a th:href="@{/spedizioni}" class="text-white">Spedizioni</a>
@@ -56,7 +54,7 @@
                 </ul>
             </div>
             <div class="col">
-                <h5 class="text-uppercase mb-2" style="color: #ffeb3b;">Seguici su:</h5>
+                <h5 class="mb-2" style="color: #ffeb3b;">Seguici su:</h5>
                 <ul class="list-unstyled">
                     <li class="d-inline-block me-3">
                         <a href="#" target="_blank" class="text-white">

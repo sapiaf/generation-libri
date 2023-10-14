@@ -184,3 +184,9 @@ INSERT INTO books_restockin_quantity (quantity_of_book_stock, book_id, restock_i
 INSERT INTO books_restockin_quantity (quantity_of_book_stock, book_id, restock_id) VALUES(50, 2, 1);
 INSERT INTO books_restockin_quantity (quantity_of_book_stock, book_id, restock_id) VALUES(50, 3, 1);
 INSERT INTO books_restockin_quantity (quantity_of_book_stock, book_id, restock_id) VALUES(50, 4, 1);
+INSERT INTO review (title, description, rating, book_id, username, date) VALUES('Un\'avventura mozzafiato', 'Questo libro mi ha tenuto incollato dalla prima all\'ultima pagina. Consigliatissimo!', 5, 1, 'Marco C.', '2023-10-06');
+INSERT INTO review (title, description, rating, book_id, username, date) VALUES('Un\'avventura mozzafiato', 'Questo libro mi ha tenuto incollato dalla prima all\'ultima pagina. Consigliatissimo!', 5, 1, 'Marco C.', '2023-10-06');
+INSERT INTO review (title, description, rating, book_id, username, date) VALUES('Riflessioni profonde', 'Un viaggio introspettivo che ti fa riflettere sulla vera natura dell\'essere umano.', 4, 2, 'Marco C.', '2023-10-06');
+INSERT INTO review (title, description, rating, book_id, username, date) VALUES('Un classico moderno', 'Un libro che sarà letto e riletto per generazioni. Un capolavoro.', 5, 3, 'Marco C.', '2023-10-06');
+INSERT INTO review (title, description, rating, book_id, username, date) VALUES('Non per tutti', 'Ho trovato la trama un po\' lenta e i personaggi poco sviluppati.', 2, 4, 'Marco C.', '2023-10-06');
+INSERT INTO review (title, description, rating, book_id, username, date) VALUES('Risate assicurate', 'Uno dei libri più divertenti che abbia mai letto. Perfetto per una giornata uggiosa.', 4, 5, 'Marco C.', '2023-10-06');

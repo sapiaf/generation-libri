@@ -26,6 +26,12 @@
                     <span th:each="category : ${book.categories}" th:text="${category.name} + ' '"></span>
                 </li>
             </ul>
+            <div class="star-container" th:each="star : ${#numbers.sequence(1, 5)}">
+                <span th:if="${!reviews.isEmpty() and star <= averageRating}">★</span>
+                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}">☆</span>
+                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}">✩</span>
+            </div>
+            <span th:text="'(' + ${reviews.size()} + ')'"></span>
             <p><span th:text="${book.price}" class="display-4"></span> €</p>
             <div class="mb-2">
                 <div th:if="${book.copies > 10}">
@@ -53,10 +59,13 @@
         <div class="container">
             <ul class="nav nav-tabs" id="myTabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Trama</a>
+                    <a class="nav-link active navbar-details" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Trama</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Spedizione</a>
+                    <a class="nav-link navbar-details" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Spedizione</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar-details" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Recensioni</a>
                 </li>
             </ul>
 
@@ -71,6 +80,20 @@
                     <h4>Spedizione VELOCE</h4>
                     <p>Il costo è di 3,90 euro, e la consegna è prevista entro 1-2 gg lavorativi DAL REPERIMENTO DEL PRODOTTO.</p>
                 </div>
+                <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+                    <h5 class="mt-4">Recensioni degli utenti</h5>
+                    <p><strong>Voto medio del prodotto:</strong> <span th:text="${averageRating}"></span></p>
+                    <div th:each="review : ${reviews}">
+                        <p>
+                            <span th:each="star : ${#numbers.sequence(1, 5)}" th:class="${star <= review.rating} ? 'fa fa-star checked' : 'fa fa-star'"></span>
+                            <span th:text="${review.title}"></span>,
+                            <span th:text="${review.date}"></span>
+                        </p>
+                        <p>di <strong><span th:text="${review.username}"></span></strong></p>
+                        <p th:text="${review.description}"></p>
+                        <hr>
+                    </div>
+                </div>
             </div>
         </div>
         <!--   potrebbe interessarti     -->
@@ -82,10 +105,10 @@
                         <img th:src="${relatedBook.urlPhoto}" alt="Related Book Image" class="img-fluid card-img-top" style="height: 200px; object-fit: cover;">
                         <div class="card-body flex-card-body">
                             <h5 class="card-title" th:text="${relatedBook.name}"></h5>
-                            <h6 th:href="@{/}" class="text-primary" th:text="${relatedBook.authors}"></h6>
-                            <h5 class="card-text">
-                                <span th:text="${relatedBook.price}"></span> €
-                            </h5>
+                            <p>di <strong><span th:href="@{/}" class="text-secondary" th:text="${relatedBook.authors}"></span></strong></p>
+                            <p class="card-text">
+                                <strong><span th:text="${relatedBook.price}"></span></strong> €
+                            </p>
                             <a th:href="@{/catalog/show/{id}(id=${relatedBook.id})}" class="stretched-link"></a>
                         </div>
                     </div>
