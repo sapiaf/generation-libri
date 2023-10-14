@@ -112,21 +112,13 @@
                     </div>
                 </div>
                 <hr class="my-4">
-                <h4 class="mb-3">Metodo di Pagamento</h4>
-                <div class="my-3">
-                    <div class="form-check">
-                        <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="">
-                        <label class="form-check-label" for="credit">Carta di Credito</label>
-                    </div>
-                    <div class="form-check">
-                        <input id="debit" name="paymentMethod" type="radio" class="form-check-input">
-                        <label class="form-check-label" for="debit">PayPal</label>
-                    </div>
-                    <div class="form-check">
-                        <input id="bank-transfer" name="paymentMethod" type="radio" class="form-check-input">
-                        <label class="form-check-label" for="bank-transfer">Bonifico</label>
-                    </div>
-                </div>
+                <label class="form-label fw-medium fs-5">Metodo di Pagamento</label>
+                <select class="form-select" aria-label="paymentMethod" th:field="*{userPaymentMethod}">
+                    <option value="1">Carta di Credito</option>
+                    <option value="2">Paypal</option>
+                    <option value="3">Bonifico</option>
+                </select>
+
                 <hr class="my-4">
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Effettua Ordine</button>
             </form>

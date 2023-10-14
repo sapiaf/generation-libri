@@ -35,7 +35,7 @@ public class Purchase {
     private String userMunicipality;
     @NotBlank
     private String userZipCode;
-    private int userPaymentMethod = 1;
+    private int userPaymentMethod;
 
     @ManyToOne
     private Book book;

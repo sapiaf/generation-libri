@@ -13,6 +13,7 @@
             th:object="${purchase}"
     >
         <input type="hidden" th:field="*{dateOfPurchase}">
+        <input type="hidden" th:field="*{userPaymentMethod}">
 
         <div class="row my-3">
             <div class="form-group col-12">
@@ -129,11 +130,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-12 mt-2">
-                <label for="user-payment-method" class="form-label fw-medium fs-5">Metodo di pagamento</label>
-                <input id="user-payment-method" class="form-control" type="text" th:field="*{userPaymentMethod}"
-                       disabled>
-
+            <div class="col-12 my-3">
+                <h5>Metodo di pagamento</h5>
+                <p th:switch="${purchase.userPaymentMethod}">
+                    <span th:case="'1'">Carta di credito</span>
+                    <span th:case="'2'">Paypal</span>
+                    <span th:case="'3'">Bonifico</span>
+                </p>
             </div>
         </div>
         <div class="m-2">
