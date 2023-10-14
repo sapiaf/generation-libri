@@ -18,7 +18,7 @@
         <div class="d-flex mb-3">
             <div class="input-group me-2">
                 <input type="text" class="form-control" placeholder="Aggiungi categoria..."
-                       aria-label="Recipient's username" aria-describedby="button-addon2">
+                       aria-label="Recipient's username" aria-describedby="button-addon2" th:field="*{name}">
                 <a class="btn btn-secondary fw-semibold" type="button" id="button-addon2"
                    th:href="@{/admin/categories}">X</a>
             </div>
