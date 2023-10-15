@@ -82,6 +82,10 @@ public class RestockController {
                     booksRestockinQuantity.setBook(availableBooks.get(i));
                     booksRestockinQuantity.setRestock(restocking);
                     booksRestockinQuantities.add(booksRestockinQuantity);
+                    Book book = availableBooks.get(i);
+                    int newAvailableCopies = book.getCopies() + restockQuantity;
+                    book.setCopies(newAvailableCopies);
+                    bookRepository.save(book);
                 }
             }
 
@@ -100,6 +104,7 @@ public class RestockController {
             return "admin/restock/createRestock";
         }
     }
+
 
     @GetMapping("/showRestock/{restockId}")
     public String show(@PathVariable("restockId") Integer id, Model model) {
