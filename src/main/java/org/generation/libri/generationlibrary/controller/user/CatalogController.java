@@ -92,6 +92,7 @@ public class CatalogController {
         LocalDateTime startDate = endDate.minusMonths(1);
         List<Book> bookCatalog = purchaseRepository.findTopSellingBooksInDateRange(startDate, endDate);
         model.addAttribute("book", bookCatalog);
+        model.addAttribute("breadcrumbTitle", "Bestsellers");
         return "user/catalog";
     }
 

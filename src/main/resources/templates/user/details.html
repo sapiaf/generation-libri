@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(${book.name})"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
-<div class="container mt-5">
+<div class="container-lg mt-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
@@ -13,23 +13,23 @@
     </nav>
     <div class="row">
         <div class="col-md-4 mb-4 px-2">
-            <img th:src="${book.urlPhoto}" alt="Book Image" class="img-fluid" style="max-width:400px">
+            <img th:src="${book.urlPhoto}" alt="Book Image" class="img-fluid">
         </div>
         <div class="col-md-6 px-2">
             <h1 th:text="${book.name}">Book Title</h1>
             <ul class="list-group list-group-flush mb-4">
-                <li class="list-group-item border-0 py-1"><strong>Autore:</strong> <span th:text="${book.authors}"></span></li>
-                <li class="list-group-item border-0 py-1"><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></li>
-                <li class="list-group-item border-0 py-1"><strong>Editore:</strong> <span th:text="${book.publisher}"></span></li>
-                <li class="list-group-item border-0 py-1"><strong>Data di pubblicazione:</strong> <span th:text="${book.dateOfPublishing}"></span></li>
-                <li class="list-group-item border-0 py-1"><strong>Categorie:</strong>
+                <li class="list-group-item border-0 py-1 ps-0"><strong>Autore:</strong> <span th:text="${book.authors}"></span></li>
+                <li class="list-group-item border-0 py-1 ps-0"><strong>ISBN:</strong> <span th:text="${book.isbn}"></span></li>
+                <li class="list-group-item border-0 py-1 ps-0"><strong>Editore:</strong> <span th:text="${book.publisher}"></span></li>
+                <li class="list-group-item border-0 py-1 ps-0"><strong>Data di pubblicazione:</strong> <span th:text="${book.dateOfPublishing}"></span></li>
+                <li class="list-group-item border-0 py-1 ps-0"><strong>Categorie:</strong>
                     <span th:each="category : ${book.categories}" th:text="${category.name} + ' '"></span>
                 </li>
             </ul>
             <div class="star-container" th:each="star : ${#numbers.sequence(1, 5)}">
-                <span th:if="${!reviews.isEmpty() and star <= averageRating}">★</span>
-                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}">☆</span>
-                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}">✩</span>
+                <span th:if="${!reviews.isEmpty() and star <= averageRating}"><i class="fa-solid fa-star"></i></span>
+                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}"><i class="fa-solid fa-star-half"></i></span>
+                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}"><i class="fa-regular fa-star"></i></span>
             </div>
             <span th:text="'(' + ${reviews.size()} + ')'"></span>
             <p><span th:text="${book.price}" class="display-4"></span> €</p>
@@ -55,17 +55,17 @@
                 <button type="submit" class="btn btn-warning w-100" th:text="${book.copies <= 0} ? 'Ordina' : 'Acquista ora'"></button>
             </form>
         </div>
-        <!-- tab -->
-        <div class="container">
+    </div>
+    <div class="row mb-5">
             <ul class="nav nav-tabs" id="myTabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active navbar-details" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Trama</a>
+                    <a class="nav-link active navbar-details navbar-hover-detail" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">Trama</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-details" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Spedizione</a>
+                    <a class="nav-link navbar-details navbar-hover-detail" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Spedizione</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-details" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Recensioni</a>
+                    <a class="nav-link navbar-details navbar-hover-detail" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">Recensioni</a>
                 </li>
             </ul>
 
@@ -95,14 +95,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!--   potrebbe interessarti     -->
-        <div class="container mt-5">
-            <h3>Potrebbe Interessarti</h3>
+    </div>
+    <div class="row">
+            <h3 class="mb-5">Potrebbe Interessarti</h3>
             <div class="row">
-                <div th:each="relatedBook : ${relatedBooks}" class="col-md-3 mb-4 d-flex align-items-stretch">
-                    <div class="card shadow-sm">
-                        <img th:src="${relatedBook.urlPhoto}" alt="Related Book Image" class="img-fluid card-img-top" style="object-fit:cover; max-height:330px">
+                <div th:each="relatedBook : ${relatedBooks}" class="col-lg-3 col-md-6 mb-4 d-flex justify-content-center align-items-stretch">
+                    <div class="card text-center" style="border:none">
+                        <img th:src="${relatedBook.urlPhoto}" alt="Related Book Image" class="img-fluid card-img-top" style="object-fit:contain; max-height:330px;">
                         <div class="card-body flex-card-body">
                             <h5 class="card-title" th:text="${relatedBook.name}"></h5>
                             <p class="mb-2 text-secondary fw-bold" th:text="${relatedBook.authors}"></p>
@@ -115,7 +114,6 @@
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 <footer th:replace="fragments/userFooter"></footer>

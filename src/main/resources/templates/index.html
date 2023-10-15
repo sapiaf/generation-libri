@@ -47,7 +47,7 @@
 <div class="container-fluid mt-3">
     <!-- NOVITA -->
     <div class="row d-flex">
-        <div class="col-md-2">
+        <div class="col-lg-2 d-none d-lg-block">
             <div class="mb-4">
                 <form th:action="@{/catalog}" method="get">
                     <div class="mb-3">
@@ -93,12 +93,11 @@
                 </form>
             </div>
         </div>
-        <!--novità-->
-        <div class="col-md-8">
+        <div class="col-lg-8">
             <div class="row-md-10 mb-5">
                 <h1>Novità</h1>
                 <hr class="border-4 text-warning" style="border-width:3px">
-                <div id="carouselNovita" class="carousel slide">
+                <div id="carouselNovita" class="carousel slide d-none d-lg-block">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="row">
@@ -148,9 +147,27 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
                 </div>
+                <div class="d-lg-none">
+                    <div class="row">
+                        <div th:each="book : ${books.subList(0, 12)}" class="col-sm-12 col-md-6 mb-4">
+                            <div class="card mb-4" style="text-align: center; border: none;">
+                                <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
+                                <div class="card-body flex-card-body">
+                                    <h4 class="card-title" th:text="${book.name}"></h4>
+                                    <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                    <p class="card-text mb-2" th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                                    <div class="d-flex justify-content-around align-items-center">
+                                        <p class="m-0"><span th:text="${book.price}" class="fw-bold" style="font-size: 20px;"></span> €</p>
+                                    </div>
+                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-md-2">
+        <div class="col-lg-2 d-none d-lg-block">
             <h4>Catalogo Libri</h4>
             <div class="list-group">
                 <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
@@ -161,14 +178,14 @@
     <!-- CLASSIFICA -->
     <div class="row justify-content-center p-5 text-center bg-light my-5">
         <h2 class="mb-5">🏆 I Libri più venduti nell'ultimo mese</h2>
-        <div id="topSellingCarousel" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div id="topSellingCarousel" class="carousel carousel-dark slide d-none d-lg-block" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row justify-content-center">
                         <div class="col-md-2" th:each="book, iterStat : ${topSellingBooks}"
                              th:if="${iterStat.count <= 5 && iterStat.count <= 10}">
-                            <div class="card" style="border:none;">
-                                <img th:src="${book.urlPhoto}" class="img-fluid rounded" style="object-fit:cover; max-height:330px">
+                            <div class="card d-flex justify-content-center" style="border:none; background: #F8F9FA;">
+                                <img th:src="${book.urlPhoto}" class="img-fluid rounded" style="object-fit:cover; max-height:330px; max-width:214px;">
                                 <div class="card-body flex-card-body" style="background: #F8F9FA;">
                                     <h4 class="card-title" th:text="${book.name}"></h4>
                                     <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
@@ -185,8 +202,8 @@
                     <div class="row justify-content-center">
                         <div class="col-md-2" th:each="book, iterStat : ${topSellingBooks}"
                              th:if="${iterStat.count > 5 && iterStat.count <= 10}">
-                            <div class="card" style="border:none;">
-                                <img th:src="${book.urlPhoto}" class="img-fluid rounded" style="object-fit:cover; max-height:330px">
+                            <div class="card d-flex justify-content-center" style="border:none; background: #F8F9FA;">
+                            <img th:src="${book.urlPhoto}" class="img-fluid rounded" style="object-fit:cover; max-height:330px; max-width:214px;">
                                 <div class="card-body flex-card-body" style="background: #F8F9FA;">
                                     <h4 class="card-title" th:text="${book.name}"></h4>
                                     <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
@@ -209,18 +226,35 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </button>
         </div>
+        <div class="d-lg-none">
+            <div class="row">
+                <div th:each="book : ${topSellingBooks.subList(0, 12)}" class="col-sm-12 col-md-6 mb-4">
+                    <div class="card mb-4" style="text-align: center; border: none; background: #F8F9FA;">
+                        <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
+                        <div class="card-body flex-card-body">
+                            <h4 class="card-title" th:text="${book.name}"></h4>
+                            <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                            <p class="card-text mb-2" th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                            <div class="d-flex justify-content-around align-items-center">
+                                <p class="m-0"><span th:text="${book.price}" class="fw-bold" style="font-size: 20px;"></span> €</p>
+                            </div>
+                            <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- INFORMATICA -->
     <div class="row d-flex">
-        <!--  narrativa  -->
-        <div class="col-md-8 offset-md-2">
+        <div class="col-lg-8 offset-lg-2">
             <h2>Informatica</h2>
             <hr class="border-4 text-warning">
-            <div id="carouselNarrativa" class="carousel slide">
+            <div id="carouselNarrativa" class="carousel slide d-none d-lg-block">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row mb-3">
-                            <div class="col-md-3 d-flex align-items-stretch"
+                            <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
                                  th:each="book : ${informaticaBooks.subList(0, 4)}">
                                 <div class="card shadow-sm">
                                     <img th:src="${book.urlPhoto}" class="card-img-top" alt="..." style="object-fit:cover; max-height:350px">
@@ -239,7 +273,7 @@
                     </div>
                     <div class="carousel-item">
                         <div class="row">
-                            <div class="col-md-3 d-flex align-items-stretch"
+                            <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
                                  th:each="book : ${informaticaBooks.subList(4, 8)}">
                                 <div class="card shadow-sm">
                                     <img th:src="${book.urlPhoto}" class="card-img-top" alt="..." style="object-fit:cover; max-height:350px">
@@ -266,20 +300,37 @@
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 </button>
             </div>
+            <div class="d-lg-none">
+                <div class="row">
+                    <div th:each="book : ${informaticaBooks}" class="col-sm-12 col-md-6 mb-4">
+                        <div class="card mb-4" style="text-align: center; border: none;">
+                            <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
+                            <div class="card-body flex-card-body">
+                                <h4 class="card-title" th:text="${book.name}"></h4>
+                                <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                <p class="card-text mb-2" th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                                <div class="d-flex justify-content-around align-items-center">
+                                    <p class="m-0"><span th:text="${book.price}" class="fw-bold" style="font-size: 20px;"></span> €</p>
+                                </div>
+                                <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--   fine narrativa    -->
     </div>
     <!-- CATEGORIE -->
     <div class="row bg-light justify-content-center my-5 py-5">
-        <div class="col-md-8">
-            <h2 class="mb-5">Novità</h2>
+        <div class="col-lg-8">
+            <h2 class="mb-3">In Evidenza</h2>
             <div class="row">
                 <div class="col-md-6 d-flex flex-column">
                     <div class="card mb-4 flex-grow-1">
-                        <img src="https://www.illibraio.it/wp-content/uploads/2020/10/Halloween-letterario-1.jpg" class="card-img category-img" alt="Big Box Image">
-                        <div class="card-img-overlay" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.3);">
-                            <h5 class="card-title text-white">Halloween</h5>
-                            <p class="card-text text-white">Scopri tutti i libri per una festa da brividi</p>
+                        <img src="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2022_48/1943520/most-anticipated-books-2023-use-2x1-jp-221127.jpg" class="card-img category-img" alt="Big Box Image">
+                        <div class="card-img-overlay d-flex flex-column justify-content-end" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);">
+                            <h5 class="card-title text-white fs-1">Classifica Libri</h5>
+                            <p class="card-text text-white fs-2 fw-bold">I titoli più venduti del momento</p>
                             <a th:href="@{/catalog/category/7}" class="stretched-link"></a>
                         </div>
                     </div>
@@ -288,20 +339,19 @@
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <div class="card">
-                                <img src="https://media-cldnry.s-nbcnews.com/image/upload/newscms/2022_48/1943520/most-anticipated-books-2023-use-2x1-jp-221127.jpg" class="card-img category-img" alt="Top Box Image">
-                                <div class="card-img-overlay" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.3);">
-                                    <h5 class="card-title text-white">Classifica Libri</h5>
-                                    <p class="card-text text-white">I titoli più venduti del momento</p>
+                                <img src="https://www.ncwlibraries.org/wp-content/uploads/hallow-reads_adult-ya-1080x621.jpg" class="card-img category-img" alt="Top Box Image">
+                                <div class="card-img-overlay d-flex flex-column justify-content-end" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);">
+                                    <h5 class="card-title text-white fs-1">Halloween</h5>
+                                    <p class="card-text text-white fs-2 fw-bold">Scopri tutti i libri per una festa da brividi</p>
                                     <a th:href="@{/catalog/bestsellers}" class="stretched-link"></a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="card">
-                                <img src="https://www.codewizardshq.com/wp-content/uploads/2018/03/2021-ND-coding-books.png" class="card-img category-img" alt="Box 1 Image">
-                                <div class="card-img-overlay" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.3);">
-                                    <h5 class="card-title text-white">Libri Informatica</h5>
-                                    <p class="card-text text-white">Sviluppa nuove competenze nel mondo della tecnologia.</p>
+                                <img src="https://selftaught.blog/wp-content/uploads/2019/03/books-942485_1280-e1551984185291.jpg" class="card-img category-img" alt="Box 1 Image">
+                                <div class="card-img-overlay d-flex flex-column justify-content-end" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);">
+                                    <h5 class="card-title text-white fs-2">Informatica</h5>
                                     <a th:href="@{/catalog/category/4}" class="stretched-link"></a>
                                 </div>
                             </div>
@@ -309,9 +359,8 @@
                         <div class="col-md-6 mb-4">
                             <div class="card">
                                 <img src="https://i.ytimg.com/vi/OThs2pqjw64/maxresdefault.jpg?sqp=-oaymwEmCIAKENAF8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGHIgXyg1MA8=&rs=AOn4CLDjZlKYZFLZxh2021gfahoP6FM6lw" class="card-img category-img" alt="Box 2 Image">
-                                <div class="card-img-overlay" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.3);">
-                                    <h5 class="card-title text-white">Ken Follet</h5>
-                                    <p class="card-text text-white">Il quinto straordinario capitolo della saga di Kingsbridge.</p>
+                                <div class="card-img-overlay d-flex flex-column justify-content-end" style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);">
+                                    <h5 class="card-title text-white fs-2">Narrativa</h5>
                                     <a th:href="@{/catalog/show/77}" class="stretched-link"></a>
                                 </div>
                             </div>
@@ -323,16 +372,15 @@
     </div>
     <!-- BIO E CLASSICI  -->
     <div class="row d-flex">
-        <div class="col-md-8  offset-md-2">
-            <!-- fantasy -->
+        <div class="col-lg-8  offset-lg-2">
             <div class="row-md-10 mb-5">
                 <h2>Biografie</h2>
                 <hr class="border-4 text-warning">
-                <div id="carouselFantasy" class="carousel slide">
+                <div id="carouselFantasy" class="carousel slide d-none d-lg-block">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="row">
-                                <div class="col-md-3 d-flex align-items-stretch"
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
                                      th:each="book : ${fantasyBooks.subList(0, 4)}">
                                     <div class="card shadow-sm">
                                         <img th:src="${book.urlPhoto}" class="card-img-top" alt="..." style="object-fit:cover; max-height:350px">
@@ -351,7 +399,7 @@
                         </div>
                         <div class="carousel-item">
                             <div class="row">
-                                <div class="col-md-3 d-flex align-items-stretch"
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
                                      th:each="book : ${fantasyBooks.subList(4, 8)}">
                                     <div class="card shadow-sm">
                                         <img th:src="${book.urlPhoto}" class="card-img-top" alt="..." style="object-fit:cover; max-height:350px">
@@ -378,18 +426,33 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
                 </div>
+                <div class="d-lg-none">
+                    <div class="row">
+                        <div th:each="book : ${fantasyBooks}" class="col-sm-12 col-md-6 mb-4">
+                            <div class="card mb-4" style="text-align: center; border: none;">
+                                <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
+                                <div class="card-body flex-card-body">
+                                    <h4 class="card-title" th:text="${book.name}"></h4>
+                                    <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                    <p class="card-text mb-2" th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                                    <div class="d-flex justify-content-around align-items-center">
+                                        <p class="m-0"><span th:text="${book.price}" class="fw-bold" style="font-size: 20px;"></span> €</p>
+                                    </div>
+                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- fine fantasy -->
-
-            <!-- classici -->
             <div class="row-md-10 mb-5">
                 <h2>Classici</h2>
                 <hr class="border-4 text-warning">
-                <div id="carouselClassici" class="carousel slide">
+                <div id="carouselClassici" class="carousel slide d-none d-lg-block">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
                             <div class="row">
-                                <div class="col-md-3 d-flex align-items-stretch"
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
                                      th:each="book : ${classiciBooks.subList(0, 4)}">
                                     <div class="card shadow-sm">
                                         <img th:src="${book.urlPhoto}" class="card-img-top" alt="..." style="object-fit:cover; max-height:350px">
@@ -408,7 +471,7 @@
                         </div>
                         <div class="carousel-item">
                             <div class="row">
-                                <div class="col-md-3 d-flex align-items-stretch"
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4 d-flex align-items-stretch"
                                      th:each="book : ${classiciBooks.subList(4, 8)}">
                                     <div class="card shadow-sm">
                                         <img th:src="${book.urlPhoto}" class="card-img-top" alt="..." style="object-fit:cover; max-height:350px">
@@ -435,8 +498,25 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     </button>
                 </div>
+                <div class="d-lg-none">
+                    <div class="row">
+                        <div th:each="book : ${classiciBooks}" class="col-sm-12 col-md-6 mb-4">
+                            <div class="card mb-4" style="text-align: center; border: none;">
+                                <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
+                                <div class="card-body flex-card-body">
+                                    <h4 class="card-title" th:text="${book.name}"></h4>
+                                    <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                    <p class="card-text mb-2" th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                                    <div class="d-flex justify-content-around align-items-center">
+                                        <p class="m-0"><span th:text="${book.price}" class="fw-bold" style="font-size: 20px;"></span> €</p>
+                                    </div>
+                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- fine classici -->
         </div>
     </div>
     <!-- SHIPPING -->

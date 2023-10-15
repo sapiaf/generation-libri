@@ -11,9 +11,8 @@
         </ol>
     </nav>
     <div class="row">
-        <!-- Sidebar per i filtri -->
         <input type="hidden" th:value="${selectedCategoryId}" name="selectedCategoryId">
-        <div class="col-md-2">
+        <div class="col-lg-3 col-md-3">
             <div class="mb-4">
                 <form th:action="@{/catalog}" method="get">
                     <div class="mb-3">
@@ -47,11 +46,9 @@
                 </form>
             </div>
         </div>
-        <!-- sidebar -->
-        <!-- griglia libri -->
-        <div class="col-md-8">
+        <div class="col-lg-9 col-md-9">
             <div class="row">
-                <div class="col-md-3 d-flex align-items-stretch" th:each="book : ${book}">
+                <div class="col-lg-3 col-md-6 justify-content-center d-flex align-items-stretch" th:each="book : ${book}">
                     <div class="card mb-4" style="text-align:center; border:none;">
                         <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
                         <div class="card-body flex-card-body">

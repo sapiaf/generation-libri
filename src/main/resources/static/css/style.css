@@ -33,6 +33,9 @@ nav-link active {
 --bs-dropdown-bg: #2b3035;
 }
 
+.navbar-hover-detail:hover {
+    color: black;
+}
 
 .btn-outline-light {
     --bs-btn-border-color: #ffeb3b;
