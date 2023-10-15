@@ -33,12 +33,14 @@
                 <td th:text="|${book.price} €|"></td>
                 <td>
                     <span th:text="${book.copies}"></span>
-                    <span th:classappend="${book.copies < 5} ? 'bg-danger' : (${book.copies < 15} ? 'bg-warning' : 'bg-success')" class="d-inline-block rounded-circle" style="width: 10px; height: 10px; margin-left: 5px;"></span>
+                    <span th:classappend="${book.copies < 5} ? 'bg-danger' : (${book.copies < 15} ? 'bg-warning' : 'bg-success')"
+                          class="d-inline-block rounded-circle"
+                          style="width: 10px; height: 10px; margin-left: 5px;"></span>
                 </td>
                 <td th:text="${book.publisher}"></td>
 
                 <td class="container d-flex text-center">
-                    <a th:href="@{/admin/show/{id}(id=${book.id})}" class="btn btn-primary m-1">
+                    <a th:href="@{/admin/show/{bookId}(bookId=${book.id})}" class="btn btn-primary m-1">
                         <i class="fa-solid fa-circle-info"></i>
                     </a>
                     <a th:href="@{/admin/update/{id}(id=${book.id})}" class="btn btn-warning m-1">

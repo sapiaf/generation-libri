@@ -27,7 +27,7 @@ public class Restocking {
 
     private String paymentMethod;
 
-    @OneToMany(mappedBy = "restock")
+    @OneToMany(mappedBy = "restock", cascade = CascadeType.REMOVE)
     private List<BooksRestockinQuantity> booksRestockinQuantity;
 
     //constructor
@@ -112,4 +112,19 @@ public class Restocking {
         this.booksRestockinQuantity = booksRestockinQuantity;
     }
 
+    public void calculateBulkPriceAndTotalCopies(List<BooksRestockinQuantity> booksRestockinQuantities) {
+        BigDecimal totalBulkPrice = BigDecimal.ZERO;
+        int totalSuppliedCopies = 0;
+
+        for (BooksRestockinQuantity brq : booksRestockinQuantities) {
+            int quantity = brq.getQuantityOfBookStock();
+            if (quantity > 0) {
+                BigDecimal discountedPrice = brq.getBook().getPrice().multiply(new BigDecimal("0.75"));
+                totalBulkPrice = totalBulkPrice.add(discountedPrice.multiply(new BigDecimal(quantity)));
+                totalSuppliedCopies += quantity;
+            }
+        }
+        this.bulkPrice = totalBulkPrice;
+        this.suppliedCopies = totalSuppliedCopies;
+    }
 }
