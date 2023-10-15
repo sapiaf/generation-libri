@@ -136,14 +136,16 @@ public class RestockController {
                          @ModelAttribute("restock") Restocking restockUpdate, Model model) {
         restockUpdate.setId(id);
         Optional<Restocking> result = restockRepository.findById(id);
+        Restocking existingRestock;
         if (result.isPresent()) {
-            Restocking existingRestock = result.get();
-            restockUpdate.setBooksRestockinQuantity(existingRestock.getBooksRestockinQuantity());
-        }
-        restockUpdate.calculateBulkPriceAndTotalCopies(restockUpdate.getBooksRestockinQuantity());
+            existingRestock = result.get();
+            existingRestock.setBooksRestockinQuantity(restockUpdate.getBooksRestockinQuantity());
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        existingRestock.calculateBulkPriceAndTotalCopies(restockUpdate.getBooksRestockinQuantity());
+        restockRepository.save(existingRestock);
         List<Restocking> restocks = restockRepository.findAll();
         model.addAttribute("restocks", restocks);
-        restockRepository.save(restockUpdate);
+
         return "redirect:/admin/restock";
     }
 
