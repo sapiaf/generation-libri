@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Restock Update')"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar(area='Restock')"></nav>
+<div class="container mt-5 mb-5">
+    <h1>Modifica Restock</h1>
+    <hr class="m-3">
+    <form th:action="@{/admin/restock/update/{restockId}(restockId=${restock.id})}"
+          id="restock-edit"
+          method="POST"
+          th:object="${restock}"
+    >
+        <input type="hidden" th:field="*{dateOfStock}">
+
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-8">
+                    <div class="mb-3">
+                        <label for="dependentName" class="form-label">Nome Dipendente:</label>
+                        <input class="form-control" id="dependentName" type="text" th:field="*{dependentName}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('dependentName')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('dependentName')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="supplierName" class="form-label">Fornitore:</label>
+                        <input type="text" class="form-control" id="supplierName" name="supplierName"
+                               th:field="*{supplierName}" th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('supplierName')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('supplierName')}" th:text="${err}"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h3 class="text-primary">Modalità di Pagamento</h3>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="carta" name="paymentMethod" value="Carta"
+                                   th:field="*{paymentMethod}" th:errorClass="is-invalid"/>
+                            <label class="form-check-label" for="carta">Carta</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="bonifico" name="paymentMethod"
+                                   value="Bonifico" th:field="*{paymentMethod}" th:errorClass="is-invalid"/>
+                            <label class="form-check-label" for="bonifico">Bonifico</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" id="contrassegno" name="paymentMethod"
+                                   value="Contrassegno"/>
+                            <label class="form-check-label" for="contrassegno">Contrassegno</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4 justify-content-around align-items-around m-auto">
+                <h2 class="mb-3 text-primary">Libri Ordinati</h2>
+                <div class="col-3 mb-2" th:each="bookQuantity, iterStat : ${restock.booksRestockinQuantity}">
+                    <div class="card">
+                        <img th:src="${bookQuantity.book.urlPhoto}" alt="Book Thumbnail">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${bookQuantity.book.name}"></h5>
+                            <label for="'booksRestockinQuantity_' + ${iterStat.index}" class="form-label">Copie
+                                Ordinate:</label>
+                            <input class="form-control"
+                                   id="'booksRestockinQuantity_' + ${iterStat.index}"
+                                   type="text"
+                                   th:field="*{booksRestockinQuantity[__${iterStat.index}__].quantityOfBookStock}"
+                                   th:errorClass="is-invalid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <button type="submit" class="btn btn-primary">Salva</button>
+                <a class="btn btn-danger" th:href="@{/admin/restock}">Annulla</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

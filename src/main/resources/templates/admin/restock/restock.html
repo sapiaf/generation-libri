@@ -17,6 +17,7 @@
                 <th>Fornitore</th>
                 <th>Copie Ordinate</th>
                 <th>Libri Ordinati</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +32,22 @@
                         <li th:each="restockQuantity : ${restock.booksRestockinQuantity}"
                             th:text="|${restockQuantity.book.name} - ${restockQuantity.quantityOfBookStock} copie|"></li>
                     </ul>
+                </td>
+                <td class="container d-flex text-center">
+                    <a th:href="@{/admin/restock/showRestock/{restockId} (restockId=${restock.id})}"
+                       class="btn btn-primary m-1">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </a>
+                    <a th:href="@{/admin/restock/update/{restockId} (restockId=${restock.id})}"
+                       class="btn btn-warning m-1">
+                        <i class="fa-solid fa-pencil"></i>
+                    </a>
+                    <form th:action="@{/admin/restock/delete/{restockId} (restockId=${restock.id})}" method="post"
+                          style="display: inline;">
+                        <button type="submit" class="btn btn-danger m-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
             </tbody>
