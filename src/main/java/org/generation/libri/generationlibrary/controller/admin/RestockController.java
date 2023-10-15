@@ -8,13 +8,17 @@ import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.BooksRestockinQuantityRepository;
 import org.generation.libri.generationlibrary.repository.RestockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /*pagina restock lato amministrazione */
 @Controller
@@ -40,14 +44,6 @@ public class RestockController {
         model.addAttribute("availableBooks", availableBooks);
         Restocking restocking = new Restocking();
         restocking.setDateOfStock(LocalDateTime.now());
-        /*List<BooksRestockinQuantity> avaibleBooksQuantity = new ArrayList<>();
-        for (Book b : availableBooks) {
-            BooksRestockinQuantity brq = new BooksRestockinQuantity();
-            brq.setBook(b);
-            brq.setRestock(restocking);
-            avaibleBooksQuantity.add(brq);
-        }
-        restocking.setBooksRestockinQuantity(avaibleBooksQuantity);*/
         model.addAttribute("restocking", restocking);
         return "admin/restock/createRestock";
     }
@@ -73,9 +69,11 @@ public class RestockController {
                 }
             }
         }
+
         if (!allQuantitiesNull) {
             List<Book> availableBooks = bookRepository.findAll();
-            restockRepository.save(restocking);
+            List<BooksRestockinQuantity> booksRestockinQuantities = new ArrayList<>();
+
             for (int i = 0; i < availableBooks.size(); i++) {
                 Integer restockQuantity = restockQuantities[i];
                 if (restockQuantity != null) {
@@ -83,9 +81,21 @@ public class RestockController {
                     booksRestockinQuantity.setQuantityOfBookStock(restockQuantity);
                     booksRestockinQuantity.setBook(availableBooks.get(i));
                     booksRestockinQuantity.setRestock(restocking);
-                    booksRestockinQuantityRepository.save(booksRestockinQuantity);
+                    booksRestockinQuantities.add(booksRestockinQuantity);
+                    Book book = availableBooks.get(i);
+                    int newAvailableCopies = book.getCopies() + restockQuantity;
+                    book.setCopies(newAvailableCopies);
+                    bookRepository.save(book);
                 }
             }
+
+            restocking.calculateBulkPriceAndTotalCopies(booksRestockinQuantities);
+            restockRepository.save(restocking);
+
+            for (BooksRestockinQuantity brq : booksRestockinQuantities) {
+                booksRestockinQuantityRepository.save(brq);
+            }
+
             return "redirect:/admin/restock";
         } else {
             List<Book> availableBooks = bookRepository.findAll();
@@ -96,4 +106,50 @@ public class RestockController {
     }
 
 
+    @GetMapping("/showRestock/{restockId}")
+    public String show(@PathVariable("restockId") Integer id, Model model) {
+        Optional<Restocking> restockingOptional = restockRepository.findById(id);
+        if (restockingOptional.isPresent()) {
+            Restocking restockingFound = restockingOptional.get();
+            model.addAttribute("restock", restockingFound);
+            return "admin/restock/detailsRestock";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/update/{restockId}")
+    public String edit(@PathVariable("restockId") Integer id, Model model) {
+        Optional<Restocking> result = restockRepository.findById(id);
+        if (result.isPresent()) {
+            Restocking restocking = result.get();
+            model.addAttribute("restock", restocking);
+            model.addAttribute("booksRestockinQuantity", restocking.getBooksRestockinQuantity());
+            return "admin/restock/updateRestock";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "restock with id " + id + " not found");
+        }
+    }
+
+    @PostMapping("/update/{restockId}")
+    public String doEdit(@PathVariable("restockId") Integer id,
+                         @ModelAttribute("restock") Restocking restockUpdate, Model model) {
+        restockUpdate.setId(id);
+        Optional<Restocking> result = restockRepository.findById(id);
+        if (result.isPresent()) {
+            Restocking existingRestock = result.get();
+            restockUpdate.setBooksRestockinQuantity(existingRestock.getBooksRestockinQuantity());
+        }
+        restockUpdate.calculateBulkPriceAndTotalCopies(restockUpdate.getBooksRestockinQuantity());
+        List<Restocking> restocks = restockRepository.findAll();
+        model.addAttribute("restocks", restocks);
+        restockRepository.save(restockUpdate);
+        return "redirect:/admin/restock";
+    }
+
+    @PostMapping("/delete/{restockId}")
+    public String deleteById(@PathVariable("restockId") Integer id) {
+        restockRepository.deleteById(id);
+        return "redirect:/admin/restock";
+    }
 }

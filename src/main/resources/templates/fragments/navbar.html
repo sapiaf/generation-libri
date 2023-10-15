@@ -1,15 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<head th:replace="fragments/head :: head('NavBar')"></head>
 <body>
 <!-- fragment navbar  DA GESTIRE-->
-<nav th:fragment="navbar(area)" class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
+<nav th:fragment="navbar(area)" class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark"
+     style="font-family: 'Lato', sans-serif;">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/admin}"><img th:src="@{/images/logo.png}" width="100px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"

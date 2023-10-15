@@ -3,12 +3,12 @@
 <head th:replace="fragments/head :: head('Checkout')"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
-<div class="container my-5">
+<div class="container mt-5">
     <div class="row">
         <div class="col-md-5 col-lg-4 order-md-last">
-            <h4 class="d-flex justify-content-between align-items-center mb-3 fw-bold">
-                <span class="text-warning">Il tuo Carrello</span>
-                <span class="badge bg-warning rounded-pill" th:text="${purchase.purchaseQuantity}"></span>
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">Il tuo Carrello</span>
+                <span class="badge bg-primary rounded-pill" th:text="${purchase.purchaseQuantity}"></span>
             </h4>
             <ul class="list-group mb-3">
                 <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -26,91 +26,109 @@
         </div>
 
         <div class="col-md-7 col-lg-8">
-            <h4 class="mb-1">Indirizzo di Spedizione</h4>
-            <form th:action="@{/checkout/{id}(id=${book.id})}" method="post">
-                <input type="hidden" name="purchaseQuantity" th:value="${purchase.purchaseQuantity}" />
+            <h4 class="mb-3">Indirizzo di Spedizione</h4>
+            <form th:action="@{/checkout/{id}(id=${book.id})}" method="post" th:object="${purchase}">
+                <input type="hidden" name="purchaseQuantity" th:value="${purchase.purchaseQuantity}"/>
                 <div class="row g-3">
                     <div class="col-sm-6">
-                        <label for="firstName" class="form-label"></label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Nome" value="" required>
-                        <div class="invalid-feedback">
-                            Valid first name is required.
+                        <label for="firstName" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="firstName" th:field="*{userName}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userName')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userName')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <label for="lastName" class="form-label"></label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Cognome" value="" required>
-                        <div class="invalid-feedback">
-                            Valid last name is required.
+                        <label for="lastName" class="form-label">Cognome</label>
+                        <input type="text" class="form-control" id="lastName" th:field="*{userSurname}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userSurname')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userSurname')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-12">
-                        <label for="email" class="form-label"></label>
-                        <input type="email" class="form-control" id="email" placeholder="Email" required>
-                        <div class="invalid-feedback">
-                            Please enter a valid email address for shipping updates.
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" th:field="*{userEmail}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userEmail')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userEmail')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-12">
-                        <label for="address" class="form-label"></label>
-                        <input type="text" class="form-control" id="address" placeholder="Indirizzo" required>
-                        <div class="invalid-feedback">
-                            Please enter your shipping address.
+                        <label for="address" class="form-label">Indirizzo</label>
+                        <input type="text" class="form-control" id="address" th:field="*{userAddress}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userAddress')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userAddress')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="country" class="form-label"></label>
-                        <input type="text" class="form-control" id="country" placeholder="Paese" required>
-                        <div class="invalid-feedback">
-                            Please select a valid country.
+                        <label for="country" class="form-label">Paese</label>
+                        <input type="text" class="form-control" id="country" th:field="*{userCountry}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userCountry')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userCountry')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label for="state" class="form-label"></label>
-                        <input type="text" class="form-control" id="state" placeholder="Città" required>
-                        <div class="invalid-feedback">
-                            Please provide a valid state.
+                        <label for="state" class="form-label">Città</label>
+                        <input type="text" class="form-control" id="state" th:field="*{userCity}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userCity')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userCity')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <label for="province" class="form-label"></label>
-                        <input type="text" class="form-control" maxlength="2" id="province" placeholder="Provincia" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
+                        <label for="province" class="form-label">Provincia</label>
+                        <input type="text" class="form-control" id="province" th:field="*{userMunicipality}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userMunicipality')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userMunicipality')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <label for="zip" class="form-label"></label>
-                        <input type="number" class="form-control" id="zip" placeholder="CAP" required>
-                        <div class="invalid-feedback">
-                            Zip code required.
+                        <label for="zip" class="form-label">CAP</label>
+                        <input type="text" class="form-control" id="zip" th:field="*{userZipCode}"
+                               th:errorClass="is-invalid">
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('userZipCode')}">
+                            <ul>
+                                <li th:each="err : ${#fields.errors('userZipCode')}" th:text="${err}"></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <hr class="my-4">
-                <h4 class="mb-3">Metodo di Pagamento</h4>
-                <div class="my-3">
-                    <div class="form-check">
-                        <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked="" >
-                        <label class="form-check-label" for="credit">Carta di Credito</label>
-                    </div>
-                    <div class="form-check">
-                        <input id="debit" name="paymentMethod" type="radio" class="form-check-input" >
-                        <label class="form-check-label" for="debit">PayPal</label>
-                    </div>
-                    <div class="form-check">
-                        <input id="bank-transfer" name="paymentMethod" type="radio" class="form-check-input" >
-                        <label class="form-check-label" for="bank-transfer">Bonifico</label>
-                    </div>
-                </div>
+                <label class="form-label fw-medium fs-5">Metodo di Pagamento</label>
+                <select class="form-select" aria-label="paymentMethod" th:field="*{userPaymentMethod}">
+                    <option value="1">Carta di Credito</option>
+                    <option value="2">Paypal</option>
+                    <option value="3">Bonifico</option>
+                </select>
+
                 <hr class="my-4">
-                <button class="w-100 btn btn-warning btn-lg" type="submit">Effettua Ordine</button>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Effettua Ordine</button>
             </form>
         </div>
 
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 <footer th:replace="fragments/userFooter"></footer>
 </body>
 </html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head :: head('Restock Details')"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar(area='Restock')"></nav>
+<div class="container mt-5">
+    <h1>Dettagli Restock</h1>
+    <hr class="m-3">
+    <div class="justify-content-between align-items-between">
+        <div class="row mt-4 justify-content-around align-items-around m-auto ">
+            <h2 class="mb-3 text-primary">Libri Ordinati</h2>
+            <div class="col-3 mb-2 rounded" th:each="restockQuantity : ${restock.booksRestockinQuantity}">
+                <div class="card">
+                    <img th:src="${restockQuantity.book.urlPhoto}" alt="Book Thumbnail">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${restockQuantity.book.name}"></h5>
+                        <p class="card-text">Copie Ordinate:
+                            <span class="text-primary" th:text="${restockQuantity.quantityOfBookStock}"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-auto">
+            <h2 class="mb-3 text-primary">Dettagli Restock</h2>
+            <h5 class="card-text">
+                <span>Ordine Effettuato da:<span class="text-primary"
+                                                 th:text="' ' + ${restock.dependentName}"></span></span>
+            </h5>
+            <h5 class="card-text">
+                <span>Data:<span class="text-primary" th:text="' ' + ${restock.dateOfStock}"></span></span>
+            </h5>
+            <h5 class="card-text">
+                <i class="fa-solid fa-book-bookmark"></i>
+                <span>Copie Totali:<span class="text-primary"
+                                         th:text="' ' + ${restock.suppliedCopies}"></span></span>
+            </h5>
+            <h5 class="card-text">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Fornitore:<span class="text-primary" th:text="' ' + ${restock.supplierName}"></span></span>
+            </h5>
+            <h5 class="card-text">
+                <i class="fa-regular fa-credit-card"></i>
+                <span>Metodo di Pagamento:<span class="text-primary"
+                                                th:text="' ' + ${restock.paymentMethod}"></span></span>
+            </h5>
+            <h5 class="card-text">
+                <i class="fa-regular fa-money-bill-1"></i>
+                <span>Prezzo Totale:<span class="text-primary" th:text="' ' + ${restock.bulkPrice}"></span></span>
+            </h5>
+        </div>
+    </div>
+</div>
+<div class="text-center">
+    <a th:href="@{/admin/restock}"> &lt;&lt;Torna Indietro</a>
+</div>
+</body>
+</html>

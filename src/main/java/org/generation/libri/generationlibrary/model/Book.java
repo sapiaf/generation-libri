@@ -10,7 +10,6 @@ import java.util.List;
 
 @Entity
 public class Book {
-    /*Aggiungere variabile per la casa editrice e l'anno di pubblicazione*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
