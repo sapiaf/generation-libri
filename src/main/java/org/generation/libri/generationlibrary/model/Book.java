@@ -42,7 +42,8 @@ public class Book {
     private List<Purchase> purchasings;
     @OneToMany(mappedBy = "book")
     private List<BooksRestockinQuantity> booksRestockinQuantity;
-
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews;
     //constructor
 
 

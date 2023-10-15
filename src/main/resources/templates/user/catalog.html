@@ -11,70 +11,54 @@
         </ol>
     </nav>
     <div class="row">
-        <!-- Sidebar per i filtri -->
         <input type="hidden" th:value="${selectedCategoryId}" name="selectedCategoryId">
-        <div class="col-md-2">
+        <div class="col-lg-3 col-md-3">
             <div class="mb-4">
                 <form th:action="@{/catalog}" method="get">
-                    <!-- categories -->
                     <div class="mb-3">
-                        <label><strong>Categorie</strong></label>
+                        <label><h5>Categorie</h5></label>
                         <div th:each="category : ${categories}">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox"
-                                       th:value="${category.id}" th:id="${'category' + category.id}"
-                                       name="categories"
-                                       th:checked="${(selectedCategoryIds != null and selectedCategoryIds.contains(category.id)) or (selectedCategoryId != null and category.id == selectedCategoryId)}">
-                                <label class="form-check-label" th:for="${'category' + category.id}"
-                                       th:text="${category.name}"></label>
+                                <input class="form-check-input" type="checkbox" th:value="${category.id}" th:id="${'category' + category.id}" name="categories">
+                                <label class="form-check-label" th:for="${'category' + category.id}" th:text="${category.name}"></label>
                             </div>
                         </div>
                     </div>
-                    <!-- price -->
-                    <label><strong>Prezzo</strong></label>
+                    <label><h5>Prezzo</h5></label>
                     <div class="row mb-3">
                         <div class="col-6">
-                            <label for="minPrice">Min</label>
-                            <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01">
+                            <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01" placeholder="Max">
                         </div>
                         <div class="col-6">
-                            <label for="maxPrice">Max</label>
-                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01">
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01" placeholder="Max">
                         </div>
                     </div>
-                    <!-- year of publishing -->
-                    <label><strong>Anno di Pubblicazione</strong></label>
-                    <hr>
+                    <label><h5>Anno di Pubblicazione</h5></label>
                     <div class="row mb-3">
                         <div class="col-6">
-                            <label for="minPrice">Da</label>
-                            <input type="number" class="form-control" id="minYear" name="minYear" step="1">
+                            <input type="number" class="form-control" id="minYear" name="minYear" step="1" placeholder="Da">
                         </div>
                         <div class="col-6">
-                            <label for="maxPrice">A</label>
-                            <input type="number" class="form-control" id="maxYear" name="maxYear" step="1">
+                            <input type="number" class="form-control" id="maxYear" name="maxYear" step="1" placeholder="A">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Cerca</button>
+                    <button type="submit" class="btn btn-warning">Cerca</button>
                 </form>
             </div>
         </div>
-        <!-- sidebar -->
-
-        <!-- griglia libri -->
-        <div class="col-md-9">
+        <div class="col-lg-9 col-md-9">
             <div class="row">
-                <div class="col-md-3" th:each="book : ${book}">
-                    <div class="card shadow-sm mb-4">
-                        <img class="card-img-top" th:src="${book.urlPhoto}" alt="Book cover">
-                        <div class="card-body">
+                <div class="col-lg-3 col-md-6 justify-content-center d-flex align-items-stretch" th:each="book : ${book}">
+                    <div class="card mb-4" style="text-align:center; border:none;">
+                        <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover" style="object-fit: contain; max-height: 300px;">
+                        <div class="card-body flex-card-body">
                             <h4 class="card-title" th:text="${book.name}"></h4>
-                            <h6 th:href="@{/}" class="text-primary" th:text="${book.authors}"></h6>
-                            <p class="card-text" th:text="${book.description}"></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h4 th:text="${book.price} + ' €'" class="m-0"></h4>
-                                <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
+                            <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                            <p class="card-text mb-2" th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                            <div class="d-flex justify-content-around align-items-center">
+                                <p class="m-0"><span th:text="${book.price}" class="fw-bold" style="font-size: 20px;"></span> €</p>
                             </div>
+                            <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>

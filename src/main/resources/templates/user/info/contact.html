@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head('Contatti')"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='Contatti')"></nav>
-<div class="container mt-5">
+<div class="container my-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
@@ -17,21 +17,17 @@
             <form>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="name" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="name" placeholder="Nome">
                     </div>
                     <div class="col-md-4">
-                        <label for="surname" class="form-label">Cognome</label>
                         <input type="text" class="form-control" id="surname" placeholder="Cognome">
                     </div>
                     <div class="col-md-4">
-                        <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="argomento" class="form-label">Argomento</label>
                     <select class="form-select" id="argomento">
                         <option selected>Scegli un argomento...</option>
                         <option value="1">Opzione 1</option>
@@ -42,37 +38,28 @@
 
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="numeroOrdine" class="form-label">Numero Ordine</label>
                         <input type="text" class="form-control" id="numeroOrdine" placeholder="Numero Ordine">
                     </div>
                     <div class="col-md-6">
-                        <label for="notaConsegna" class="form-label">Nota di Consegna</label>
                         <input type="text" class="form-control" id="notaConsegna" placeholder="Nota di Consegna">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="message" class="form-label">Messaggio</label>
                     <textarea class="form-control" id="message" rows="4" placeholder="Scrivi il tuo messaggio..."></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Invia</button>
+                <button type="submit" class="btn btn-warning">Invia</button>
             </form>
         </div>
         <div class="col-lg-4">
             <h3>Informazioni</h3>
-            <p><strong>Indirizzo:</strong> Via del Corso, Milano, Italia</p>
+            <p></i> <strong>Indirizzo:</strong> P.za del Duomo, 31, Milano</p>
             <p><strong>Telefono:</strong> +1234567890</p>
-            <p><strong>Email:</strong> book@generation.org</p>
+            <p><strong>Email:</strong> info.italy@generation.org</p>
             <p><strong>Orari:</strong> Lun-Ven, 9-18</p>
-
-            <h3>Seguici</h3>
-            <a href="#" class="btn btn-primary btn-sm mb-2"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#" class="btn btn-info btn-sm mb-2"><i class="fa-brands fa-twitter"></i></a>
-            <a href="#" class="btn btn-danger btn-sm mb-2"><i class="fa-brands fa-instagram"></i></a>
-
             <h3>Dove Siamo</h3>
-            <iframe src="https://www.google.com/maps/embed?..." width="100%" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2798.2501085167164!2d9.189951476697487!3d45.464765433400174!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4786c6af0011a56f%3A0xb4d89d4d9e2afdc7!2sP.za%20del%20Duomo%2C%2031%2C%2020121%20Milano%20MI!5e0!3m2!1sen!2sit!4v1697384510389!5m2!1sen!2sit" width="100%" height="200" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
         </div>
     </div>
 </div>

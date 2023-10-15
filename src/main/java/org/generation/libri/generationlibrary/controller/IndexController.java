@@ -27,15 +27,15 @@ public class IndexController {
     @GetMapping
     public String index(Model model) {
         List<Book> bookList = filterDeletedBooks(bookRepository.findAllByOrderByDateOfPublishingDesc());
-        List<Book> narrativaBooks = filterDeletedBooks(bookRepository.findByCategories_Id(1));
-        List<Book> fantasyBooks = filterDeletedBooks(bookRepository.findByCategories_Id(5));
+        List<Book> informaticaBooks = filterDeletedBooks(bookRepository.findByCategories_Id(4));
+        List<Book> bioBooks = filterDeletedBooks(bookRepository.findByCategories_Id(9));
         List<Book> classiciBooks = filterDeletedBooks(bookRepository.findByCategories_Id(2));
         LocalDateTime endDate = LocalDateTime.now();
         LocalDateTime startDate = endDate.minusMonths(1);
         List<Book> topSellingBooks = filterDeletedBooks(purchaseRepository.findTopSellingBooksInDateRange(startDate, endDate));
 
-        model.addAttribute("narrativaBooks", narrativaBooks);
-        model.addAttribute("fantasyBooks", fantasyBooks);
+        model.addAttribute("informaticaBooks", informaticaBooks);
+        model.addAttribute("fantasyBooks", bioBooks);
         model.addAttribute("classiciBooks", classiciBooks);
         model.addAttribute("topSellingBooks", topSellingBooks);
         model.addAttribute("books", bookList);

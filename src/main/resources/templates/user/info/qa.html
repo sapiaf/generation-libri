@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head('Aiuto e FAQ')"></head>
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='FAQ')"></nav>
-<div class="container mt-5">
+<div class="container my-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
@@ -134,6 +134,42 @@
             <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     Sì, riceverai una mail sia nel momento in cui il tuo ordine sarà confermato (contenente tutti i dati dei prodotti e dell’indirizzo di spedizione) che quando il tuo ordine verrà affidato al corriere incaricato della consegna (contenente il link relativo allo stato della spedizione, che potrai controllare dal giorno successivo alla ricezione della mail).                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                    11. Quali metodi di pagamento accettate?
+                </button>
+            </h2>
+            <div id="collapseEleven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Accettiamo diversi metodi di pagamento, tra cui carte di credito, bonifico bancario e PayPal. Per ulteriori informazioni sui metodi di pagamento accettati, visita la pagina "Metodi di Pagamento" sul nostro sito web.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                    12. Come posso contattare il Servizio Clienti?
+                </button>
+            </h2>
+            <div id="collapseTwelve" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Puoi contattare il nostro Servizio Clienti tramite email all'indirizzo support@generationbookstore.com o chiamando il numero +1234567890.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class an="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThirteen" aria-expanded="false" aria-controls="collapseThirteen">
+                    13. Avete un programma fedeltà per i clienti?
+                </button>
+            </h2>
+            <div id="collapseThirteen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Sì, offriamo un programma fedeltà per i nostri clienti abituali. Puoi trovare maggiori dettagli e i vantaggi del programma nella sezione "Programma Fedeltà" del nostro sito web.
+                </div>
             </div>
         </div>
     </div>
