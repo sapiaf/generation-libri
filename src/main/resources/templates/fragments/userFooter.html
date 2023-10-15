@@ -23,14 +23,14 @@
                     <div class="col-lg-4">
                         <ul class="list-unstyled mb-0">
                             <li th:each="category, stat : ${categories}" th:if="${stat.count <= 4}">
-                                <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white"></a>
+                                <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white footer-link"></a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-lg-8">
                         <ul class="list-unstyled mb-0">
                             <li th:each="category, stat : ${categories}" th:if="${stat.count > 4 && stat.count <= 8}">
-                                <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white"></a>
+                                <a th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}" class="text-white footer-link"></a>
                             </li>
                         </ul>
                     </div>
@@ -40,16 +40,16 @@
                 <h5 class="mb-0" style="color: #ffeb3b;">Informazioni</h5>
                 <ul class="list-unstyled mb-0">
                     <li>
-                        <a th:href="@{/spedizioni}" class="text-white">Spedizioni</a>
+                        <a th:href="@{/spedizioni}" class="text-white footer-link">Spedizioni</a>
                     </li>
                     <li>
-                        <a th:href="@{/aiuto-faq}" class="text-white">Aiuto e FAQ</a>
+                        <a th:href="@{/aiuto-faq}" class="text-white footer-link">Aiuto e FAQ</a>
                     </li>
                     <li>
-                        <a th:href="@{/contatti}" class="text-white">Contatti</a>
+                        <a th:href="@{/contatti}" class="text-white footer-link">Contatti</a>
                     </li>
                     <li>
-                        <a th:href="@{/privacy}" class="text-white">Informativa sulla privacy</a>
+                        <a th:href="@{/privacy}" class="text-white footer-link">Informativa sulla privacy</a>
                     </li>
                 </ul>
             </div>
@@ -75,10 +75,10 @@
             </div>
         </div>
     </div>
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2023 Copyright:
-        <a class="text-white" th:href="@{/}">Generation Bookstore</a>
-    </div>
+    <p class="text-center p-3 m-0" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023
+        <a class="text-white footer-link" th:href="@{/}">Generation Bookstore</a>
+    </p>
 </footer>
 </body>
 </html>

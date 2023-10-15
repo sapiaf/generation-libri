@@ -6,6 +6,34 @@
 .navbar-nav .nav-link.show {
     color: #ffeb3b;
 }
+
+nav-link active {
+    font-weight: 100;
+}
+
+.text-secondary {
+    color: #333 !important;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: rgb(199 199 199) !important;
+}
+.footer-link:hover {
+    color: rgb(255 255 255) !important;
+}
+
+.nav-link {
+    color: rgb(199 199 199);
+}
+.nav-link:focus, .nav-link:hover {
+    color: rgb(255 255 255);
+}
+.dropdown-menu {
+--bs-dropdown-bg: #2b3035;
+}
+
+
 .btn-outline-light {
     --bs-btn-border-color: #ffeb3b;
     --bs-btn-hover-color: #fff;
@@ -37,9 +65,9 @@
 }
 .dropdown-menu li .dropdown-item:hover {
   background-color: #2b3035;
+  color: white;
 }
 .dropdown-menu li:first-child a {
-  font-weight: bold;
   font-size: 1.2em;
   color: #ffeb3b;
 }
