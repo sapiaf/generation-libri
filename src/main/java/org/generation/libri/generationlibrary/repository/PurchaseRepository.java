@@ -15,7 +15,7 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Integer> {
             nativeQuery = true)
     List<Purchase> searchListPurchase(String name);
 
-    @Query(value = "select p.* from purchase p join book b on p.book_id = b.id where date_of_purchase between %:minDate% and %:maxDate%",
+    @Query(value = "select p.* from purchase p join book b on p.book_id = b.id where date_of_purchase >= :minDate and date_of_purchase < :maxDate",
             nativeQuery = true)
     List<Purchase> searchListBetweenDates(LocalDate minDate, LocalDate maxDate);
   @Query("SELECT p.book, SUM(p.purchaseQuantity) as totalSold FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate AND :endDate GROUP BY p.book ORDER BY totalSold DESC")
