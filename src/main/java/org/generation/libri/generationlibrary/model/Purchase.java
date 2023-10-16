@@ -18,22 +18,22 @@ public class Purchase {
     @NotNull
     @Min(1)
     private int purchaseQuantity;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userName;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userSurname;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userEmail;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userAddress;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userCountry;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userCity;
-    @NotBlank
-    @Size(min = 2, max = 2)
+    @NotBlank(message = "Questo campo non può essere vuoto.")
+    @Size(min = 2, max = 2, message = "Inserire solo 2 caratteri.")
     private String userMunicipality;
-    @NotBlank
+    @NotBlank(message = "Questo campo non può essere vuoto.")
     private String userZipCode;
     private int userPaymentMethod;
 
