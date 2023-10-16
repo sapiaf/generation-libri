@@ -27,7 +27,7 @@
     <form class="d-flex ms-auto bg-light-gray mt-3 mb-3" th:action="@{/admin/search}" method="get">
         <input class="form-control me-2" type="search" name="queryBookSearch" placeholder="Cerca tra i libri"
                aria-label="Search">
-        <button class="btn btn-primary" type="submit">Cerca</button>
+        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
     <div class="mt-3">
         <table class="table table-bordered">
@@ -51,7 +51,7 @@
                     <img th:src="${book.urlPhoto}" alt="Book Thumbnail" style="max-width: 100px; max-height: 100px;">
                 </td>
                 <td th:text="${book.name}"></td>
-                <td th:text="${book.description}"></td>
+                <td th:text="${#strings.abbreviate(book.description, 80)}"></td>
                 <td th:text="|${book.price} €|"></td>
                 <td>
                     <span th:text="${book.copies}"></span>

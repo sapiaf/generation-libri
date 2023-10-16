@@ -45,10 +45,56 @@
     </button>
 </div>
 <!--Categorie  -->
-<div class="container-fluid mt-3">
-    <div class="row bg-light justify-content-center my-5 py-5">
+<div class="container-fluid">
+    <div class="row justify-content-center py-4">
+        <div class="col-lg-2 d-none d-lg-block">
+            <div class="mb-4 position-sticky" style="top: 15px">
+                <form th:action="@{/catalog}" method="get">
+                    <div class="mb-3">
+                        <label>
+                            <h5>Categorie</h5>
+                        </label>
+                        <div th:each="category : ${categories}">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" th:value="${category.id}"
+                                       th:id="${'category' + category.id}" name="categories">
+                                <label class="form-check-label" th:for="${'category' + category.id}"
+                                       th:text="${category.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <label>
+                        <h5>Prezzo</h5>
+                    </label>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01"
+                                   placeholder="Max">
+                        </div>
+                        <div class="col-6">
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01"
+                                   placeholder="Max">
+                        </div>
+                    </div>
+                    <label>
+                        <h5>Anno di Pubblicazione</h5>
+                    </label>
+                    <div class="row mb-3">
+                        <div class="col-6">
+                            <input type="number" class="form-control" id="minYear" name="minYear" step="1"
+                                   placeholder="Da">
+                        </div>
+                        <div class="col-6">
+                            <input type="number" class="form-control" id="maxYear" name="maxYear" step="1"
+                                   placeholder="A">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Cerca</button>
+                </form>
+            </div>
+        </div>
         <div class="col-lg-8">
-            <h2 class="mb-3">In Evidenza</h2>
+            <h1 class="mb-3">In Evidenza</h1>
             <div class="row">
                 <div class="col-md-6 d-flex flex-column">
                     <div class="card mb-4 flex-grow-1">
@@ -95,141 +141,90 @@
                                 <div class="card-img-overlay d-flex flex-column justify-content-end"
                                      style="box-shadow: inset 0 0 0 1000px rgba(0,0,0,.6);">
                                     <h5 class="card-title text-white fs-2">Narrativa</h5>
-                                    <a th:href="@{/catalog/show/77}" class="stretched-link"></a>
+                                    <a th:href="@{/catalog/category/1}" class="stretched-link"></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- NOVITA -->
-    <div class="row d-flex">
-        <div class="col-lg-2 d-none d-lg-block">
-            <div class="mb-4">
-                <form th:action="@{/catalog}" method="get">
-                    <div class="mb-3">
-                        <label>
-                            <h5>Categorie</h5>
-                        </label>
-                        <div th:each="category : ${categories}">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" th:value="${category.id}"
-                                       th:id="${'category' + category.id}" name="categories">
-                                <label class="form-check-label" th:for="${'category' + category.id}"
-                                       th:text="${category.name}"></label>
-                            </div>
-                        </div>
-                    </div>
-                    <label>
-                        <h5>Prezzo</h5>
-                    </label>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <input type="number" class="form-control" id="minPrice" name="minPrice" step="0.01"
-                                   placeholder="Max">
-                        </div>
-                        <div class="col-6">
-                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" step="0.01"
-                                   placeholder="Max">
-                        </div>
-                    </div>
-                    <label>
-                        <h5>Anno di Pubblicazione</h5>
-                    </label>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <input type="number" class="form-control" id="minYear" name="minYear" step="1"
-                                   placeholder="Da">
-                        </div>
-                        <div class="col-6">
-                            <input type="number" class="form-control" id="maxYear" name="maxYear" step="1"
-                                   placeholder="A">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-warning">Cerca</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-8">
-            <div class="row-md-10 mb-5">
-                <h1>Novità</h1>
-                <hr class="border-4 text-warning" style="border-width:3px">
-                <div id="carouselNovita" class="carousel slide d-none d-lg-block">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="row">
-                                <div class="col-md-3 d-flex align-items-stretch"
-                                     th:each="book : ${books.subList(0, 4)}">
-                                    <div class="card shadow-sm">
-                                        <img th:src="${book.urlPhoto}" class="card-img-top" alt="..."
-                                             style="object-fit:cover; max-height:350px">
-                                        <div class="card-body">
-                                            <h4 class="card-title" th:text="${book.name}"></h4>
-                                            <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
-                                            <p class="card-text mb-2"
-                                               th:text="${#strings.abbreviate(book.description, 55)}">.</p>
-                                            <div class="d-flex">
-                                                <p class="m-0"><span th:text="${book.price}" class="fw-bold"
-                                                                     style="font-size: 20px;"></span> €</p>
+                <div class="col mt-4">
+                    <h2>Novità</h2>
+                    <hr class="border-4 text-warning" style="border-width:3px">
+                    <div id="carouselNovita" class="carousel slide d-none d-lg-block">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row">
+                                    <div class="col-md-3 d-flex align-items-stretch"
+                                         th:each="book : ${books.subList(0, 4)}">
+                                        <div class="card shadow-sm">
+                                            <img th:src="${book.urlPhoto}" class="card-img-top" alt="..."
+                                                 style="object-fit:cover; max-height:350px">
+                                            <div class="card-body">
+                                                <h4 class="card-title" th:text="${book.name}"></h4>
+                                                <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                                <p class="card-text mb-2"
+                                                   th:text="${#strings.abbreviate(book.description, 55)}">.</p>
+                                                <div class="d-flex">
+                                                    <p class="m-0"><span th:text="${book.price}" class="fw-bold"
+                                                                         style="font-size: 20px;"></span> €</p>
+                                                </div>
+                                                <a th:href="@{/catalog/show/{id}(id=${book.id})}"
+                                                   class="stretched-link"></a>
                                             </div>
-                                            <a th:href="@{/catalog/show/{id}(id=${book.id})}"
-                                               class="stretched-link"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-md-3 d-flex align-items-stretch"
+                                         th:each="book : ${books.subList(4, 8)}">
+                                        <div class="card shadow-sm">
+                                            <img th:src="${book.urlPhoto}" class="card-img-top" alt="..."
+                                                 style="object-fit:cover; max-height:350px">
+                                            <div class="card-body">
+                                                <h4 class="card-title" th:text="${book.name}"></h4>
+                                                <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                                <p class="card-text mb-2"
+                                                   th:text="${#strings.abbreviate(book.description, 55)}">.</p>
+                                                <div class="d-flex">
+                                                    <p class="m-0"><span th:text="${book.price}" class="fw-bold"
+                                                                         style="font-size: 20px;"></span> €</p>
+                                                </div>
+                                                <a th:href="@{/catalog/show/{id}(id=${book.id})}"
+                                                   class="stretched-link"></a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item">
-                            <div class="row">
-                                <div class="col-md-3 d-flex align-items-stretch"
-                                     th:each="book : ${books.subList(4, 8)}">
-                                    <div class="card shadow-sm">
-                                        <img th:src="${book.urlPhoto}" class="card-img-top" alt="..."
-                                             style="object-fit:cover; max-height:350px">
-                                        <div class="card-body">
-                                            <h4 class="card-title" th:text="${book.name}"></h4>
-                                            <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
-                                            <p class="card-text mb-2"
-                                               th:text="${#strings.abbreviate(book.description, 55)}">.</p>
-                                            <div class="d-flex">
-                                                <p class="m-0"><span th:text="${book.price}" class="fw-bold"
-                                                                     style="font-size: 20px;"></span> €</p>
-                                            </div>
-                                            <a th:href="@{/catalog/show/{id}(id=${book.id})}"
-                                               class="stretched-link"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselNovita"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselNovita"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselNovita"
-                            data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselNovita"
-                            data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    </button>
-                </div>
-                <div class="d-lg-none">
-                    <div class="row">
-                        <div th:each="book : ${books.subList(0, 12)}" class="col-sm-12 col-md-6 mb-4">
-                            <div class="card mb-4" style="text-align: center; border: none;">
-                                <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover"
-                                     style="object-fit: contain; max-height: 300px;">
-                                <div class="card-body flex-card-body">
-                                    <h4 class="card-title" th:text="${book.name}"></h4>
-                                    <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
-                                    <p class="card-text mb-2"
-                                       th:text="${#strings.abbreviate(book.description, 65)}"></p>
-                                    <div class="d-flex justify-content-around align-items-center">
-                                        <p class="m-0"><span th:text="${book.price}" class="fw-bold"
-                                                             style="font-size: 20px;"></span> €</p>
+                    <div class="d-lg-none">
+                        <div class="row">
+                            <div th:each="book : ${books.subList(0, 12)}" class="col-sm-12 col-md-6 mb-4">
+                                <div class="card mb-4" style="text-align: center; border: none;">
+                                    <img class="card-img-top rounded" th:src="${book.urlPhoto}" alt="Book cover"
+                                         style="object-fit: contain; max-height: 300px;">
+                                    <div class="card-body flex-card-body">
+                                        <h4 class="card-title" th:text="${book.name}"></h4>
+                                        <p class="text-secondary fw-bold mb-2" th:text="${book.authors}"></p>
+                                        <p class="card-text mb-2"
+                                           th:text="${#strings.abbreviate(book.description, 65)}"></p>
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <p class="m-0"><span th:text="${book.price}" class="fw-bold"
+                                                                 style="font-size: 20px;"></span> €</p>
+                                        </div>
+                                        <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                     </div>
-                                    <a th:href="@{/catalog/show/{id}(id=${book.id})}" class="stretched-link"></a>
                                 </div>
                             </div>
                         </div>
@@ -238,10 +233,12 @@
             </div>
         </div>
         <div class="col-lg-2 d-none d-lg-block">
-            <h4>Catalogo Libri</h4>
-            <div class="list-group">
-                <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
-                   th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}">Link 1</a>
+            <div class="mb-4 position-sticky" style="top: 15px">
+                <h4>Catalogo Libri</h4>
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action" th:each="category : ${categories}"
+                       th:text="${category.name}" th:href="@{/catalog/category/{id}(id=${category.id})}">Link 1</a>
+                </div>
             </div>
         </div>
     </div>

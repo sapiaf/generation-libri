@@ -30,7 +30,7 @@ nav-link active {
     color: rgb(255 255 255);
 }
 .dropdown-menu {
---bs-dropdown-bg: #2b3035;
+--bs-dropdown-bg: #333;
 }
 
 .navbar-hover-detail:hover {
@@ -67,7 +67,7 @@ nav-link active {
   padding: 0.5em 1em;
 }
 .dropdown-menu li .dropdown-item:hover {
-  background-color: #2b3035;
+  background-color: #333;
   color: white;
 }
 .dropdown-menu li:first-child a {
@@ -104,7 +104,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'DM Serif Display', serif;
 }
 
-
 .navbar-details, .card-link, .breadcrumb-item a {
     color: #666;
 }
@@ -115,14 +114,12 @@ h1, h2, h3, h4, h5, h6 {
     color: black;
 }
 
-
 .carousel-control-next, .carousel-control-prev {
     width: 5%;
 }
 .star-container {
     display: inline-block;
 }
-
 
 .top-badge {
     background-color: white;
@@ -137,7 +134,6 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 30px;
 }
 
-
 .fa-star {
     color: gray;
 }
@@ -146,9 +142,17 @@ h1, h2, h3, h4, h5, h6 {
     color: gold;
 }
 
-
 .card-img.category-img {
     object-fit: cover;
     height: 100%;
     min-height: 145px;
+}
+
+.navbar-toggler {
+    border-color: #ffeb3b;
+    color: #ffeb3b;
+}
+
+.navbar {
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(255 235 59)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
 }

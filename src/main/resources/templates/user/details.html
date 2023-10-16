@@ -27,9 +27,9 @@
                 </li>
             </ul>
             <div class="star-container" th:each="star : ${#numbers.sequence(1, 5)}">
-                <span th:if="${!reviews.isEmpty() and star <= averageRating}"><i class="fa-solid fa-star"></i></span>
-                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}"><i class="fa-solid fa-star-half"></i></span>
-                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}"><i class="fa-regular fa-star"></i></span>
+                <span th:if="${!reviews.isEmpty() and star <= averageRating}"><i class="fa-solid fa-star checked"></i></span>
+                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}"><i class="fa-solid fa-star-half checked"></i></span>
+                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}"><i class="fa-solid fa-star"></i></span>
             </div>
             <span th:text="'(' + ${reviews.size()} + ')'"></span>
             <p><span th:text="${book.price}" class="display-4"></span> €</p>
@@ -85,14 +85,33 @@
                     <p><strong>Voto medio del prodotto:</strong> <span th:text="${averageRating}"></span></p>
                     <div th:each="review : ${reviews}">
                         <p>
-                            <span th:each="star : ${#numbers.sequence(1, 5)}" th:class="${star <= review.rating} ? 'fa fa-star checked' : 'fa fa-star'"></span>
-                            <span th:text="${review.title}"></span>,
-                            <span th:text="${review.date}"></span>
+                            <span th:each="star : ${#numbers.sequence(1, 5)}" th:class="${star <= review.rating} ? 'fa fa-star checked' : 'fa fa-star'"></span>, <span class="fw-bold" th:text="${review.title}"></span>, <span th:text="${review.date}"></span>
                         </p>
                         <p>di <strong><span th:text="${review.username}"></span></strong></p>
                         <p th:text="${review.description}"></p>
                         <hr>
                     </div>
+                    <h5>Scrivi recensione</h5>
+                    <form th:action="@{/catalog/show/{bookId}/review(bookId=${book.id})}" method="post" class="my-4">
+                        <input type="hidden" id="book_id" name="book_id" th:value="${book.id}" />
+                        <div class="form-group">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Titolo" required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="rating" name="rating" class="form-control" placeholder="Voto" min="1" max="5" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Recensione" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-warning mt-3">Invia Recensione</button>
+                    </form>
                 </div>
             </div>
     </div>
