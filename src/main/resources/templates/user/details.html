@@ -27,9 +27,9 @@
                 </li>
             </ul>
             <div class="star-container" th:each="star : ${#numbers.sequence(1, 5)}">
-                <span th:if="${!reviews.isEmpty() and star <= averageRating}"><i class="fa-solid fa-star"></i></span>
-                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}"><i class="fa-solid fa-star-half"></i></span>
-                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}"><i class="fa-regular fa-star"></i></span>
+                <span th:if="${!reviews.isEmpty() and star <= averageRating}"><i class="fa-solid fa-star checked"></i></span>
+                <span th:if="${!reviews.isEmpty() and star > averageRating and star - averageRating <= 0.5}"><i class="fa-solid fa-star-half checked"></i></span>
+                <span th:if="${reviews.isEmpty() or (star > averageRating and star - averageRating > 0.5)}"><i class="fa-solid fa-star"></i></span>
             </div>
             <span th:text="'(' + ${reviews.size()} + ')'"></span>
             <p><span th:text="${book.price}" class="display-4"></span> €</p>
