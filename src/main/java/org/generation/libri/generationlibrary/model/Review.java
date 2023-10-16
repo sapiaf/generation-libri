@@ -18,7 +18,7 @@ public class Review {
     @Max(5)
     private Integer rating;
     private LocalDate date;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Book book;
 
     public Integer getId() {

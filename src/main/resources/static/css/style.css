@@ -30,7 +30,7 @@ nav-link active {
     color: rgb(255 255 255);
 }
 .dropdown-menu {
---bs-dropdown-bg: #2b3035;
+--bs-dropdown-bg: #333;
 }
 
 .navbar-hover-detail:hover {
@@ -67,7 +67,7 @@ nav-link active {
   padding: 0.5em 1em;
 }
 .dropdown-menu li .dropdown-item:hover {
-  background-color: #2b3035;
+  background-color: #333;
   color: white;
 }
 .dropdown-menu li:first-child a {

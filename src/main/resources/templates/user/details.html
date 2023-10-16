@@ -85,14 +85,33 @@
                     <p><strong>Voto medio del prodotto:</strong> <span th:text="${averageRating}"></span></p>
                     <div th:each="review : ${reviews}">
                         <p>
-                            <span th:each="star : ${#numbers.sequence(1, 5)}" th:class="${star <= review.rating} ? 'fa fa-star checked' : 'fa fa-star'"></span>
-                            <span th:text="${review.title}"></span>,
-                            <span th:text="${review.date}"></span>
+                            <span th:each="star : ${#numbers.sequence(1, 5)}" th:class="${star <= review.rating} ? 'fa fa-star checked' : 'fa fa-star'"></span>, <span class="fw-bold" th:text="${review.title}"></span>, <span th:text="${review.date}"></span>
                         </p>
                         <p>di <strong><span th:text="${review.username}"></span></strong></p>
                         <p th:text="${review.description}"></p>
                         <hr>
                     </div>
+                    <h5>Scrivi recensione</h5>
+                    <form th:action="@{/catalog/show/{bookId}/review(bookId=${book.id})}" method="post" class="my-4">
+                        <input type="hidden" id="book_id" name="book_id" th:value="${book.id}" />
+                        <div class="form-group">
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Titolo" required>
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                                </div>
+                                <div class="col">
+                                    <input type="number" id="rating" name="rating" class="form-control" placeholder="Voto" min="1" max="5" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Recensione" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-warning mt-3">Invia Recensione</button>
+                    </form>
                 </div>
             </div>
     </div>
