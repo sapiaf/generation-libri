@@ -1,9 +1,26 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head('Books')"></head>
+<head th:replace="fragments/head :: head('Books')">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <body>
 <nav th:replace="fragments/navbar :: navbar(area='Books')"></nav>
 <div class="container mt-5">
+    <h1 class="text-center">DashBoard Admin</h1>
+    <div class="d-flex">
+        <div class="card border-primary mb-3 me-3" style="width: 300px;">
+            <div class="card-header">Totale Entrate:</div>
+            <div class="card-body text-primary d-flex align-items-center">
+                <h2 class="card-text" th:text="|${totalRevenue} €|"></h2>
+            </div>
+        </div>
+        <div class="card border-primary mb-3" style="width: 300px;">
+            <div class="card-header">Copie Vendute/Copie Disponibili:</div>
+            <div class="card-body text-primary d-flex align-items-center">
+                <h2 class="card-text" th:text="|${totalCopiesSold}/${totalCopiesAvailable}|"></h2>
+            </div>
+        </div>
+    </div>
     <h2>Lista Libri</h2>
     <hr class="m-3">
     <a href="/admin/create" class="btn btn-success">Aggiungi Libro</a>
@@ -57,7 +74,6 @@
                         </button>
                     </form>
                 </td>
-
             </tr>
             </tbody>
         </table>
