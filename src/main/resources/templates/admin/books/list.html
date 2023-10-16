@@ -34,7 +34,7 @@
                     <img th:src="${book.urlPhoto}" alt="Book Thumbnail" style="max-width: 100px; max-height: 100px;">
                 </td>
                 <td th:text="${book.name}"></td>
-                <td th:text="${book.description}"></td>
+                <td th:text="${#strings.abbreviate(book.description, 80)}"></td>
                 <td th:text="|${book.price} €|"></td>
                 <td>
                     <span th:text="${book.copies}"></span>

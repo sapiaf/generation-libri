@@ -1,23 +1,91 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head th:replace="fragments/head :: head('Ordine Confermato')"></head>
+
 <body>
 <nav th:replace="fragments/userNavbar :: navbar(area='books')"></nav>
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card text-center">
-                <div class="card-header bg-success text-white">
-                    <i class="fas fa-check-circle fa-3x"></i>
-                </div>
-                <div class="card-body">
-                    <h1 class="card-title">Ordine Confermato</h1>
-                    <p class="card-text">Grazie per aver acquistato da Generation Bookstore!</p>
-                    <p class="card-text"><strong>ID Ordine:</strong> <span th:text="${purchase.id}"></span></p>
-                    <p class="card-text"><strong>Data:</strong> <span th:text="${#temporals.format(purchase.dateOfPurchase, 'dd/MM/yyyy - HH:mm:ss')}"></span></p>
-                    <p class="card-text"><strong>Titolo:</strong> <span th:text="${book.name}"></span></p>
-                    <p class="card-text"><strong>Quantità:</strong> <span th:text="${purchase.purchaseQuantity}"></span></p>
-                    <p class="card-text"><strong>Totale Ordine:</strong> <span th:text="${purchase.totalPrice}"></span></p>
+        <div class="col-md-7">
+            <div class="text-success text-center">
+                <i class="fas fa-check-circle fa-5x mb-3"></i>
+                <h1 class="text-center">Ordine Confermato</h1>
+            </div>
+            <p class="lead text-center">Grazie <span th:text="${purchase.userName}"></span> per aver acquistato da Generation Bookstore!</p>
+            <p class="text-center">A breve invieremo una email di conferma della spedizione quando l'articolo sarà stato spedito con successo!</p>
+            <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+                <table class="table table-borderless">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="py-2">
+                                <span class="d-block text-muted">Data ordine</span>
+                                <span th:text="${#temporals.format(purchase.dateOfPurchase, 'dd/MM/yyyy - HH:mm:ss')}"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="py-2">
+                                <span class="d-block text-muted">Numero ordine</span>
+                                <span th:text="${purchase.id}"></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="py-2">
+                                <span class="d-block text-muted">Pagamento</span>
+                                <span><img src="https://img.icons8.com/color/48/000000/mastercard.png" width="20" /></span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="py-2">
+                                <span class="d-block text-muted">Indirizzo</span>
+                                <span th:text="${purchase.userAddress + ', ' + purchase.userMunicipality}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="product border-bottom table-responsive">
+                <table class="table table-borderless">
+                    <tbody>
+                    <tr>
+                        <td width="20%">
+                            <img th:src="${book.urlPhoto}" width="90">
+                        </td>
+                        <td width="60%">
+                            <span class="fs-5" th:text="${book.name}"></span>
+                            <div class="product-qty">
+                                <p>Quantità: <span class="fw-normal" th:text="${purchase.purchaseQuantity}"></span></p>
+                            </div>
+                        </td>
+                        <td width="20%">
+                            <div class="text-left fs-5">
+                                <span th:text="'€' + ${book.price}"></span>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row d-flex justify-content-end">
+                <div class="col-md-5 mt-3">
+                    <table class="table table-borderless d-flex justify-content-end">
+                        <tbody class="totals">
+                        <tr>
+                            <td>
+                                <div class="text-left">
+                                    <span class="fs-4">Totale</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="text-right fs-4">
+                                    <span th:text="'€' + ${book.price * purchase.purchaseQuantity}"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -25,4 +93,5 @@
 </div>
 <footer th:replace="fragments/userFooter"></footer>
 </body>
+
 </html>
