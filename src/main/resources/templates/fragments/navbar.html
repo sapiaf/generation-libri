@@ -21,21 +21,18 @@
                             th:classappend="${#strings.equals(area,'Books') ? 'active' : ''}"
                     >Libri</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a
                             class="nav-link"
                             th:href="@{/admin/purchase}"
                             th:classappend="${#strings.equals(area,'Purchase') ? 'active' : ''}"
                     >Ordini</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a
                             class="nav-link"
                             th:href="@{/admin/categories}"
                             th:classappend="${#strings.equals(area,'Categories') ? 'active' : ''}"
                     >Categorie</a>
                 </li>
-                <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                     <a
                             class="nav-link"
                             th:href="@{/admin/restock}"

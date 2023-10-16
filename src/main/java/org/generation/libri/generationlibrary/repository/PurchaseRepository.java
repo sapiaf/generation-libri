@@ -4,7 +4,6 @@ import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +17,9 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Integer> {
     @Query(value = "select p.* from purchase p join book b on p.book_id = b.id where date_of_purchase between %:minDate% and %:maxDate%",
             nativeQuery = true)
     List<Purchase> searchListBetweenDates(LocalDate minDate, LocalDate maxDate);
-  @Query("SELECT p.book, SUM(p.purchaseQuantity) as totalSold FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate AND :endDate GROUP BY p.book ORDER BY totalSold DESC")
+
+    @Query("SELECT p.book, SUM(p.purchaseQuantity) as totalSold FROM Purchase p WHERE p.dateOfPurchase BETWEEN :startDate AND :endDate GROUP BY p.book ORDER BY totalSold DESC")
     List<Book> findTopSellingBooksInDateRange(LocalDateTime startDate, LocalDateTime endDate);
+
 }
+

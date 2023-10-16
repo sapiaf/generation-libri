@@ -5,8 +5,10 @@ package org.generation.libri.generationlibrary.controller.admin;
 
 import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Book;
+import org.generation.libri.generationlibrary.model.Purchase;
 import org.generation.libri.generationlibrary.repository.BookRepository;
 import org.generation.libri.generationlibrary.repository.CategoryRepository;
+import org.generation.libri.generationlibrary.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +29,8 @@ public class BookController {
     private BookRepository bookRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private PurchaseRepository purchaseRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -37,6 +42,22 @@ public class BookController {
             }
         }
         model.addAttribute("book", bookSelected);
+        List<Purchase> purchases = purchaseRepository.findAll();
+        BigDecimal totalRevenue = BigDecimal.ZERO;
+        long totalCopiesSold = 0;
+        for (Purchase purchase : purchases) {
+            totalRevenue = totalRevenue.add(purchase.getTotalPrice());
+            totalCopiesSold += purchase.getPurchaseQuantity();
+        }
+
+        long totalCopiesAvailable = 0;
+        for (Book book : bookList) {
+            totalCopiesAvailable += book.getCopies();
+        }
+        model.addAttribute("totalRevenue", totalRevenue);
+        model.addAttribute("totalCopiesSold", totalCopiesSold);
+        model.addAttribute("totalCopiesAvailable", totalCopiesAvailable);
+
         return "admin/books/list";
     }
 
