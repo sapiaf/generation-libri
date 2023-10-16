@@ -1,5 +1,6 @@
 package org.generation.libri.generationlibrary.controller.user;
 
+import jakarta.validation.Valid;
 import org.generation.libri.generationlibrary.model.Book;
 import org.generation.libri.generationlibrary.model.Category;
 import org.generation.libri.generationlibrary.model.Review;
@@ -11,13 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +85,23 @@ public class CatalogController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("/show/{bookId}/review")
+    public String writeReview(@Valid @PathVariable("bookId") Integer bookId, @ModelAttribute("review") Review review, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/catalog/show/" + bookId;
+        }
+
+        Book book = bookRepository.findById(bookId).orElse(null);
+        if (book != null) {
+            review.setBook(book);
+            review.setDate(LocalDate.now());
+            reviewRepository.save(review);
+        }
+
+        return "redirect:/catalog/show/" + bookId;
+    }
+
 
     @GetMapping("/bestsellers")
     public String bestsellers(Model model) {
